@@ -33,7 +33,7 @@
             transport = urlTransport;
         }
         service.subscribe(transport, "clock", function (payload) {
-                console.info(payload);
+
                 if (typeof payload.type !== "undefined" && payload.type == "CLOCK") {
                     var object = payload.object;
                     $("#counter").html(object.clock);

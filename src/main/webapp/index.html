@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <style>
+        #counter {
+            color: #31708f;
+            font-size: 70pt;
+            font-size: 16vw;
+            text-align: center;
+            margin:auto;
+        }
+
+        .alert-counter {
+            color: crimson !important;
+        }
+
+
+    </style>
+
+    <script type="application/javascript" src="js/jquery.min.js"></script>
+    <script type="application/javascript" src="js/atmosphere.min.js"></script>
+    <script type="application/javascript" src="js/pushService.js"></script>
+    <script type="application/javascript" src="js/app.js"></script>
+    <link rel="icon" type="image/icon" href="favicon.png">
+    <title>Zegar</title>
+
+</head>
+<body>
+<div class="container">
+    <div class="alert alert-info" role="alert">Zegar</div>
+    <div class="alert alert-warning no-connection" role="alert">BRAK POLACZENIA</div>
+
+    <ul id="main-list" class="list-group">
+        <li class="list-group-item">
+            <div id="counter"> 00:00</div>
+        </li>
+    </ul>
+
+    <hr/>
+
+</div>
+
+<script type="application/javascript">
+    "use strict";
+
+    $(document).ready(function () {
+        app.initClient();
+    });
+
+</script>
+
+</body>
+</html>

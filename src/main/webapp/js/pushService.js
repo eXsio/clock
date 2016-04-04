@@ -7,11 +7,10 @@ var service = {
 var MESSAGE_DELIMITER = "||";
 
 
-service.subscribe = function (channel, onMessageCallback, onOpenCallback, onErrorCallbsck) {
-
+service.subscribe = function (transport, channel, onMessageCallback, onOpenCallback, onErrorCallbsck) {
     var request = {
-        url: '/api/push/subscribe/{channel}.push'.replace('{channel}', channel),
-        transport: 'websocket',
+        url:'/clock/api/push/subscribe/{channel}.push'.replace('{channel}', channel),
+        transport: transport,
         fallbackTransport: 'pong-polling',
         onOpen: function (resp) {
             console.log('Atmosphere connected to channel "' + channel + '" using "' + resp.transport + '"');
@@ -48,7 +47,7 @@ service.subscribe = function (channel, onMessageCallback, onOpenCallback, onErro
             payloadObj[item.id] = item;
         }
         var payloadArray = [];
-        for(var key in payloadObj) {
+        for (var key in payloadObj) {
             payloadArray.push(payloadObj[key]);
         }
 
@@ -61,13 +60,13 @@ service.subscribe = function (channel, onMessageCallback, onOpenCallback, onErro
     service.atmospheres[channel] = atmosphere.subscribe(request);
 };
 
-service.unsubscribe = function(channel, callback) {
-    if(typeof service.atmospheres[channel].close !=='undefined') {
+service.unsubscribe = function (channel, callback) {
+    if (typeof service.atmospheres[channel].close !== 'undefined') {
         service.atmospheres[channel].close();
         delete service.atmospheres[channel];
         callback();
     } else {
-        console.info("can't unsubscribe from channel "+channel)
+        console.info("can't unsubscribe from channel " + channel)
     }
 }
 

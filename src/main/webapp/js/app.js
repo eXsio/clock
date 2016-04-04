@@ -27,7 +27,12 @@
     };
 
     var subscribe = function () {
-        service.subscribe("clock", function (payload) {
+        var transport = 'websocket';
+        var urlTransport = urlParam('transport');
+        if (typeof urlTransport !== undefined && urlTransport != null) {
+            transport = urlTransport;
+        }
+        service.subscribe(transport, "clock", function (payload) {
                 console.info(payload);
                 if (typeof payload.type !== "undefined" && payload.type == "CLOCK") {
                     var object = payload.object;
@@ -94,9 +99,10 @@
     };
 
     var updateClients = function (setting) {
+
         $.ajax({
             type: "POST",
-            url: "/update",
+            url: "/clock/update",
             data: JSON.stringify({
                 clock: setting,
                 alert: alert
@@ -165,4 +171,14 @@
     var isNumber = function (n) {
         return /^-?[\d.]+(?:e-?\d+)?$/.test(n);
     };
+
+    var urlParam = function (name) {
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (results == null) {
+            return null;
+        }
+        else {
+            return results[1] || 0;
+        }
+    }
 })($);

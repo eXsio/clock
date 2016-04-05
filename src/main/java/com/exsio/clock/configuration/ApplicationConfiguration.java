@@ -55,6 +55,7 @@ public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
         push.setInitParameters(new HashMap<String, String>() {
             {
                 put("org.atmosphere.servlet", "org.springframework.web.servlet.DispatcherServlet");
+                put("contextConfigLocation", "classpath:servlet.xml");
             }
         });
         push.setAsyncSupported(true);

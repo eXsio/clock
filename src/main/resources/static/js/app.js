@@ -22,12 +22,12 @@
             });
         },
         initClient: function () {
-            subscribe();
+            subscribe('websocket');
         }
     };
 
-    var subscribe = function () {
-        var transport = 'websocket';
+    var subscribe = function (transport) {
+
         var urlTransport = urlParam('transport');
         if (typeof urlTransport !== undefined && urlTransport != null) {
             transport = urlTransport;
@@ -49,6 +49,9 @@
             },
             function () {
                 $(".no-connection").show();
+                setTimeout(function () {
+                    subscribe('long-polling')
+                }, 1000);
             });
     };
 

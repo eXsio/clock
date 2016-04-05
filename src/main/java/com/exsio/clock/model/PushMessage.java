@@ -7,9 +7,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-/**
- * Created by a043601 on 10/19/2015.
- */
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, setterVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE)
 public class PushMessage<T> implements Serializable {
 

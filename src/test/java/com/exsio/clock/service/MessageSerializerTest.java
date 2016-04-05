@@ -9,9 +9,6 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-/**
- * Created by A045494 on 11/10/2015.
- */
 public class MessageSerializerTest {
 
     private final static String WITH_VIEW_1 = "WITH_VIEW_1";

@@ -10,9 +10,6 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * Created by A045494 on 10/7/2015.
- */
 public class AtmosphereArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override

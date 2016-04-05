@@ -1,26 +1,22 @@
 package com.exsio.clock.model;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 import java.io.Serializable;
 
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, setterVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE)
 public class ClockInfoModel implements Serializable {
 
-    private String clock;
+    private final String clock;
 
-    private boolean alert;
+    private final boolean alert;
 
-    public String getClock() {
-        return clock;
-    }
+    private final boolean started;
 
-    public void setClock(String clock) {
+    public ClockInfoModel(String clock, boolean alert, boolean started) {
         this.clock = clock;
-    }
-
-    public boolean isAlert() {
-        return alert;
-    }
-
-    public void setAlert(boolean alert) {
         this.alert = alert;
+        this.started = started;
     }
+
 }

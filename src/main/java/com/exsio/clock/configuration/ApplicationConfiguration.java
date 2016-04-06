@@ -56,6 +56,9 @@ public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
         push.setInitParameters(new HashMap<String, String>() {
             {
                 put("org.atmosphere.servlet", "org.springframework.web.servlet.DispatcherServlet");
+                put("org.atmosphere.cpr.broadcaster.shareableThreadPool", "true");
+                put("org.atmosphere.cpr.broadcaster.maxProcessingThreads", "5");
+                put("org.atmosphere.cpr.broadcasterLifeCyclePolicy", "IDLE_DESTROY");
                 put("contextConfigLocation", "classpath:servlet.xml");
             }
         });

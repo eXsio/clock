@@ -1,0 +1,1 @@
+java.exe -server -Xmx72m -Xms32m -jar clock.jar 

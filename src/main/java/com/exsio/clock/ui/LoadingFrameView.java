@@ -15,6 +15,7 @@ public class LoadingFrameView extends JFrame {
 
         setLocationRelativeTo(null);
         setUndecorated(true);
+        setTitle("Zegar - uruchamianie");
 
         pack();
         setResizable(false);

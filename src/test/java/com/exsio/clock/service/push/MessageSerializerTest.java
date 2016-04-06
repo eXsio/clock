@@ -1,7 +1,9 @@
-package com.exsio.clock.service;
+package com.exsio.clock.service.push;
 
 import com.exsio.clock.exception.PushServiceRuntimeException;
 import com.exsio.clock.model.PushMessage;
+import com.exsio.clock.service.push.MessageSerializer;
+import com.exsio.clock.service.push.MessageSerializerImpl;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.testng.Assert;

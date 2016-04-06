@@ -2,7 +2,7 @@ package com.exsio.clock.controller;
 
 
 import com.exsio.clock.exception.PushServiceRuntimeException;
-import com.exsio.clock.service.PushService;
+import com.exsio.clock.service.push.PushService;
 import org.atmosphere.cpr.AtmosphereResource;
 import org.atmosphere.cpr.Broadcaster;
 import org.atmosphere.cpr.BroadcasterFactory;

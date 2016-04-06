@@ -5,29 +5,29 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import java.io.Serializable;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, setterVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE)
-public class ClockInfoModel implements Serializable {
+public class TimeInfoModel implements Serializable {
 
-    private final String clock;
+    private final String time;
 
     private final boolean alert;
 
-    private final boolean started;
+    private final boolean clockStarted;
 
-    public ClockInfoModel(String clock, boolean alert, boolean started) {
-        this.clock = clock;
+    public TimeInfoModel(String time, boolean alert, boolean clockStarted) {
+        this.time = time;
         this.alert = alert;
-        this.started = started;
+        this.clockStarted = clockStarted;
     }
 
-    public String getClock() {
-        return clock;
+    public String getTime() {
+        return time;
     }
 
     public boolean isAlert() {
         return alert;
     }
 
-    public boolean isStarted() {
-        return started;
+    public boolean isClockStarted() {
+        return clockStarted;
     }
 }

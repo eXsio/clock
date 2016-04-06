@@ -1,6 +1,6 @@
 package com.exsio.clock.controller;
 
-import com.exsio.clock.service.ClockService;
+import com.exsio.clock.service.clock.ClockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

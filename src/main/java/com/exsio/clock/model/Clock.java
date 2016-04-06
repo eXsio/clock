@@ -47,10 +47,14 @@ public class Clock {
         }
     }
 
-    @Override
-    public String toString() {
+    public String getTime() {
         String prefix = alert ? MINUS : SPACE;
         return prefix + formatWithLeadingZero(minutes) + TIME_SEPARATOR + formatWithLeadingZero(seconds);
+    }
+
+    @Override
+    public String toString() {
+        return getTime();
     }
 
     private String formatWithLeadingZero(int subject) {

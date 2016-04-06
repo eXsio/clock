@@ -1,4 +1,4 @@
-package com.exsio.clock.service;
+package com.exsio.clock.service.clock;
 
 
 public interface ClockService {

@@ -1,6 +1,9 @@
-package com.exsio.clock.service;
+package com.exsio.clock.service.push;
 
 import com.exsio.clock.model.PushMessage;
+import com.exsio.clock.service.push.MessageSerializer;
+import com.exsio.clock.service.push.PushService;
+import com.exsio.clock.service.push.PushServiceImpl;
 import org.atmosphere.cpr.Broadcaster;
 import org.atmosphere.cpr.BroadcasterFactory;
 import org.mockito.Mock;

@@ -1,4 +1,4 @@
-package com.exsio.clock.service;
+package com.exsio.clock.service.push;
 
 import com.exsio.clock.exception.PushServiceRuntimeException;
 import com.exsio.clock.model.PushMessage;

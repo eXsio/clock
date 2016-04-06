@@ -1,4 +1,4 @@
-package com.exsio.clock.ui;
+package com.exsio.clock.ui.controls;
 
 import com.exsio.clock.ui.loading.LoadingFramePresenter;
 import com.exsio.clock.util.SpringProfile;
@@ -15,19 +15,19 @@ import java.awt.*;
 
 @Service
 @Profile(SpringProfile.UI)
-public class UIFramePresenter {
+public class ControlsFramePresenter {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(UIFramePresenter.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(ControlsFramePresenter.class);
 
-    private final UIFrameView view;
+    private final ControlsFrameView view;
 
-    private final UIFormPresenter formPresenter;
+    private final ControlsFormPresenter formPresenter;
 
     private final LoadingFramePresenter loadingFramePresenter;
 
     @Autowired
-    public UIFramePresenter(UIFormPresenter formPresenter, LoadingFramePresenter loadingFramePresenter) {
-        this.view = new UIFrameView();
+    public ControlsFramePresenter(ControlsFormPresenter formPresenter, LoadingFramePresenter loadingFramePresenter) {
+        this.view = new ControlsFrameView();
         this.formPresenter = formPresenter;
         this.loadingFramePresenter = loadingFramePresenter;
     }

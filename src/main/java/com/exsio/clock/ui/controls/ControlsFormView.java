@@ -1,4 +1,4 @@
-package com.exsio.clock.ui;
+package com.exsio.clock.ui.controls;
 
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
@@ -8,9 +8,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class UIFormView extends JPanel {
+public class ControlsFormView extends JPanel {
 
-    private final UIFormPresenter presenter;
+    private final ControlsFormPresenter presenter;
 
     private JComboBox<Integer> minutes = new JComboBox<>();
     private JComboBox<Integer> seconds = new JComboBox<>();
@@ -19,7 +19,7 @@ public class UIFormView extends JPanel {
     private JButton reset = new JButton("Od nowa");
     private JLabel time = new JLabel(" 00:00");
 
-    public UIFormView(UIFormPresenter presenter) {
+    public ControlsFormView(ControlsFormPresenter presenter) {
         super(new BorderLayout());
         this.presenter = presenter;
 

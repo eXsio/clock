@@ -1,4 +1,4 @@
-package com.exsio.clock.ui;
+package com.exsio.clock.ui.controls;
 
 import com.exsio.clock.event.TimeChangedEvent;
 import com.exsio.clock.model.TimeInfo;
@@ -13,18 +13,18 @@ import java.awt.*;
 
 @Service
 @Profile(SpringProfile.UI)
-class UIFormPresenter {
+class ControlsFormPresenter {
 
     private final ClockService clockService;
 
-    private final UIFormView view;
+    private final ControlsFormView view;
 
     private boolean started = false;
 
     @Autowired
-    public UIFormPresenter(ClockService clockService) {
+    public ControlsFormPresenter(ClockService clockService) {
         this.clockService = clockService;
-        this.view = new UIFormView(this);
+        this.view = new ControlsFormView(this);
     }
 
     void starStopClicked() {
@@ -56,7 +56,7 @@ class UIFormPresenter {
         started = timeInfo.isClockStarted();
     }
 
-    public UIFormView getView() {
+    public ControlsFormView getView() {
         return view;
     }
 }

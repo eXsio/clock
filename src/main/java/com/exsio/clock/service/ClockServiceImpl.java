@@ -1,11 +1,13 @@
 package com.exsio.clock.service;
 
+import com.exsio.clock.event.TimeChangedEvent;
 import com.exsio.clock.model.Clock;
 import com.exsio.clock.model.ClockInfoModel;
 import com.exsio.clock.model.PushMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.Executor;
@@ -17,6 +19,7 @@ public class ClockServiceImpl implements ClockService {
     private final static Logger LOGGER = LoggerFactory.getLogger(ClockServiceImpl.class);
 
     private final PushService pushService;
+    private final ApplicationEventPublisher eventPublisher;
 
     private final int SECOND = 1000;
     private final String CLOCK_CHANNEL = "clock";
@@ -29,8 +32,9 @@ public class ClockServiceImpl implements ClockService {
     private volatile boolean execute = false;
 
     @Autowired
-    public ClockServiceImpl(PushService pushService) {
+    public ClockServiceImpl(PushService pushService, ApplicationEventPublisher eventPublisher) {
         this.pushService = pushService;
+        this.eventPublisher = eventPublisher;
     }
 
     @Override
@@ -67,7 +71,9 @@ public class ClockServiceImpl implements ClockService {
     }
 
     private void updateClockInfo(boolean started) {
-        pushService.push(CLOCK_CHANNEL, new PushMessage(CLOCK_MESSAGE_TYPE, new ClockInfoModel(clock.toString(), clock.isAlert(), started)));
+        ClockInfoModel model = new ClockInfoModel(clock.toString(), clock.isAlert(), started);
+        pushService.push(CLOCK_CHANNEL, new PushMessage(CLOCK_MESSAGE_TYPE, model));
+        eventPublisher.publishEvent(new TimeChangedEvent(model));
     }
 
     @Override

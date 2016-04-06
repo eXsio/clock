@@ -19,4 +19,15 @@ public class ClockInfoModel implements Serializable {
         this.started = started;
     }
 
+    public String getClock() {
+        return clock;
+    }
+
+    public boolean isAlert() {
+        return alert;
+    }
+
+    public boolean isStarted() {
+        return started;
+    }
 }

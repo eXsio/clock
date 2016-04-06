@@ -4,8 +4,9 @@ package com.exsio.clock.model;
 public class Clock {
 
     private final String TIME_SEPARATOR = ":";
-    private final String SPACE = "&nbsp;";
+    private final String SPACE = " ";
     private final String MINUS = "-";
+    private final String ZERO = "0";
 
     private int minutes;
     private int seconds;
@@ -53,6 +54,6 @@ public class Clock {
     }
 
     private String formatWithLeadingZero(int subject) {
-        return subject > 9 ? Integer.toString(subject) : "0" + Integer.toString(subject);
+        return subject > 9 ? Integer.toString(subject) : ZERO + Integer.toString(subject);
     }
 }

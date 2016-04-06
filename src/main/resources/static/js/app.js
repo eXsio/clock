@@ -35,7 +35,7 @@
 
                 if (typeof payload.type !== "undefined" && payload.type == "CLOCK") {
                     var object = payload.object;
-                    $("#counter").html(object.clock);
+                    $("#counter").html(object.clock.replace(" ", "&nbsp;"));
                     setStarted(object.started);
                     if (object.alert) {
                         $("#counter").addClass("alert-counter");
@@ -85,9 +85,9 @@
         }
     };
 
-    var setStarted = function(val) {
+    var setStarted = function (val) {
         started = val;
-        if(started) {
+        if (started) {
             $("#startstop").html("Stop");
         } else {
             $("#startstop").html("Start");

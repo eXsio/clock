@@ -3,9 +3,11 @@ package com.exsio.clock.ui;
 import com.exsio.clock.event.TimeChangedEvent;
 import com.exsio.clock.model.ClockInfoModel;
 import com.exsio.clock.service.ClockService;
+import com.exsio.clock.util.SpringProfile;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 
 import javax.swing.*;
@@ -14,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 @org.springframework.stereotype.Component
+@Profile(SpringProfile.UI)
 public class UIForm extends JPanel {
 
     private final ClockService clockService;

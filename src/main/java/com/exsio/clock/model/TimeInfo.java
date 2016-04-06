@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import java.io.Serializable;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, setterVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE)
-public class TimeInfoModel implements Serializable {
+public class TimeInfo implements Serializable {
 
     private final String time;
 
@@ -13,7 +13,7 @@ public class TimeInfoModel implements Serializable {
 
     private final boolean clockStarted;
 
-    public TimeInfoModel(String time, boolean alert, boolean clockStarted) {
+    public TimeInfo(String time, boolean alert, boolean clockStarted) {
         this.time = time;
         this.alert = alert;
         this.clockStarted = clockStarted;

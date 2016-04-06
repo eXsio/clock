@@ -1,8 +1,8 @@
 package com.exsio.clock.service.publisher;
 
-import com.exsio.clock.model.TimeInfoModel;
+import com.exsio.clock.model.TimeInfo;
 
 public interface TimeInfoPublisher {
 
-    void publish(TimeInfoModel timeInfo);
+    void publish(TimeInfo timeInfo);
 }

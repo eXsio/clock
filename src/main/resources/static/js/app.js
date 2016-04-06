@@ -33,16 +33,15 @@
         }
         service.subscribe(transport, "clock", function (payload) {
 
-                if (typeof payload.type !== "undefined" && payload.type == "CLOCK") {
-                    var object = payload.object;
-                    $("#counter").html(object.time.replace(" ", "&nbsp;"));
-                    setStarted(object.clockStarted);
-                    if (object.alert) {
-                        $("#counter").addClass("alert-counter");
-                    } else {
-                        $("#counter").removeClass("alert-counter");
-                    }
+                var timeInfo = payload.object;
+                $("#counter").html(timeInfo.time.replace(" ", "&nbsp;"));
+                setStarted(timeInfo.clockStarted);
+                if (timeInfo.alert) {
+                    $("#counter").addClass("alert-counter");
+                } else {
+                    $("#counter").removeClass("alert-counter");
                 }
+
             },
             function () {
                 $(".no-connection").hide();

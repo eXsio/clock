@@ -1,7 +1,7 @@
 package com.exsio.clock.ui;
 
 import com.exsio.clock.event.TimeChangedEvent;
-import com.exsio.clock.model.TimeInfoModel;
+import com.exsio.clock.model.TimeInfo;
 import com.exsio.clock.service.clock.ClockService;
 import com.exsio.clock.util.SpringProfile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ class UIFormPresenter {
 
     @EventListener(TimeChangedEvent.class)
     public void onTimeChanged(TimeChangedEvent event) {
-        final TimeInfoModel timeInfo = event.getObject();
+        final TimeInfo timeInfo = event.getObject();
         Color color = Color.BLACK;
         if (timeInfo.isAlert()) {
             color = Color.RED;

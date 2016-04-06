@@ -1,7 +1,7 @@
 package com.exsio.clock.service.clock;
 
 import com.exsio.clock.model.Clock;
-import com.exsio.clock.model.TimeInfoModel;
+import com.exsio.clock.model.TimeInfo;
 import com.exsio.clock.service.publisher.TimeInfoPublisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,15 +16,14 @@ import java.util.concurrent.Executors;
 public class ClockServiceImpl implements ClockService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ClockServiceImpl.class);
+    private final static int SECOND = 1000;
 
     private final Collection<TimeInfoPublisher> timeInfoPublishers;
-
-    private final int SECOND = 1000;
-
-    private int lastMinutes;
-    private int lastSeconds;
-    private Clock clock = new Clock(0, 0);
     private final Executor executor = Executors.newSingleThreadExecutor();
+
+    private Clock clock = new Clock(0, 0);
+    private int lastMinutes = 0;
+    private int lastSeconds = 0;
     private volatile boolean started = false;
 
     @Autowired
@@ -71,7 +70,7 @@ public class ClockServiceImpl implements ClockService {
     }
 
     private void updateTimeInfo() {
-        TimeInfoModel model = new TimeInfoModel(clock.getTime(), clock.isAlert(), started);
+        TimeInfo model = new TimeInfo(clock.getTime(), clock.isAlert(), started);
         for (TimeInfoPublisher publisher : timeInfoPublishers) {
             publisher.publish(model);
         }

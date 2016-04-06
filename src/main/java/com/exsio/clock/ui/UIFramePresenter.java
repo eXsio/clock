@@ -5,8 +5,8 @@ import com.exsio.clock.util.SpringProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
-import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +32,8 @@ public class UIFramePresenter {
         this.loadingFramePresenter = loadingFramePresenter;
     }
 
-    @EventListener(ContextRefreshedEvent.class)
-    public void onApplicationStart(ContextRefreshedEvent event) {
+    @EventListener(ApplicationReadyEvent.class)
+    public void onApplicationStart(ApplicationReadyEvent event) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

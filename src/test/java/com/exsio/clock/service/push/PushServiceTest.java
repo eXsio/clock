@@ -34,7 +34,7 @@ public class PushServiceTest {
     private MessageSerializer messageSerializer;
 
     private final static String TEST_CHANNEL = "TEST_CHANNEL";
-    private final static PushMessage TEST_OBJECT = new PushMessage("TEST_OBJEC", new Object());
+    private final static PushMessage TEST_OBJECT = new PushMessage( new Object());
 
     @BeforeClass
     public void setUp() {

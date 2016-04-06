@@ -1,7 +1,7 @@
 package com.exsio.clock.service.publisher;
 
 import com.exsio.clock.event.TimeChangedEvent;
-import com.exsio.clock.model.TimeInfoModel;
+import com.exsio.clock.model.TimeInfo;
 import com.exsio.clock.util.SpringProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -19,7 +19,7 @@ public class SpringTimeInfoPublisherImpl implements TimeInfoPublisher {
     }
 
     @Override
-    public void publish(TimeInfoModel timeInfo) {
+    public void publish(TimeInfo timeInfo) {
         eventPublisher.publishEvent(new TimeChangedEvent(timeInfo));
     }
 }

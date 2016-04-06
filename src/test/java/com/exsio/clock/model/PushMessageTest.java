@@ -5,11 +5,9 @@ import org.testng.annotations.Test;
 
 public class PushMessageTest {
 
-    private final static String TEST_TYPE = "TEST_TYPE";
-
     private final static String TEST_OBJECT = "TEST_OBJECT";
 
-    private PushMessage<String> underTest = new PushMessage<String>(TEST_TYPE, TEST_OBJECT);
+    private PushMessage<String> underTest = new PushMessage<String>(TEST_OBJECT);
 
 
     @Test
@@ -21,8 +19,6 @@ public class PushMessageTest {
     @Test
     public void testToString() {
         String string = underTest.toString();
-
-        Assert.assertTrue(string.contains(TEST_TYPE));
         Assert.assertTrue(string.contains(TEST_OBJECT));
     }
 

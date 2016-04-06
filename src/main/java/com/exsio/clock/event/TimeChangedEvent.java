@@ -1,15 +1,15 @@
 package com.exsio.clock.event;
 
-import com.exsio.clock.model.TimeInfoModel;
+import com.exsio.clock.model.TimeInfo;
 import org.springframework.context.ApplicationEvent;
 
 public class TimeChangedEvent extends ApplicationEvent {
 
-    public TimeChangedEvent(TimeInfoModel source) {
+    public TimeChangedEvent(TimeInfo source) {
         super(source);
     }
 
-    public TimeInfoModel getObject() {
-        return (TimeInfoModel) this.getSource();
+    public TimeInfo getObject() {
+        return (TimeInfo) this.getSource();
     }
 }

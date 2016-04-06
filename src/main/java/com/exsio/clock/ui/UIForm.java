@@ -44,14 +44,21 @@ public class UIForm extends JPanel {
 
     @EventListener(TimeChangedEvent.class)
     public void onTimeChanged(TimeChangedEvent event) {
+        final ClockInfoModel clockInfo = event.getObject();
+        SwingWorker worker = new SwingWorker() {
 
-        ClockInfoModel clockInfo = event.getObject();
-        time.setText(clockInfo.getClock());
-        if (clockInfo.isAlert()) {
-            time.setForeground(Color.RED);
-        } else {
-            time.setForeground(Color.BLACK);
-        }
+            @Override
+            protected Object doInBackground() throws Exception {
+                time.setText(clockInfo.getClock());
+                if (clockInfo.isAlert()) {
+                    time.setForeground(Color.RED);
+                } else {
+                    time.setForeground(Color.BLACK);
+                }
+                return null;
+            }
+        };
+        worker.execute();
         setStarted(clockInfo.isStarted());
     }
 

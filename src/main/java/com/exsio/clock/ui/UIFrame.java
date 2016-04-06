@@ -20,9 +20,12 @@ public class UIFrame extends JFrame {
 
     private final UIForm uiForm;
 
+    private final LoadingFrame loadingFrame;
+
     @Autowired
-    public UIFrame(UIForm uiForm) {
+    public UIFrame(UIForm uiForm, LoadingFrame loadingFrame) {
         this.uiForm = uiForm;
+        this.loadingFrame = loadingFrame;
         this.setVisible(false);
     }
 
@@ -38,6 +41,7 @@ public class UIFrame extends JFrame {
                 add(uiForm, BorderLayout.CENTER);
                 pack();
 
+                loadingFrame.setVisible(false);
                 setVisible(true);
                 LOGGER.info("Application UI started successfully");
             }

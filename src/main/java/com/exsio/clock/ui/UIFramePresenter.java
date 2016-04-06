@@ -1,5 +1,6 @@
 package com.exsio.clock.ui;
 
+import com.exsio.clock.ui.loading.LoadingFramePresenter;
 import com.exsio.clock.util.SpringProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,13 +38,14 @@ public class UIFramePresenter {
             @Override
             public void run() {
                 view.setTitle("Zegar");
-                view.setLocationRelativeTo(null);
 
                 view.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 view.add(formPresenter.getView(), BorderLayout.CENTER);
                 view.pack();
 
                 loadingFramePresenter.dispose();
+
+                view.showOnScreen(0);
                 view.setVisible(true);
                 LOGGER.info("Application UI started successfully");
             }

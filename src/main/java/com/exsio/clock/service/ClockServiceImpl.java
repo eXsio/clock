@@ -42,13 +42,13 @@ public class ClockServiceImpl implements ClockService {
         clock = new Clock(minutes, seconds);
         lastMinutes = minutes;
         lastSeconds = seconds;
-        updateClockInfo(execute);
+        updateClockInfo();
     }
 
     @Override
     public void reset() {
         clock = new Clock(lastMinutes, lastSeconds);
-        updateClockInfo(execute);
+        updateClockInfo();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class ClockServiceImpl implements ClockService {
                     try {
                         Thread.sleep(SECOND);
                         clock.tick();
-                        updateClockInfo(execute);
+                        updateClockInfo();
                     } catch (InterruptedException e) {
                         LOGGER.error("{}", e.getMessage(), e);
                     }
@@ -70,8 +70,8 @@ public class ClockServiceImpl implements ClockService {
         });
     }
 
-    private void updateClockInfo(boolean started) {
-        ClockInfoModel model = new ClockInfoModel(clock.toString(), clock.isAlert(), started);
+    private void updateClockInfo() {
+        ClockInfoModel model = new ClockInfoModel(clock.toString(), clock.isAlert(), execute);
         pushService.push(CLOCK_CHANNEL, new PushMessage(CLOCK_MESSAGE_TYPE, model));
         eventPublisher.publishEvent(new TimeChangedEvent(model));
     }

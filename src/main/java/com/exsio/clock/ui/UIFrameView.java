@@ -1,9 +1,7 @@
 package com.exsio.clock.ui;
 
-import javax.swing.*;
 
-
-public class UIFrameView extends JFrame {
+public class UIFrameView extends ScreenAwareFrame {
 
     public UIFrameView() {
         this.setVisible(false);

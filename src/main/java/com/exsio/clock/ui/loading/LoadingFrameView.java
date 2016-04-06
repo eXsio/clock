@@ -1,9 +1,11 @@
-package com.exsio.clock.ui;
+package com.exsio.clock.ui.loading;
+
+import com.exsio.clock.ui.ScreenAwareFrame;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class LoadingFrameView extends JFrame {
+public class LoadingFrameView extends ScreenAwareFrame {
 
     public LoadingFrameView() {
 
@@ -13,12 +15,12 @@ public class LoadingFrameView extends JFrame {
         progressBar.setSize(new Dimension(200, 10));
         add(progressBar);
 
-        setLocationRelativeTo(null);
         setUndecorated(true);
         setTitle("Zegar - uruchamianie");
 
         pack();
         setResizable(false);
+        showOnScreen(0);
         setVisible(true);
     }
 }

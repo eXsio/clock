@@ -34,7 +34,7 @@ public class UIFormView extends JPanel {
     }
 
     void setTime(final String clock, final Color color, boolean started) {
-        SwingWorker worker = new SwingWorker() {
+        new SwingWorker() {
 
             @Override
             protected Object doInBackground() throws Exception {
@@ -42,8 +42,7 @@ public class UIFormView extends JPanel {
                 time.setForeground(color);
                 return null;
             }
-        };
-        worker.execute();
+        }.execute();
         setStarted(started);
     }
 
@@ -116,11 +115,19 @@ public class UIFormView extends JPanel {
         });
     }
 
-    void setStarted(boolean started) {
-        if (started) {
-            startStop.setText("Stop");
-        } else {
-            startStop.setText("Start");
-        }
+    void setStarted(final boolean started) {
+        new SwingWorker() {
+
+            @Override
+            protected Object doInBackground() throws Exception {
+                if (started) {
+                    startStop.setText("Stop");
+                } else {
+                    startStop.setText("Start");
+                }
+                return null;
+            }
+        }.execute();
+
     }
 }

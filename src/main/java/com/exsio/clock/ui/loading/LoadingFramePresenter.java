@@ -1,4 +1,4 @@
-package com.exsio.clock.ui;
+package com.exsio.clock.ui.loading;
 
 import com.exsio.clock.util.SpringProfile;
 import org.springframework.context.annotation.Profile;

@@ -27,6 +27,10 @@ public class PushMessage<T> implements Serializable {
         this.objectSerializationView = objectSerializationView;
     }
 
+    public T getObject() {
+        return object;
+    }
+
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)

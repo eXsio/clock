@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PushTimeInfoPublisherImpl implements TimeInfoPublisher {
 
-    private final String CLOCK_CHANNEL = "clock";
+    public final static String CLOCK_CHANNEL = "clock";
 
     private final PushService pushService;
 
@@ -17,7 +17,6 @@ public class PushTimeInfoPublisherImpl implements TimeInfoPublisher {
     public PushTimeInfoPublisherImpl(PushService pushService) {
         this.pushService = pushService;
     }
-
 
     @Override
     public void publish(TimeInfo timeInfo) {

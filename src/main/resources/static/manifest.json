@@ -41,5 +41,6 @@
   "start_url": "index.html",
   "display": "fullscreen",
   "orientation": "landscape",
-  "lang": "pl"
+  "lang": "pl",
+  "theme_color": "#D9EDF7"
 }

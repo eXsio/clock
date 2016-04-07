@@ -36,6 +36,7 @@ public class ClockServiceTest {
         underTest.start();
         Thread.sleep(2000);
         underTest.stop();
+        Thread.sleep(2000);
         underTest.reset();
         assertTrue(time.isPresent());
         assertEquals(time.get().getTime(), " 01:01");

@@ -1,5 +1,6 @@
 # Clock
 [![Build Status](https://travis-ci.org/eXsio/clock.svg?branch=master)](https://travis-ci.org/eXsio/clock)
+[![Coverity Status](https://scan.coverity.com/projects/8499/badge.svg?flat=1)](https://scan.coverity.com/projects/exsio-clock)
 
 Clock is a simple Java application that serves as a coutndown clock for presenters. It can be controlled from a web page or desktop gui (Depending on execution mode and preferences) and displayed remotely on many devices through a webpage.
 

@@ -75,8 +75,10 @@ public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
+        registry.addResourceHandler("/icons/**").addResourceLocations("classpath:/static/icons/");
         registry.addResourceHandler("/").addResourceLocations("classpath:/static/index.html");
         registry.addResourceHandler("/index.html").addResourceLocations("classpath:/static/index.html");
+        registry.addResourceHandler("/manifest.json").addResourceLocations("classpath:/static/manifest.json");
         registry.addResourceHandler("/favicon.png").addResourceLocations("classpath:/static/favicon.png");
         registry.addResourceHandler("/manage.html").addResourceLocations("classpath:/static/manage.html");
     }

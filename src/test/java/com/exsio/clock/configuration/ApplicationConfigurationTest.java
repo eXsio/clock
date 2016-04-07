@@ -6,6 +6,9 @@ import com.exsio.clock.configuration.support.AtmosphereArgumentResolver;
 import org.atmosphere.cpr.AtmosphereConfig;
 import org.atmosphere.cpr.AtmosphereFramework;
 import org.atmosphere.cpr.BroadcasterFactory;
+import org.mockito.ArgumentCaptor;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.MimeMappings;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
@@ -90,5 +93,17 @@ public class ApplicationConfigurationTest {
     @Test
     public void test_properties() throws IOException, NamingException {
         assertNotNull(underTest.properties());
+    }
+
+    @Test
+    public void test_customize() {
+        ConfigurableEmbeddedServletContainer container = mock(ConfigurableEmbeddedServletContainer.class);
+        ArgumentCaptor<MimeMappings> mimeMappingsArgumentCaptor = ArgumentCaptor.forClass(MimeMappings.class);
+
+        underTest.customize(container);
+
+        verify(container).setMimeMappings(mimeMappingsArgumentCaptor.capture());
+        assertEquals(mimeMappingsArgumentCaptor.getValue().get("json"), "application/manifest+json");
+
     }
 }

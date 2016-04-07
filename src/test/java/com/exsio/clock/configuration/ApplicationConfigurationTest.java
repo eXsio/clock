@@ -13,6 +13,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import javax.naming.NamingException;
+import java.io.IOException;
 import java.util.List;
 
 import static org.mockito.Matchers.anyString;
@@ -83,5 +85,10 @@ public class ApplicationConfigurationTest {
 
         verifyNoMoreInteractions(registration);
         verifyNoMoreInteractions(registry);
+    }
+
+    @Test
+    public void test_properties() throws IOException, NamingException {
+        assertNotNull(underTest.properties());
     }
 }

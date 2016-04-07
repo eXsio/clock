@@ -35,7 +35,8 @@
         service.subscribe(transport, "clock", function (payload) {
 
                 var timeInfo = payload.object;
-                $("#counter").html(timeInfo.time.replace(" ", "&nbsp;"));
+                $("#counter").html(timeInfo.time);
+                $("#boundary").html(timeInfo.boundary);
                 setStarted(timeInfo.clockStarted);
                 if (timeInfo.alert) {
                     $("#counter").addClass("alert-counter");

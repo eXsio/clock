@@ -45,11 +45,11 @@ public class ControlsFormPresenterTest {
         verify(clockService).start();
         verify(view).setStarted(true);
 
-        underTest.onTimeChanged(new TimeChangedEvent(new TimeInfo("00:01", false, true)));
-        verify(view).setTime("00:01", Color.BLACK, true);
+        underTest.onTimeChanged(new TimeChangedEvent(new TimeInfo("00:01", "01:00", false, true)));
+        verify(view).setTime("00:01", "01:00", Color.BLACK, true);
 
-        underTest.onTimeChanged(new TimeChangedEvent(new TimeInfo("-00:01", true, true)));
-        verify(view).setTime("-00:01", Color.RED, true);
+        underTest.onTimeChanged(new TimeChangedEvent(new TimeInfo("+01:01", "01:00", true, true)));
+        verify(view).setTime("+01:01", "01:00", Color.RED, true);
 
         underTest.starStopClicked();
         verify(clockService).stop();

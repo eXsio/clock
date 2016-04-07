@@ -4,49 +4,42 @@ package com.exsio.clock.model;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 public class ClockTest {
 
     @Test
     public void test_getTime() {
-        assertTrue(new Clock(0, 0).getTime().equals(" 00:00"));
+        assertTrue(new Clock().getTime().equals("00:00"));
     }
 
     @Test
-    public void test_stepDownBelowMinute() {
-        Clock clock = new Clock(1, 0);
+    public void test_stepUp() {
+        Clock clock = new Clock();
+        clock.setBoundary(new Time(0,2));
         clock.tick();
-        assertEquals(clock.getTime(), " 00:59");
+        assertEquals(clock.getTime(), "00:01");
     }
 
     @Test
-    public void test_stepDownMinute() {
-        Clock clock = new Clock(1, 1);
+    public void test_stepWithEqualBoundary() {
+        Clock clock = new Clock();
+        clock.setBoundary(new Time(0,1));
         clock.tick();
-        assertEquals(clock.getTime(), " 01:00");
+        assertEquals(clock.getTime(), "00:01");
+        assertFalse(clock.isAlert());
     }
 
     @Test
-    public void test_stepDownZero() {
-        Clock clock = new Clock(0, 1);
+    public void test_stepAboveBoundary() {
+        Clock clock = new Clock();
+        clock.setBoundary(new Time(0,1));
         clock.tick();
-        assertEquals(clock.getTime(), " 00:00");
-    }
-
-    @Test
-    public void test_stepDownBelowZero() {
-        Clock clock = new Clock(0, 0);
         clock.tick();
-        assertEquals(clock.getTime(), "-00:01");
-    }
 
-    @Test
-    public void test_stepDownMinuteBelowZero() {
-        Clock clock = new Clock(0, 0);
-        for(int i =0; i<61; i++) {
-            clock.tick();
-        }
-        assertEquals(clock.getTime(), "-01:01");
+        assertEquals(clock.getTime(), "00:02");
+        assertTrue(clock.isAlert());
+
     }
 }

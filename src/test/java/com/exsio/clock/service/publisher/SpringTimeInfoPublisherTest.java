@@ -30,13 +30,14 @@ public class SpringTimeInfoPublisherTest {
     @Test
     public void test_publish() {
 
-        TimeInfo time = new TimeInfo("00:00", true, true);
+        TimeInfo time = new TimeInfo("00:00", "01:00", true, true);
         underTest.publish(time);
         ArgumentCaptor<TimeChangedEvent> messageCaptor = ArgumentCaptor.forClass(TimeChangedEvent.class);
         verify(eventPublisher).publishEvent(messageCaptor.capture());
         verifyNoMoreInteractions(eventPublisher);
         TimeInfo timeResult = messageCaptor.getValue().getObject();
         assertEquals(time.getTime(), timeResult.getTime());
+        assertEquals(time.getBoundary(), timeResult.getBoundary());
         assertEquals(time.isAlert(), timeResult.isAlert());
         assertEquals(time.isClockStarted(), timeResult.isClockStarted());
     }

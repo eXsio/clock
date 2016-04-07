@@ -1,21 +1,17 @@
 package com.exsio.clock.model;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Clock {
 
-    private final String TIME_SEPARATOR = ":";
-    private final String SPACE = " ";
-    private final String MINUS = "-";
-    private final String ZERO = "0";
-
-    private int minutes;
-    private int seconds;
+    private Time time = new Time();
+    private Time boundary = new Time();
 
     private boolean alert;
 
-    public Clock(int minutes, int seconds) {
-        this.minutes = minutes;
-        this.seconds = seconds;
+    public Clock() {
     }
 
     public boolean isAlert() {
@@ -23,33 +19,25 @@ public class Clock {
     }
 
     public void tick() {
-        if (alert || (minutes == 0 && seconds == 0)) {
-            alert = true;
-            forward();
-        } else {
-            rewind();
-        }
+        time.forward();
+        alert = time.compareTo(boundary) == 1;
     }
 
-    private void rewind() {
-        seconds--;
-        if (seconds < 0) {
-            minutes--;
-            seconds = 59;
-        }
+    public void reset() {
+        time = new Time();
+        alert = false;
     }
 
-    private void forward() {
-        seconds++;
-        if (seconds >= 60) {
-            minutes++;
-            seconds = 0;
-        }
+    public void setBoundary(Time boundary) {
+        this.boundary = boundary;
+    }
+
+    public Time getBoundary() {
+        return boundary;
     }
 
     public String getTime() {
-        String prefix = alert ? MINUS : SPACE;
-        return prefix + formatWithLeadingZero(minutes) + TIME_SEPARATOR + formatWithLeadingZero(seconds);
+        return time.toString();
     }
 
     @Override
@@ -57,7 +45,4 @@ public class Clock {
         return getTime();
     }
 
-    private String formatWithLeadingZero(int subject) {
-        return subject > 9 ? Integer.toString(subject) : ZERO + Integer.toString(subject);
-    }
 }

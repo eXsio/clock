@@ -9,12 +9,15 @@ public class TimeInfo implements Serializable {
 
     private final String time;
 
+    private final String boundary;
+
     private final boolean alert;
 
     private final boolean clockStarted;
 
-    public TimeInfo(String time, boolean alert, boolean clockStarted) {
+    public TimeInfo(String time, String boundary, boolean alert, boolean clockStarted) {
         this.time = time;
+        this.boundary = boundary;
         this.alert = alert;
         this.clockStarted = clockStarted;
     }
@@ -29,5 +32,9 @@ public class TimeInfo implements Serializable {
 
     public boolean isClockStarted() {
         return clockStarted;
+    }
+
+    public String getBoundary() {
+        return boundary;
     }
 }

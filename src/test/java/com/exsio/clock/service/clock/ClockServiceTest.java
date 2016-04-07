@@ -24,22 +24,26 @@ public class ClockServiceTest {
     }
 
     @Test
-    public void test_set() {
-        underTest.set(1,1);
+    public void test_set() throws InterruptedException {
+        underTest.set(0,1);
         assertTrue(time.isPresent());
-        assertEquals(time.get().getTime(), " 01:01");
+        assertEquals(time.get().getTime(), "00:00");
+        assertEquals(time.get().getBoundary(), "00:01");
+        underTest.start();
+        Thread.sleep(3000);
+        underTest.stop();
+        assertTrue(time.get().isAlert());
     }
 
     @Test
     public void test_reset() throws InterruptedException {
-        underTest.set(1,1);
         underTest.start();
         Thread.sleep(2000);
         underTest.stop();
         Thread.sleep(2000);
         underTest.reset();
         assertTrue(time.isPresent());
-        assertEquals(time.get().getTime(), " 01:01");
+        assertEquals(time.get().getTime(), "00:00");
     }
 
     @Test
@@ -53,7 +57,7 @@ public class ClockServiceTest {
         Thread.sleep(2000);
         Assert.assertFalse(time.get().isClockStarted());
         assertTrue(time.isPresent());
-        assertNotEquals(time.get().getTime(), " 01:01");
+        assertNotEquals(time.get().getTime(), "01:01");
         Assert.assertTrue(time.get().isAlert());
     }
 

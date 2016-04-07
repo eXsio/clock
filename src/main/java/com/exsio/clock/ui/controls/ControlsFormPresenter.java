@@ -57,7 +57,7 @@ class ControlsFormPresenter {
         if (timeInfo.isAlert()) {
             color = Color.RED;
         }
-        view.setTime(timeInfo.getTime(), color, timeInfo.isClockStarted());
+        view.setTime(timeInfo.getTime(), timeInfo.getBoundary(), color, timeInfo.isClockStarted());
         started = timeInfo.isClockStarted();
     }
 

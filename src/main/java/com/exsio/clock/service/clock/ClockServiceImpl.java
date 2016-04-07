@@ -1,6 +1,7 @@
 package com.exsio.clock.service.clock;
 
 import com.exsio.clock.model.Clock;
+import com.exsio.clock.model.Time;
 import com.exsio.clock.model.TimeInfo;
 import com.exsio.clock.service.publisher.TimeInfoPublisher;
 import org.slf4j.Logger;
@@ -21,27 +22,27 @@ public class ClockServiceImpl implements ClockService {
     private final Collection<TimeInfoPublisher> timeInfoPublishers;
     private final Executor executor = Executors.newSingleThreadExecutor();
 
-    private Clock clock = new Clock(0, 0);
-    private int lastMinutes = 0;
-    private int lastSeconds = 0;
+    private Clock clock = new Clock();
+    private Time boundary;
+
     private volatile boolean started = false;
 
     @Autowired
     public ClockServiceImpl(Collection<TimeInfoPublisher> timeInfoPublishers) {
         this.timeInfoPublishers = timeInfoPublishers;
+        boundary = clock.getBoundary();
     }
 
     @Override
     public void set(int minutes, int seconds) {
-        clock = new Clock(minutes, seconds);
-        lastMinutes = minutes;
-        lastSeconds = seconds;
+        boundary = new Time(minutes, seconds);
+        clock.setBoundary(boundary);
         updateTimeInfo();
     }
 
     @Override
     public void reset() {
-        clock = new Clock(lastMinutes, lastSeconds);
+        clock.reset();
         updateTimeInfo();
     }
 
@@ -70,7 +71,7 @@ public class ClockServiceImpl implements ClockService {
     }
 
     private void updateTimeInfo() {
-        TimeInfo model = new TimeInfo(clock.getTime(), clock.isAlert(), started);
+        TimeInfo model = new TimeInfo(clock.getTime(), boundary.toString(), clock.isAlert(), started);
         for (TimeInfoPublisher publisher : timeInfoPublishers) {
             publisher.publish(model);
         }

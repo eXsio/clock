@@ -7,8 +7,6 @@ import com.exsio.clock.service.push.PushService;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -33,13 +31,14 @@ public class PushTimeInfoPublisherTest {
     @Test
     public void test_publish() {
 
-        TimeInfo time = new TimeInfo("00:00", true, true);
+        TimeInfo time = new TimeInfo("00:00", "01:00", true, true);
         underTest.publish(time);
         ArgumentCaptor<PushMessage> messageCaptor = ArgumentCaptor.forClass(PushMessage.class);
         verify(pushService).push(matches(PushTimeInfoPublisherImpl.CLOCK_CHANNEL), messageCaptor.capture());
         verifyNoMoreInteractions(pushService);
         TimeInfo timeResult = (TimeInfo) messageCaptor.getValue().getObject();
         assertEquals(time.getTime(), timeResult.getTime());
+        assertEquals(time.getBoundary(), timeResult.getBoundary());
         assertEquals(time.isAlert(), timeResult.isAlert());
         assertEquals(time.isClockStarted(), timeResult.isClockStarted());
     }

@@ -18,6 +18,7 @@ public class ControlsFormView extends JPanel {
     private JButton set = new JButton("Ustaw");
     private JButton reset = new JButton("Od nowa");
     private JLabel time = new JLabel(" 00:00");
+    private JLabel boundary = new JLabel("00:00");
 
     public ControlsFormView(ControlsFormPresenter presenter) {
         super(new BorderLayout());
@@ -33,13 +34,14 @@ public class ControlsFormView extends JPanel {
         add(setupForm().getPanel());
     }
 
-    void setTime(final String clock, final Color color, boolean started) {
+    void setTime(final String timeStr, final String boundaryStr, final Color color, boolean started) {
         new SwingWorker() {
 
             @Override
             protected Object doInBackground() throws Exception {
-                time.setText(clock);
+                time.setText(timeStr);
                 time.setForeground(color);
+                boundary.setText(boundaryStr);
                 return null;
             }
         }.execute();

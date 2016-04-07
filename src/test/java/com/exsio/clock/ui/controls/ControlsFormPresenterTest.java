@@ -12,6 +12,8 @@ import org.testng.annotations.Test;
 
 import java.awt.*;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.testng.Assert.assertEquals;
@@ -20,7 +22,6 @@ public class ControlsFormPresenterTest {
 
     private ControlsFormPresenter underTest;
 
-    @Mock
     private ControlsFormView view;
 
     @Mock
@@ -29,6 +30,7 @@ public class ControlsFormPresenterTest {
     @BeforeClass
     public void init() {
         MockitoAnnotations.initMocks(this);
+        view = spy(new ControlsFormView(mock(ControlsFormPresenter.class)));
         underTest = new ControlsFormPresenter(clockService, view);
     }
 
@@ -53,7 +55,6 @@ public class ControlsFormPresenterTest {
         verify(clockService).stop();
         verify(view).setStarted(false);
 
-        verifyNoMoreInteractions(view);
         verifyNoMoreInteractions(clockService);
     }
 

@@ -5,3 +5,16 @@ before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
+env:
+  global:
+   - secure: "jSOG2dmDro6gLiJd4ldYZcP/21NlZzvHmY1nrPq7L59X6zXc6wELbrXcBWU7XpXRKZ1UNRBeGm7eSm9VM9yoS5uTH9pdo9LotJQZ+qK9gqOq3/2FKDqhIvMSMl6OoUdkFy0A2knmZCKqkRpcx8y4kCgrcxM9JzNtdEdOXdsQbK/NooY2C+APJycGTEugpSzqSzK/KQG0Q5WGxNj+UvyepBUEdu/m1JB299j4n2K59sZg5QkjPOgSGFb13wmVBVDTenoOpcjXV4TTq0Tuz3AxOCV4pYLx87QJVoPlKTZH4sNeYDZpa0+QTB9oHlzHnB//BPax9ELrS+IJ1teD6B50Xq+ppSh8hKY9aqYaXGpRUmcYdNvJjZ71aJEXNouIZ5ufH8SJ5ve9SZym+0WIE+goqNVh0iaNasF3Y4bSHw7Z7u7xqsiYN1AHBmqH7oGQjchClwHVIVOHTfHl1A1jm5S11a6yXYufoEfAYyS75L+4X9auBpUSlVdYmQ5xiHNeztK+yMU9jkjRFwUhyJBhsfUTmkmXQbO45+tO3UfkXFuV6mVkY/PxRhj1dY7M/85EZZ+/prl6OWdDfkning4g4+Rx5J8UrAl1H13DinzzjVQ1yjXs4zqYZgMy3+wr2kqNI2QYQY8QxlqeAs4Va8FS0dj2DdgOU0NcZxcjaJ86HCGHREw="
+
+addons:
+  coverity_scan:
+    project:
+      name: "eXsio/clock"
+      description: "Build submitted via Travis CI"
+    notification_email: noneedto@notify.me
+    build_command_prepend: "mvn clean"
+    build_command:   "mvn -DskipTests=true compile"
+    branch_pattern: coverity_scan

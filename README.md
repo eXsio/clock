@@ -7,6 +7,7 @@ Clock is a simple Java application that serves as a coutndown clock for presente
 This application can be executed in 2 modes:
 - webapp
 - standalone
+By default the app is being build by Maven as a standalone application. If you want to build it as a Web application, you must switch the Maven profiles.
 
 ### Webapp
 

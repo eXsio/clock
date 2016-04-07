@@ -4,6 +4,9 @@ import com.exsio.clock.configuration.support.AtmosphereArgumentResolver;
 import org.atmosphere.cpr.AtmosphereFramework;
 import org.atmosphere.cpr.BroadcasterFactory;
 import org.atmosphere.cpr.MeteorServlet;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.context.embedded.MimeMappings;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Configuration
-public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
+public class ApplicationConfiguration extends WebMvcConfigurerAdapter implements EmbeddedServletContainerCustomizer {
 
     private final static MeteorServlet meteor = new MeteorServlet();
 
@@ -83,4 +86,10 @@ public class ApplicationConfiguration extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/manage.html").addResourceLocations("classpath:/static/manage.html");
     }
 
+    @Override
+    public void customize(ConfigurableEmbeddedServletContainer container) {
+        MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
+        mappings.add("json", "application/manifest+json");
+        container.setMimeMappings(mappings);
+    }
 }

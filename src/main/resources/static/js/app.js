@@ -3,13 +3,14 @@
 (function ($) {
 
     var started = false;
+    var defaultTransport = 'long-polling';
 
     window.app = {
 
         initManagement: function () {
             fillMinutes();
             fillSeconds();
-            subscribe('websocket');
+            subscribe(defaultTransport);
             $('#set').on('click', function () {
                 set();
             });
@@ -21,7 +22,7 @@
             });
         },
         initClient: function () {
-            subscribe('websocket');
+            subscribe(defaultTransport);
         }
     };
 

@@ -14,6 +14,7 @@ import org.testng.annotations.Test;
 
 import static org.mockito.Matchers.matches;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.testng.Assert.assertEquals;
 
 public class PushTimeInfoPublisherTest {
@@ -36,6 +37,7 @@ public class PushTimeInfoPublisherTest {
         underTest.publish(time);
         ArgumentCaptor<PushMessage> messageCaptor = ArgumentCaptor.forClass(PushMessage.class);
         verify(pushService).push(matches(PushTimeInfoPublisherImpl.CLOCK_CHANNEL), messageCaptor.capture());
+        verifyNoMoreInteractions(pushService);
         TimeInfo timeResult = (TimeInfo) messageCaptor.getValue().getObject();
         assertEquals(time.getTime(), timeResult.getTime());
         assertEquals(time.isAlert(), timeResult.isAlert());

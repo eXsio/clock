@@ -27,6 +27,11 @@ class ControlsFormPresenter {
         this.view = new ControlsFormView(this);
     }
 
+    ControlsFormPresenter(ClockService clockService, ControlsFormView view) {
+        this.clockService = clockService;
+        this.view = view;
+    }
+
     void starStopClicked() {
         if (started) {
             clockService.stop();

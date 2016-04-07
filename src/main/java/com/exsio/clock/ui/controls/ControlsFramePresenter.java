@@ -32,12 +32,18 @@ public class ControlsFramePresenter {
         this.loadingFramePresenter = loadingFramePresenter;
     }
 
+    ControlsFramePresenter(ControlsFrameView view, ControlsFormPresenter formPresenter,
+                           LoadingFramePresenter loadingFramePresenter) {
+        this.view = view;
+        this.formPresenter = formPresenter;
+        this.loadingFramePresenter = loadingFramePresenter;
+    }
+
     @EventListener(ApplicationReadyEvent.class)
     public void onApplicationStart(ApplicationReadyEvent event) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                view.setTitle("Zegar");
 
                 view.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 view.add(formPresenter.getView(), BorderLayout.CENTER);

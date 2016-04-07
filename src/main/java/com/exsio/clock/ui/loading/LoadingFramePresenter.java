@@ -17,6 +17,10 @@ public class LoadingFramePresenter {
         view = new LoadingFrameView();
     }
 
+    LoadingFramePresenter(LoadingFrameView view) {
+        this.view = view;
+    }
+
     public void dispose() {
         view.setVisible(false);
         view.dispose();

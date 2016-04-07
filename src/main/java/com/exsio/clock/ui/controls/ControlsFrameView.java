@@ -6,8 +6,9 @@ import com.exsio.clock.ui.ScreenAwareFrame;
 public class ControlsFrameView extends ScreenAwareFrame {
 
     public ControlsFrameView() {
-        this.setVisible(false);
-        this.setResizable(false);
+        setTitle("Zegar");
+        setVisible(false);
+        setResizable(false);
     }
 
 }

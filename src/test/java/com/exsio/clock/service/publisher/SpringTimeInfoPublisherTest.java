@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.testng.Assert.assertEquals;
 
 public class SpringTimeInfoPublisherTest {
@@ -33,6 +34,7 @@ public class SpringTimeInfoPublisherTest {
         underTest.publish(time);
         ArgumentCaptor<TimeChangedEvent> messageCaptor = ArgumentCaptor.forClass(TimeChangedEvent.class);
         verify(eventPublisher).publishEvent(messageCaptor.capture());
+        verifyNoMoreInteractions(eventPublisher);
         TimeInfo timeResult = messageCaptor.getValue().getObject();
         assertEquals(time.getTime(), timeResult.getTime());
         assertEquals(time.isAlert(), timeResult.isAlert());

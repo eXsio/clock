@@ -10,6 +10,8 @@ import java.util.UUID;
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, setterVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.NONE)
 public class PushMessage<T> implements Serializable {
 
+    static final long serialVersionUID = 1L;
+
     private final T object;
     private final UUID id = UUID.randomUUID();
     private final Long timestamp = new Date().getTime();

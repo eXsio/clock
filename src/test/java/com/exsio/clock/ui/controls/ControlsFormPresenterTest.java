@@ -10,8 +10,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.awt.*;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -46,10 +44,10 @@ public class ControlsFormPresenterTest {
         verify(view).setStarted(true);
 
         underTest.onTimeChanged(new TimeChangedEvent(new TimeInfo("00:01", "01:00", false, true)));
-        verify(view).setTime("00:01", "01:00", Color.BLACK, true);
+        verify(view).setTime("00:01", "01:00", ControlsFormPresenter.NORMAL_COLOR, true);
 
         underTest.onTimeChanged(new TimeChangedEvent(new TimeInfo("+01:01", "01:00", true, true)));
-        verify(view).setTime("+01:01", "01:00", Color.RED, true);
+        verify(view).setTime("+01:01", "01:00", ControlsFormPresenter.ERROR_COLOR, true);
 
         underTest.starStopClicked();
         verify(clockService).stop();

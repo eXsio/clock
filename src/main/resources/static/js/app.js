@@ -10,7 +10,7 @@
         initManagement: function () {
             fillMinutes();
             fillSeconds();
-            subscribe(defaultTransport);
+            this.initClient();
             $('#set').on('click', function () {
                 set();
             });
@@ -23,6 +23,7 @@
         },
         initClient: function () {
             subscribe(defaultTransport);
+            setInitialState();
         }
     };
 
@@ -33,17 +34,7 @@
             transport = urlTransport;
         }
         service.subscribe(transport, "clock", function (payload) {
-
-                var timeInfo = payload.object;
-                $("#counter").html(timeInfo.time);
-                $("#boundary").html(timeInfo.boundary);
-                setStarted(timeInfo.clockStarted);
-                if (timeInfo.alert) {
-                    $("#counter").addClass("alert-counter");
-                } else {
-                    $("#counter").removeClass("alert-counter");
-                }
-
+                updateState(payload.object)
             },
             function () {
                 $(".no-connection").hide();
@@ -54,6 +45,23 @@
                     subscribe('long-polling')
                 }, 1000);
             });
+    };
+
+    var setInitialState = function() {
+        $.when($.ajax("/clock/api/state")).then(function(data) {
+            updateState(data);
+        });
+    };
+
+    var updateState = function(timeInfo) {
+        $("#counter").html(timeInfo.time);
+        $("#boundary").html(timeInfo.boundary);
+        setStarted(timeInfo.clockStarted);
+        if (timeInfo.alert) {
+            $("#counter").addClass("alert-counter");
+        } else {
+            $("#counter").removeClass("alert-counter");
+        }
     };
 
     var fillMinutes = function () {

@@ -9,18 +9,18 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotEquals;
+import static org.testng.Assert.*;
 import static org.testng.AssertJUnit.assertTrue;
 
 public class ClockServiceTest {
 
-    ClockService underTest = new ClockServiceImpl(Lists.<TimeInfoPublisher>newArrayList(new TestTimeInfoPublisher()));
+    ClockService underTest;
     Optional<TimeInfo> time = Optional.absent();
 
     @BeforeMethod
     public void before() {
         time = Optional.absent();
+        underTest = new ClockServiceImpl(Lists.<TimeInfoPublisher>newArrayList(new TestTimeInfoPublisher()));
     }
 
     @Test
@@ -59,6 +59,17 @@ public class ClockServiceTest {
         assertTrue(time.isPresent());
         assertNotEquals(time.get().getTime(), "01:01");
         Assert.assertTrue(time.get().isAlert());
+    }
+
+    @Test
+    public void test_getClockState() {
+        underTest.set(0,1);
+        TimeInfo timeInfo = underTest.getClockState();
+        assertNotNull(timeInfo);
+        assertFalse(timeInfo.isAlert());
+        assertFalse(timeInfo.isClockStarted());
+        assertEquals(timeInfo.getBoundary(),"00:01");
+        assertEquals(timeInfo.getTime(), "00:00");
     }
 
     private class TestTimeInfoPublisher implements TimeInfoPublisher {

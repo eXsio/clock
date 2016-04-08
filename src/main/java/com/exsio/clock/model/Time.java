@@ -2,8 +2,8 @@ package com.exsio.clock.model;
 
 public class Time implements Comparable<Time> {
 
-    private final String TIME_SEPARATOR = ":";
-    private final String ZERO = "0";
+    private final static String TIME_SEPARATOR = ":";
+    private final static String ZERO = "0";
 
     private int minutes;
     private int seconds;

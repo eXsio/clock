@@ -1,5 +1,6 @@
 package com.exsio.clock.controller;
 
+import com.exsio.clock.model.TimeInfo;
 import com.exsio.clock.service.clock.ClockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,5 +36,10 @@ public class ClockController {
     @RequestMapping("/stop")
     public void stop() {
         clockService.stop();
+    }
+
+    @RequestMapping("/state")
+    public TimeInfo getClockState() {
+        return clockService.getClockState();
     }
 }

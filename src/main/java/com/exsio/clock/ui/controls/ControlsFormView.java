@@ -1,5 +1,6 @@
 package com.exsio.clock.ui.controls;
 
+import com.exsio.clock.model.Time;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 
@@ -17,8 +18,7 @@ public class ControlsFormView extends JPanel {
     private JButton startStop = new JButton("Start");
     private JButton set = new JButton("Ustaw");
     private JButton reset = new JButton("Od nowa");
-    private JLabel time = new JLabel(" 00:00");
-    private JLabel boundary = new JLabel("00:00");
+    private JLabel time = new JLabel(formatTimeLabel(new Time().toString(), new Time().toString()));
 
     public ControlsFormView(ControlsFormPresenter presenter) {
         super(new BorderLayout());
@@ -39,13 +39,16 @@ public class ControlsFormView extends JPanel {
 
             @Override
             protected Object doInBackground() throws Exception {
-                time.setText(timeStr);
+                time.setText(formatTimeLabel(timeStr, boundaryStr));
                 time.setForeground(color);
-                boundary.setText(boundaryStr);
                 return null;
             }
         }.execute();
         setStarted(started);
+    }
+
+    private String formatTimeLabel(String timeStr, String boundaryStr) {
+        return String.format("%s / %s", timeStr, boundaryStr);
     }
 
     private DefaultFormBuilder setupForm() {
@@ -74,7 +77,9 @@ public class ControlsFormView extends JPanel {
     }
 
     private void setupTime() {
-        time.setFont(new Font(time.getFont().getName(), Font.PLAIN, 30));
+        if(time.getFont() != null) {
+            time.setFont(new Font(time.getFont().getName(), Font.PLAIN, 30));
+        }
     }
 
     private void setupMinutes() {

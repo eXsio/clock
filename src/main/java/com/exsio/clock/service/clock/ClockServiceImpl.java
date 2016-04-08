@@ -71,9 +71,14 @@ public class ClockServiceImpl implements ClockService {
     }
 
     private void updateTimeInfo() {
-        TimeInfo model = new TimeInfo(clock.getTime(), boundary.toString(), clock.isAlert(), started);
+        TimeInfo model = getClockState();
         for (TimeInfoPublisher publisher : timeInfoPublishers) {
             publisher.publish(model);
         }
+    }
+
+    @Override
+    public TimeInfo getClockState() {
+        return new TimeInfo(clock.getTime(), boundary.toString(), clock.isAlert(), started);
     }
 }

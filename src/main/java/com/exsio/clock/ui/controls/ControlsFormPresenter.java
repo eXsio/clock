@@ -15,6 +15,9 @@ import java.awt.*;
 @Profile(SpringProfile.UI)
 class ControlsFormPresenter {
 
+    final static Color ERROR_COLOR = new Color(220, 20, 60);
+    final static Color NORMAL_COLOR = Color.BLACK;
+
     private final ClockService clockService;
 
     private final ControlsFormView view;
@@ -53,9 +56,9 @@ class ControlsFormPresenter {
     @EventListener(TimeChangedEvent.class)
     public void onTimeChanged(TimeChangedEvent event) {
         final TimeInfo timeInfo = event.getObject();
-        Color color = Color.BLACK;
+        Color color = NORMAL_COLOR;
         if (timeInfo.isAlert()) {
-            color = Color.RED;
+            color = ERROR_COLOR;
         }
         view.setTime(timeInfo.getTime(), timeInfo.getBoundary(), color, timeInfo.isClockStarted());
         started = timeInfo.isClockStarted();

@@ -6,7 +6,6 @@ import com.exsio.clock.util.Icon;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class LoadingFrameView extends ScreenAwareFrame {
 
     public LoadingFrameView() {

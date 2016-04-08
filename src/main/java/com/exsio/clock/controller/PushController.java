@@ -79,7 +79,7 @@ public class PushController {
         return AtmosphereResource.TRANSPORT.LONG_POLLING.equals(m.transport());
     }
 
-    public void setMaxRetries(Long maxRetries) {
+    void setMaxRetries(Long maxRetries) {
         this.maxRetries = maxRetries;
     }
 }

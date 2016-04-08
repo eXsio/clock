@@ -14,7 +14,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 @Service
-public class ClockServiceImpl implements ClockService {
+class ClockServiceImpl implements ClockService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ClockServiceImpl.class);
     private final static int SECOND = 1000;
@@ -22,7 +22,7 @@ public class ClockServiceImpl implements ClockService {
     private final Collection<TimeInfoPublisher> timeInfoPublishers;
     private final Executor executor = Executors.newSingleThreadExecutor();
 
-    private Clock clock = new Clock();
+    private final Clock clock = new Clock();
     private Time boundary;
 
     private volatile boolean started = false;

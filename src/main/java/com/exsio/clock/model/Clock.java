@@ -1,9 +1,5 @@
 package com.exsio.clock.model;
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class Clock {
 
     private Time time = new Time();

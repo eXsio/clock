@@ -15,7 +15,7 @@ import java.awt.*;
 
 @Service
 @Profile(SpringProfile.UI)
-public class ControlsFramePresenter {
+class ControlsFramePresenter {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ControlsFramePresenter.class);
 

@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ControlsFormView extends JPanel {
+class ControlsFormView extends JPanel {
 
     private final ControlsFormPresenter presenter;
 
@@ -20,7 +20,7 @@ public class ControlsFormView extends JPanel {
     private JButton reset = new JButton("Od nowa");
     private JLabel time = new JLabel(formatTimeLabel(new Time().toString(), new Time().toString()));
 
-    public ControlsFormView(ControlsFormPresenter presenter) {
+    ControlsFormView(ControlsFormPresenter presenter) {
         super(new BorderLayout());
         this.presenter = presenter;
 
@@ -53,7 +53,7 @@ public class ControlsFormView extends JPanel {
 
     private DefaultFormBuilder setupForm() {
         DefaultFormBuilder builder = new DefaultFormBuilder(new FormLayout(""));
-        builder.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        builder.border(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         builder.appendColumn("right:pref");
         builder.appendColumn("3dlu");
         builder.appendColumn("fill:max(pref; 100px)");

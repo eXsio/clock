@@ -19,7 +19,7 @@ public class Time implements Comparable<Time> {
         this.seconds = seconds;
     }
 
-    public void forward() {
+    void forward() {
         seconds++;
         if (seconds >= 60) {
             minutes++;

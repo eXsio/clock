@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 
 @Service
-public class MessageSerializerImpl implements MessageSerializer {
+class MessageSerializerImpl implements MessageSerializer {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 

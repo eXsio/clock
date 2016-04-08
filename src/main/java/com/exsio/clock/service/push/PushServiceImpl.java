@@ -9,15 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PushServiceImpl implements PushService {
+class PushServiceImpl implements PushService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(PushServiceImpl.class);
 
     private final static String MESSAGE_DELIMITER = "||";
 
-    protected final BroadcasterFactory broadcasterFactory;
+    private final BroadcasterFactory broadcasterFactory;
 
-    protected final MessageSerializer serializer;
+    private final MessageSerializer serializer;
 
     @Autowired
     public PushServiceImpl(BroadcasterFactory broadcasterFactory, MessageSerializer serializer) {
@@ -31,7 +31,7 @@ public class PushServiceImpl implements PushService {
         doPush(channel, message, broadcaster);
     }
 
-    protected void doPush(String channel, PushMessage message, Broadcaster broadcaster) {
+    private void doPush(String channel, PushMessage message, Broadcaster broadcaster) {
         String payload = getPayload(message);
         LOGGER.debug("Pushing data to the subscriber '{}' on channel '{}': {}", broadcaster.getID(), channel, payload);
         broadcaster.broadcast(payload);
@@ -41,7 +41,7 @@ public class PushServiceImpl implements PushService {
         return serializer.serialize(message) + getMessageDelimiter();
     }
 
-    protected String getMessageDelimiter() {
+    private String getMessageDelimiter() {
         return MESSAGE_DELIMITER;
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Profile(SpringProfile.UI)
-public class SpringTimeInfoPublisherImpl implements TimeInfoPublisher {
+class SpringTimeInfoPublisherImpl implements TimeInfoPublisher {
     private final ApplicationEventPublisher eventPublisher;
 
     @Autowired

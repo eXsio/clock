@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PushTimeInfoPublisherImpl implements TimeInfoPublisher {
+class PushTimeInfoPublisherImpl implements TimeInfoPublisher {
 
-    public final static String CLOCK_CHANNEL = "clock";
+    final static String CLOCK_CHANNEL = "clock";
 
     private final PushService pushService;
 

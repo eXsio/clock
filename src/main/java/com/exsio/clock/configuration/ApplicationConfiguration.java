@@ -31,8 +31,7 @@ public class ApplicationConfiguration extends WebMvcConfigurerAdapter implements
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer properties() throws IOException, NamingException {
-        PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
-        return propertySourcesPlaceholderConfigurer;
+        return new PropertySourcesPlaceholderConfigurer();
     }
 
     @Bean

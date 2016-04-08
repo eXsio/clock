@@ -1,5 +1,7 @@
 package com.exsio.clock.model;
 
+import java.util.Objects;
+
 public class Time implements Comparable<Time> {
 
     private final static String TIME_SEPARATOR = ":";
@@ -43,5 +45,19 @@ public class Time implements Comparable<Time> {
         } else {
             return 0;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Time time = (Time) o;
+        return minutes == time.minutes &&
+                seconds == time.seconds;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(minutes, seconds);
     }
 }

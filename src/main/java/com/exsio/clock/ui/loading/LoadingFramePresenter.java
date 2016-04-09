@@ -19,6 +19,7 @@ public class LoadingFramePresenter {
             @Override
             protected Object doInBackground() throws Exception {
                 view.showOnScreen(0);
+                view.setAlwaysOnTop(true);
                 view.setVisible(true);
                 return null;
             }

@@ -1,7 +1,7 @@
 package com.exsio.clock.ui.loading;
 
 import com.exsio.clock.ui.ScreenAwareFrame;
-import com.exsio.clock.util.Icon;
+import com.exsio.clock.ui.UI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +29,6 @@ public class LoadingFrameView extends ScreenAwareFrame {
 
         pack();
         setResizable(false);
-        setIconImage(Icon.get());
+        setIconImage(UI.getIcon());
     }
 }

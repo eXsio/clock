@@ -53,7 +53,7 @@ class ControlsFormView extends JPanel {
 
     private DefaultFormBuilder setupForm() {
         DefaultFormBuilder builder = new DefaultFormBuilder(new FormLayout(""));
-        builder.border(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        builder.border(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         builder.appendColumn("right:pref");
         builder.appendColumn("3dlu");
         builder.appendColumn("fill:max(pref; 100px)");

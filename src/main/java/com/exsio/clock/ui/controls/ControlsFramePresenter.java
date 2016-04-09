@@ -1,6 +1,6 @@
 package com.exsio.clock.ui.controls;
 
-import com.exsio.clock.ui.loading.LoadingFramePresenter;
+import com.exsio.clock.ui.loading.Loading;
 import com.exsio.clock.util.SpringProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,20 +23,15 @@ class ControlsFramePresenter {
 
     private final ControlsFormPresenter formPresenter;
 
-    private final LoadingFramePresenter loadingFramePresenter;
-
     @Autowired
-    public ControlsFramePresenter(ControlsFormPresenter formPresenter, LoadingFramePresenter loadingFramePresenter) {
+    public ControlsFramePresenter(ControlsFormPresenter formPresenter) {
         this.view = new ControlsFrameView();
         this.formPresenter = formPresenter;
-        this.loadingFramePresenter = loadingFramePresenter;
     }
 
-    ControlsFramePresenter(ControlsFrameView view, ControlsFormPresenter formPresenter,
-                           LoadingFramePresenter loadingFramePresenter) {
+    ControlsFramePresenter(ControlsFrameView view, ControlsFormPresenter formPresenter) {
         this.view = view;
         this.formPresenter = formPresenter;
-        this.loadingFramePresenter = loadingFramePresenter;
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -49,7 +44,7 @@ class ControlsFramePresenter {
                 view.add(formPresenter.getView(), BorderLayout.CENTER);
                 view.pack();
 
-                loadingFramePresenter.dispose();
+                Loading.dispose();
 
                 view.showOnScreen(0);
                 view.setVisible(true);

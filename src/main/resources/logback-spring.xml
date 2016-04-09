@@ -3,7 +3,7 @@
     <include resource="org/springframework/boot/logging/logback/base.xml" />
 
     <appender name="APP_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>Clock.log</file>
+        <file>logs/Clock.log</file>
         <append>true</append>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>Clock.%d{yyyy-MM-dd}.log</fileNamePattern>

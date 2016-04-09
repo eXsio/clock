@@ -22,8 +22,17 @@ public class LoadingFramePresenterTest {
     }
 
     @Test
-    public void test_dispose() {
+    public void test_show() throws InterruptedException {
+        underTest.show();
+        Thread.sleep(1000);
+        verify(view).setVisible(true);
+        verify(view).showOnScreen(0);
+    }
+
+    @Test
+    public void test_dispose() throws InterruptedException {
         underTest.dispose();
+        Thread.sleep(1000);
         verify(view).setVisible(false);
         verify(view).dispose();
         verifyNoMoreInteractions(view);

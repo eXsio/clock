@@ -1,14 +1,7 @@
 package com.exsio.clock.ui.loading;
 
-import com.exsio.clock.util.SpringProfile;
-import org.springframework.context.annotation.Profile;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Service;
+import javax.swing.*;
 
-@Service
-@Order(Ordered.HIGHEST_PRECEDENCE)
-@Profile(SpringProfile.UI)
 public class LoadingFramePresenter {
 
     private final LoadingFrameView view;
@@ -21,8 +14,25 @@ public class LoadingFramePresenter {
         this.view = view;
     }
 
+    public void show() {
+        new SwingWorker() {
+            @Override
+            protected Object doInBackground() throws Exception {
+                view.showOnScreen(0);
+                view.setVisible(true);
+                return null;
+            }
+        }.execute();
+    }
+
     public void dispose() {
-        view.setVisible(false);
-        view.dispose();
+        new SwingWorker() {
+            @Override
+            protected Object doInBackground() throws Exception {
+                view.setVisible(false);
+                view.dispose();
+                return null;
+            }
+        }.execute();
     }
 }

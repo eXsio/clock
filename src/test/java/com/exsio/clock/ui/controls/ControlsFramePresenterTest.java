@@ -1,6 +1,5 @@
 package com.exsio.clock.ui.controls;
 
-import com.exsio.clock.ui.loading.LoadingFramePresenter;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -8,11 +7,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.swing.*;
-
 import java.awt.*;
 
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 public class ControlsFramePresenterTest {
@@ -29,16 +26,13 @@ public class ControlsFramePresenterTest {
     ControlsFormView formView;
 
     @Mock
-    LoadingFramePresenter loadingPresenter;
-
-    @Mock
     ApplicationReadyEvent applicationReadyEvent;
 
     @BeforeClass
     public void init() {
         MockitoAnnotations.initMocks(this);
         when(formPresenter.getView()).thenReturn(formView);
-        underTest = new ControlsFramePresenter(view, formPresenter, loadingPresenter);
+        underTest = new ControlsFramePresenter(view, formPresenter);
     }
 
     @Test
@@ -50,7 +44,6 @@ public class ControlsFramePresenterTest {
         verify(view).pack();
         verify(view).showOnScreen(0);
         verify(view).setVisible(true);
-        verify(loadingPresenter).dispose();
         verify(formPresenter).getView();
 
     }

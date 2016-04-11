@@ -83,8 +83,8 @@ public class ApplicationConfigurationTest {
         when(registry.addResourceHandler(anyString())).thenReturn(registration);
         underTest.addResourceHandlers(registry);
 
-        verify(registry, times(7)).addResourceHandler(anyString());
-        verify(registration,times(7)).addResourceLocations(anyString());
+        verify(registry, times(9)).addResourceHandler(anyString());
+        verify(registration,times(9)).addResourceLocations(anyString());
 
         verifyNoMoreInteractions(registration);
         verifyNoMoreInteractions(registry);

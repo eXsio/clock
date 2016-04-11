@@ -6,6 +6,7 @@ import org.atmosphere.cpr.BroadcasterFactory;
 import org.atmosphere.cpr.MeteorServlet;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.context.embedded.ErrorPage;
 import org.springframework.boot.context.embedded.MimeMappings;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -80,6 +82,8 @@ public class ApplicationConfiguration extends WebMvcConfigurerAdapter implements
         registry.addResourceHandler("/icons/**").addResourceLocations("classpath:/static/icons/");
         registry.addResourceHandler("/").addResourceLocations("classpath:/static/index.html");
         registry.addResourceHandler("/index.html").addResourceLocations("classpath:/static/index.html");
+        registry.addResourceHandler("/404.html").addResourceLocations("classpath:/static/404.html");
+        registry.addResourceHandler("/500.html").addResourceLocations("classpath:/static/500.html");
         registry.addResourceHandler("/manifest.json").addResourceLocations("classpath:/static/manifest.json");
         registry.addResourceHandler("/favicon.png").addResourceLocations("classpath:/static/favicon.png");
         registry.addResourceHandler("/manage.html").addResourceLocations("classpath:/static/manage.html");
@@ -90,5 +94,11 @@ public class ApplicationConfiguration extends WebMvcConfigurerAdapter implements
         MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
         mappings.add("json", "application/manifest+json");
         container.setMimeMappings(mappings);
+
+        ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/404.html");
+        ErrorPage error500Page = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/500.html");
+        ErrorPage errorDefaultPage = new ErrorPage("/500.html");
+
+        container.addErrorPages(error404Page, error500Page, errorDefaultPage);
     }
 }

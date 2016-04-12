@@ -6,7 +6,7 @@
         <file>logs/Clock.log</file>
         <append>true</append>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>Clock.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>logs/Clock.%d{yyyy-MM-dd}.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
             </timeBasedFileNamingAndTriggeringPolicy>
             <maxHistory>30</maxHistory>

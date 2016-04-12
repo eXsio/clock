@@ -1,7 +1,9 @@
 package com.exsio.clock.ui.controls;
 
+import com.exsio.clock.ui.UI;
 import com.exsio.clock.ui.loading.Loading;
 import com.exsio.clock.util.SpringProfile;
+import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,14 @@ import org.springframework.stereotype.Service;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.URI;
+import java.net.URL;
+import java.util.Collections;
+import java.util.Map;
 
 @Service
 @Profile(SpringProfile.UI)
@@ -25,7 +35,7 @@ class ControlsFramePresenter {
 
     @Autowired
     public ControlsFramePresenter(ControlsFormPresenter formPresenter) {
-        this.view = new ControlsFrameView();
+        this.view = new ControlsFrameView(this);
         this.formPresenter = formPresenter;
     }
 
@@ -51,5 +61,61 @@ class ControlsFramePresenter {
                 LOGGER.info("Application UI started successfully");
             }
         });
+    }
+
+    Map<String, String> getNetworkInterfacesMap() {
+        Map<String, String> map = Maps.newHashMap();
+        try {
+            for (NetworkInterface iface : Collections.list(NetworkInterface.getNetworkInterfaces())) {
+                if (iface.isLoopback() || !iface.isUp()) {
+                    continue;
+                }
+                for (InetAddress address : Collections.list(iface.getInetAddresses())) {
+                    if (Inet4Address.class == address.getClass()) {
+                        map.put(iface.getDisplayName(), address.getHostAddress());
+                    }
+                }
+
+            }
+        } catch (SocketException e) {
+            LOGGER.error("error while trying to get network interfaces details: {}", e.getMessage(), e);
+        }
+        return map;
+    }
+
+    void openClockClicked(String ipAddress) {
+        try {
+            UI.openWebpage(getUri(ipAddress, "/clock/"));
+        } catch (Exception e) {
+            LOGGER.error("error while trying to open web page: {}", e.getMessage(), e);
+        }
+    }
+
+    void openClockControlPanelClicked(String ipAddress) {
+        try {
+            UI.openWebpage(getUri(ipAddress, "/clock/manage.html"));
+        } catch (Exception e) {
+            LOGGER.error("error while trying to open web page: {}", e.getMessage(), e);
+        }
+    }
+
+    private URI getUri(String ipAddress, String contextPath) throws Exception {
+        return new URL("http://" + ipAddress + ":8080" + contextPath).toURI();
+    }
+
+    void aboutClicked() {
+        try {
+            UI.openWebpage(new URL("https://github.com/eXsio/clock").toURI());
+        } catch (Exception e) {
+            LOGGER.error("error while trying to open web page: {}", e.getMessage(), e);
+        }
+    }
+
+    void createIssueClicked() {
+        try {
+            UI.openWebpage(new URL("https://github.com/eXsio/clock/issues").toURI());
+        } catch (Exception e) {
+            LOGGER.error("error while trying to open web page: {}", e.getMessage(), e);
+        }
     }
 }

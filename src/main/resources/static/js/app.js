@@ -63,7 +63,7 @@
         } else {
             setInterval(function() {performOversight(); }, 1500);
         }
-    }
+    };
 
     var performOversight = function() {
 
@@ -76,7 +76,7 @@
             console.log("oversight alert because of started is "+started+" and last message received "+lastMessageAndNowDiff+" seconds ago");
             tryToRefresh();
         }
-    }
+    };
 
     var tryToRefresh = function() {
         $.when($.ajax({url: "/clock/api/state",timeout:1000, async: false})).then(function(data, textStatus, jqXHR) {
@@ -93,11 +93,11 @@
             console.log("can't refresh because of an unexpected error");
             console.log(eventData);
         });
-    }
+    };
 
     var getCurrentTimestamp = function() {
         return Math.floor(Date.now() / 1000);
-    }
+    };
 
     var updateState = function(timeInfo) {
         $("#counter").html(timeInfo.time);

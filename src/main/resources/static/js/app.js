@@ -4,6 +4,7 @@
 
     var started = false;
     var defaultTransport = 'long-polling';
+    var lastMessageTimestamp = null;
 
     window.app = {
 
@@ -24,6 +25,7 @@
         initClient: function () {
             subscribe(defaultTransport);
             setInitialState();
+            initOversight();
         }
     };
 
@@ -34,7 +36,8 @@
             transport = urlTransport;
         }
         service.subscribe(transport, "clock", function (payload) {
-                updateState(payload.object)
+                updateState(payload.object);
+                lastMessageTimestamp = getCurrentTimestamp();
             },
             function () {
                 $(".no-connection").hide();
@@ -52,6 +55,49 @@
             updateState(data);
         });
     };
+
+    var initOversight = function() {
+        var urlOversight = urlParam('oversight');
+        if(typeof urlOversight !== 'undefined' && urlOversight== 'false' ) {
+            console.log("oversight disabled");
+        } else {
+            setInterval(function() {performOversight(); }, 1500);
+        }
+    }
+
+    var performOversight = function() {
+
+        var now = getCurrentTimestamp();
+        var lastMessageAndNowDiff = now - lastMessageTimestamp;
+        if(
+            (started && (lastMessageTimestamp == null || lastMessageAndNowDiff >=3 )) ||
+            (!started && lastMessageTimestamp != null && lastMessageAndNowDiff >=60)
+        ) {
+            console.log("oversight alert because of started is "+started+" and last message received "+lastMessageAndNowDiff+" seconds ago");
+            tryToRefresh();
+        }
+    }
+
+    var tryToRefresh = function() {
+        $.when($.ajax({url: "/clock/api/state",timeout:1000, async: false})).then(function(data, textStatus, jqXHR) {
+            console.log("trying to refresh the application page")
+            if(textStatus != "timeout" && jqXHR.status * 1 == 200) {
+                window.location.reload();
+            } else {
+                console.log("can't refresh because of an unexpected error");
+                console.log(data);
+                console.log(textStatus);
+                console.log(jqXHR);
+            }
+        }, function(eventData) {
+            console.log("can't refresh because of an unexpected error");
+            console.log(eventData);
+        });
+    }
+
+    var getCurrentTimestamp = function() {
+        return Math.floor(Date.now() / 1000);
+    }
 
     var updateState = function(timeInfo) {
         $("#counter").html(timeInfo.time);

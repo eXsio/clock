@@ -1,7 +1,9 @@
 package com.exsio.clock.ui.controls;
 
+import com.beust.jcommander.internal.Lists;
 import com.exsio.clock.ui.UI;
 import com.google.common.base.Optional;
+import com.google.common.net.InetAddresses;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -11,12 +13,11 @@ import org.testng.annotations.Test;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.net.Inet4Address;
+import java.lang.reflect.Constructor;
+import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.URL;
 import java.util.Collections;
-import java.util.Map;
 
 import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyObject;
@@ -40,6 +41,8 @@ public class ControlsFramePresenterTest {
     @Mock
     ControlsFormView formView;
 
+    NetworkInterface nic;
+
     @Mock
     Desktop desktop;
 
@@ -47,10 +50,15 @@ public class ControlsFramePresenterTest {
     ApplicationReadyEvent applicationReadyEvent;
 
     @BeforeMethod
-    public void init() throws IOException {
+    public void init() throws Exception {
         MockitoAnnotations.initMocks(this);
+
         when(formPresenter.getView()).thenReturn(formView);
-        view = spy(new ControlsFrameView(mock(ControlsFramePresenter.class)));
+
+        ControlsFramePresenter presenter = mock(ControlsFramePresenter.class);
+        when(presenter.getNetworkInterfacesMap()).thenReturn(Collections.singletonMap("NIC", IP_ADDRESS));
+
+        view = spy(new ControlsFrameView(presenter));
         doNothing().when(view).add(Mockito.<Component>any(), anyObject());
         doNothing().when(view).setVisible(anyBoolean());
 
@@ -59,13 +67,7 @@ public class ControlsFramePresenterTest {
 
         UI.setDesktop(Optional.of(desktop));
 
-        underTest = new ControlsFramePresenter(view, formPresenter) {
-
-            @Override
-            Map<String, String> getNetworkInterfacesMap() {
-                return Collections.singletonMap("NIC1", IP_ADDRESS);
-            }
-        };
+        underTest = new ControlsFramePresenter(view, formPresenter);
     }
 
     @Test

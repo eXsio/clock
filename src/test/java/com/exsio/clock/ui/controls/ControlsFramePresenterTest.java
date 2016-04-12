@@ -1,17 +1,11 @@
 package com.exsio.clock.ui.controls;
 
-import com.beust.jcommander.internal.Lists;
 import com.exsio.clock.ui.UI;
 import com.google.common.base.Optional;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.testng.PowerMockTestCase;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -19,13 +13,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.Inet4Address;
-import java.net.InetAddress;
 import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.net.URI;
 import java.net.URL;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 
 import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyObject;
@@ -35,9 +26,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@PrepareForTest({NetworkInterface.class, Inet4Address.class, Desktop.class})
-@PowerMockIgnore("javax.swing.*")
-public class ControlsFramePresenterTest extends PowerMockTestCase {
+public class ControlsFramePresenterTest {
 
     private final static String IP_ADDRESS = "127.0.0.1";
 
@@ -50,10 +39,6 @@ public class ControlsFramePresenterTest extends PowerMockTestCase {
 
     @Mock
     ControlsFormView formView;
-
-    NetworkInterface nic;
-
-    Inet4Address inetAddress;
 
     @Mock
     Desktop desktop;
@@ -68,7 +53,6 @@ public class ControlsFramePresenterTest extends PowerMockTestCase {
         view = spy(new ControlsFrameView(mock(ControlsFramePresenter.class)));
         doNothing().when(view).add(Mockito.<Component>any(), anyObject());
         doNothing().when(view).setVisible(anyBoolean());
-        mockNetworkInterface();
 
         Mockito.reset(desktop);
         when(desktop.isSupported(Desktop.Action.BROWSE)).thenReturn(true);
@@ -78,18 +62,10 @@ public class ControlsFramePresenterTest extends PowerMockTestCase {
         underTest = new ControlsFramePresenter(view, formPresenter) {
 
             @Override
-            Collection<NetworkInterface> getNetworkInterfaces() throws SocketException {
-                return Lists.newArrayList(nic);
+            Map<String, String> getNetworkInterfacesMap() {
+                return Collections.singletonMap("NIC1", IP_ADDRESS);
             }
         };
-    }
-
-    private void mockNetworkInterface() {
-        nic = PowerMockito.mock(NetworkInterface.class);
-        inetAddress = PowerMockito.mock(Inet4Address.class);
-        when(nic.getInetAddresses()).thenReturn(Collections.enumeration(Lists.<InetAddress>newArrayList(inetAddress)));
-        when(nic.getDisplayName()).thenReturn("NIC1");
-        when(inetAddress.getHostAddress()).thenReturn(IP_ADDRESS);
     }
 
     @Test

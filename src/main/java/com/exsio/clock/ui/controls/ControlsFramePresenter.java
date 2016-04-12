@@ -67,7 +67,7 @@ class ControlsFramePresenter {
     Map<String, String> getNetworkInterfacesMap() {
         Map<String, String> map = Maps.newHashMap();
         try {
-            for (NetworkInterface iface : getNetworkInterfaces()) {
+            for (NetworkInterface iface : Collections.list(NetworkInterface.getNetworkInterfaces())) {
                 if (iface.isLoopback() || !iface.isUp()) {
                     continue;
                 }
@@ -76,16 +76,11 @@ class ControlsFramePresenter {
                         map.put(iface.getDisplayName(), address.getHostAddress());
                     }
                 }
-
             }
         } catch (SocketException e) {
             LOGGER.error("error while trying to get network interfaces details: {}", e.getMessage(), e);
         }
         return map;
-    }
-
-    Collection<NetworkInterface> getNetworkInterfaces() throws SocketException {
-        return Collections.list(NetworkInterface.getNetworkInterfaces());
     }
 
     void openClockClicked(String ipAddress) {

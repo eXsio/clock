@@ -20,14 +20,15 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.URI;
 import java.net.URL;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Profile(SpringProfile.UI)
 class ControlsFramePresenter {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ControlsFramePresenter.class);
+    static final String ISSUES_URL = "https://github.com/eXsio/clock/issues";
+    static final String ABOUT_URL = "https://github.com/eXsio/clock";
 
     private final ControlsFrameView view;
 
@@ -66,7 +67,7 @@ class ControlsFramePresenter {
     Map<String, String> getNetworkInterfacesMap() {
         Map<String, String> map = Maps.newHashMap();
         try {
-            for (NetworkInterface iface : Collections.list(NetworkInterface.getNetworkInterfaces())) {
+            for (NetworkInterface iface : getNetworkInterfaces()) {
                 if (iface.isLoopback() || !iface.isUp()) {
                     continue;
                 }
@@ -81,6 +82,10 @@ class ControlsFramePresenter {
             LOGGER.error("error while trying to get network interfaces details: {}", e.getMessage(), e);
         }
         return map;
+    }
+
+    Collection<NetworkInterface> getNetworkInterfaces() throws SocketException {
+        return Collections.list(NetworkInterface.getNetworkInterfaces());
     }
 
     void openClockClicked(String ipAddress) {
@@ -105,7 +110,7 @@ class ControlsFramePresenter {
 
     void aboutClicked() {
         try {
-            UI.openWebpage(new URL("https://github.com/eXsio/clock").toURI());
+            UI.openWebpage(new URL(ABOUT_URL).toURI());
         } catch (Exception e) {
             LOGGER.error("error while trying to open web page: {}", e.getMessage(), e);
         }
@@ -113,7 +118,7 @@ class ControlsFramePresenter {
 
     void createIssueClicked() {
         try {
-            UI.openWebpage(new URL("https://github.com/eXsio/clock/issues").toURI());
+            UI.openWebpage(new URL(ISSUES_URL).toURI());
         } catch (Exception e) {
             LOGGER.error("error while trying to open web page: {}", e.getMessage(), e);
         }

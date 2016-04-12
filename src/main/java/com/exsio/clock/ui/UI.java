@@ -1,5 +1,6 @@
 package com.exsio.clock.ui;
 
+import com.google.common.base.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,10 +9,11 @@ import java.net.URI;
 
 public class UI {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(UI.class);
     private final static String ICON_PATH = "/static/icons/launcher-icon-2x.png";
 
     private static Boolean available;
+
+    private static Optional<Desktop> desktop;
 
     public static Image getIcon() {
         return Toolkit.getDefaultToolkit().getImage(UI.class.getResource(ICON_PATH));
@@ -25,11 +27,22 @@ public class UI {
     }
 
     public static void openWebpage(URI uri) throws Exception{
-        if (available) {
-            Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
-            if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-                desktop.browse(uri);
+        if (isAvailable()) {
+            Optional<Desktop> desktop = getDesktop();
+            if (desktop.isPresent() && desktop.get().isSupported(Desktop.Action.BROWSE)) {
+                desktop.get().browse(uri);
             }
         }
+    }
+
+    public static Optional<Desktop> getDesktop() {
+        if(desktop == null) {
+            desktop = Desktop.isDesktopSupported() ? Optional.of(Desktop.getDesktop()) : Optional.<Desktop>absent();
+        }
+        return desktop;
+    }
+
+    public static void setDesktop(Optional<Desktop> desktop) {
+        UI.desktop = desktop;
     }
 }

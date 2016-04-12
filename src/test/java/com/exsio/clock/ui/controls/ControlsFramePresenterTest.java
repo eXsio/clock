@@ -99,7 +99,6 @@ public class ControlsFramePresenterTest extends PowerMockTestCase {
         verify(view).setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         verify(view).add(formView, BorderLayout.CENTER);
         verify(view).pack();
-        verify(view).showOnScreen(0);
         verify(view).setVisible(true);
         verify(formPresenter).getView();
 

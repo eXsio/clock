@@ -3,6 +3,7 @@ package com.exsio.clock.ui.controls;
 import com.exsio.clock.ui.UI;
 import com.exsio.clock.ui.loading.Loading;
 import com.exsio.clock.util.SpringProfile;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,15 +69,11 @@ class ControlsFramePresenter {
         Map<String, String> map = Maps.newHashMap();
         try {
             for (NetworkInterface iface : getNetworkInterfaces()) {
-                if (iface.isLoopback() || !iface.isUp()) {
-                    continue;
-                }
                 for (InetAddress address : Collections.list(iface.getInetAddresses())) {
                     if (Inet4Address.class == address.getClass()) {
                         map.put(iface.getDisplayName(), address.getHostAddress());
                     }
                 }
-
             }
         } catch (SocketException e) {
             LOGGER.error("error while trying to get network interfaces details: {}", e.getMessage(), e);
@@ -85,7 +82,13 @@ class ControlsFramePresenter {
     }
 
     Collection<NetworkInterface> getNetworkInterfaces() throws SocketException {
-        return Collections.list(NetworkInterface.getNetworkInterfaces());
+        Collection<NetworkInterface> result = Lists.newArrayList();
+        for(NetworkInterface iface: Collections.list(NetworkInterface.getNetworkInterfaces())) {
+            if (!iface.isLoopback() && iface.isUp()) {
+                result.add(iface);
+            }
+        }
+        return result;
     }
 
     void openClockClicked(String ipAddress) {

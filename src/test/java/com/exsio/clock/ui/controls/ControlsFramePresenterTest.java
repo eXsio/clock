@@ -14,10 +14,14 @@ import org.testng.annotations.Test;
 import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.URL;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 
 import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyObject;
@@ -26,10 +30,15 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 public class ControlsFramePresenterTest {
 
-    private final static String IP_ADDRESS = "127.0.0.1";
+    private final static String IP_ADDRESS = "192.168.0.1";
+
+    private final static String NIC_NAME = "NIC";
 
     ControlsFramePresenter underTest;
 
@@ -52,11 +61,12 @@ public class ControlsFramePresenterTest {
     @BeforeMethod
     public void init() throws Exception {
         MockitoAnnotations.initMocks(this);
+        initializeNetwork();
 
         when(formPresenter.getView()).thenReturn(formView);
 
         ControlsFramePresenter presenter = mock(ControlsFramePresenter.class);
-        when(presenter.getNetworkInterfacesMap()).thenReturn(Collections.singletonMap("NIC", IP_ADDRESS));
+        when(presenter.getNetworkInterfacesMap()).thenReturn(Collections.singletonMap(NIC_NAME, IP_ADDRESS));
 
         view = spy(new ControlsFrameView(presenter));
         doNothing().when(view).add(Mockito.<Component>any(), anyObject());
@@ -67,7 +77,33 @@ public class ControlsFramePresenterTest {
 
         UI.setDesktop(Optional.of(desktop));
 
-        underTest = new ControlsFramePresenter(view, formPresenter);
+        underTest = new ControlsFramePresenter(view, formPresenter) {
+
+            @Override
+            Collection<NetworkInterface> getNetworkInterfaces() throws SocketException {
+                return Lists.newArrayList(nic);
+            }
+        };
+    }
+
+    private void initializeNetwork() throws Exception {
+        Class<?> c = Class.forName("java.net.NetworkInterface");
+        Constructor<?> constructor = c.getDeclaredConstructor(String.class, int.class, InetAddress[].class);
+        constructor.setAccessible(true);
+        nic = (NetworkInterface) constructor.newInstance(NIC_NAME, 0, new InetAddress[]{InetAddresses.forString(IP_ADDRESS)});
+
+        Field dispName = NetworkInterface.class.getDeclaredField("displayName");
+        dispName.setAccessible(true);
+        dispName.set(nic, NIC_NAME);
+    }
+
+    @Test
+    public void test_getNetworkInterfacesMap() {
+        Map<String, String> result = underTest.getNetworkInterfacesMap();
+        assertNotNull(result);
+        assertEquals(result.size(), 1);
+        assertTrue(result.containsKey(NIC_NAME));
+        assertEquals(result.get(NIC_NAME), IP_ADDRESS);
     }
 
     @Test
@@ -85,13 +121,13 @@ public class ControlsFramePresenterTest {
     @Test
     public void test_openClockClicked() throws Exception {
         underTest.openClockClicked(IP_ADDRESS);
-        verify(desktop).browse(new URL("http://127.0.0.1:8080/clock/").toURI());
+        verify(desktop).browse(new URL("http://" + IP_ADDRESS + ":8080/clock/").toURI());
     }
 
     @Test
     public void test_openClockControlPanelClicked() throws Exception {
         underTest.openClockControlPanelClicked(IP_ADDRESS);
-        verify(desktop).browse(new URL("http://127.0.0.1:8080/clock/manage.html").toURI());
+        verify(desktop).browse(new URL("http://" + IP_ADDRESS + ":8080/clock/manage.html").toURI());
     }
 
     @Test

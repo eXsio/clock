@@ -87,10 +87,9 @@ public class ControlsFramePresenterTest {
     }
 
     private void initializeNetwork() throws Exception {
-        Class<?> c = Class.forName("java.net.NetworkInterface");
-        Constructor<?> constructor = c.getDeclaredConstructor(String.class, int.class, InetAddress[].class);
+        Constructor<NetworkInterface> constructor = NetworkInterface.class.getDeclaredConstructor(String.class, int.class, InetAddress[].class);
         constructor.setAccessible(true);
-        nic = (NetworkInterface) constructor.newInstance(NIC_NAME, 0, new InetAddress[]{InetAddresses.forString(IP_ADDRESS)});
+        nic = constructor.newInstance(NIC_NAME, 0, new InetAddress[]{InetAddresses.forString(IP_ADDRESS)});
 
         Field dispName = NetworkInterface.class.getDeclaredField("displayName");
         dispName.setAccessible(true);

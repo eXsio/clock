@@ -15,13 +15,17 @@ import org.springframework.stereotype.Service;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.URI;
 import java.net.URL;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
 
 @Service
 @Profile(SpringProfile.UI)
@@ -52,7 +56,8 @@ class ControlsFramePresenter {
             @Override
             public void run() {
 
-                view.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                view.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+                view.addWindowListener(getWindowClosingListener());
                 view.add(formPresenter.getView(), BorderLayout.CENTER);
                 view.pack();
 
@@ -63,6 +68,23 @@ class ControlsFramePresenter {
                 LOGGER.info("Application UI started successfully");
             }
         });
+    }
+
+    private WindowAdapter getWindowClosingListener() {
+        return new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if (formPresenter.isClockStarted()) {
+                    JOptionPane.showMessageDialog(view, "Nie możesz zakończyć programu, kiedy działa zegar!", "Uwaga!", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    String ObjButtons[] = {"Tak", "Nie"};
+                    int PromptResult = JOptionPane.showOptionDialog(view, "Jesteś pewien, że chcesz zakończyć program?", "Uwaga!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, ObjButtons, ObjButtons[1]);
+                    if (PromptResult == JOptionPane.YES_OPTION) {
+                        System.exit(0);
+                    }
+                }
+            }
+        };
     }
 
     Map<String, String> getNetworkInterfacesMap() {
@@ -83,7 +105,7 @@ class ControlsFramePresenter {
 
     Collection<NetworkInterface> getNetworkInterfaces() throws SocketException {
         Collection<NetworkInterface> result = Lists.newArrayList();
-        for(NetworkInterface iface: Collections.list(NetworkInterface.getNetworkInterfaces())) {
+        for (NetworkInterface iface : Collections.list(NetworkInterface.getNetworkInterfaces())) {
             if (!iface.isLoopback() && iface.isUp()) {
                 result.add(iface);
             }

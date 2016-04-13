@@ -67,4 +67,8 @@ class ControlsFormPresenter {
     public ControlsFormView getView() {
         return view;
     }
+
+    public boolean isClockStarted() {
+        return started;
+    }
 }

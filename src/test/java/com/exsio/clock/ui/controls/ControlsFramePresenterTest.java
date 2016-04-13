@@ -109,7 +109,7 @@ public class ControlsFramePresenterTest {
     public void test_onApplicationStart() throws InterruptedException {
         underTest.onApplicationStart(applicationReadyEvent);
         Thread.sleep(1000);
-        verify(view).setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        verify(view).setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         verify(view).add(formView, BorderLayout.CENTER);
         verify(view).pack();
         verify(view).setVisible(true);

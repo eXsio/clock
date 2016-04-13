@@ -15,18 +15,27 @@ By default the app is being build by Maven as a standalone application. If you w
 ### Webapp
 
 When running as a webapp deployed on a Servlet 3.x compliant container, the following pages are available:
-- http://SERVER_IP:8080/clock/ - the clock
-- http://SERVER_IP:8080/clock/manage.html - the clock control panel
+- ```http://SERVER_IP:8080/clock/``` - the clock
+- ```http://SERVER_IP:8080/clock/manage.html``` - the clock control panel
 
 The application uses Atmosphere for Push support. You can force the transport method by providing an additional URL parameter 'transport', which can take one of the following values:
-- long-polling
-- sse
-- websocket
-- jsonp
+- ```long-polling```
+- ```sse```
+- ```websocket```
+- ```jsonp```
 
 ### Standalone
 
 When running as a standalone application, aside of the above Webapp functionalities, a Swing GUI will be displayed on the server's desktop with clock controls.
 
-## TODO
-- i18n
+## i18n
+
+Internationalization is achieved using one of my other libraries - JIN. The application is translated into the following languages:
+
+- English (default)
+- Polish
+
+The application will by default discover the language of the system (in Swing UI) and in Web Browser (Web UI). To force the language, you must:
+
+- for the Swing UI: manually set the ```user.language``` property (eg. ```-Duser.language=pl ```)
+- for the Web UI: add a ```lang``` param to the url (eg. ```/clock/?lang=pl ```)

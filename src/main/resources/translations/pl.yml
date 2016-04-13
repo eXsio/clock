@@ -1,5 +1,7 @@
 controls:
   title: Zegar
+  description: Panel sterowania zegarem
+  time_limit: "Limit czasu: "
   menu:
     www: Interfejs WWW
     clock: Otwórz zegar
@@ -12,7 +14,7 @@ controls:
     stop: Stop
     set: Ustaw
     reset: Od nowa
-    set_time: Ustaw czas
+    set_time: "Ustaw czas: "
   common:
     positive: Tak
     negative: Nie
@@ -20,3 +22,4 @@ controls:
     attention: Uwaga!
     cant_close_while_running: Nie możesz zamknąć programu, kiedy zegar jest uruchomiony!
     closing_confirmation: Jesteś pewien, że chcesz zamknąć program?
+    no_connection: brak połączenia

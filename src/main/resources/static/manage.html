@@ -36,6 +36,14 @@
             width: 45px;
         }
 
+        .no-connection {
+            text-transform: uppercase;
+        }
+
+        #boundary-wrapper {
+            text-transform: uppercase
+        }
+
     </style>
 
     <script type="application/javascript" src="/clock/js/jquery.min.js"></script>
@@ -44,27 +52,27 @@
     <script type="application/javascript" src="/clock/js/app.js"></script>
     <link rel="icon" sizes="192x192" href="icons/launcher-icon-4x.png">
     <link rel="apple-touch-icon" sizes="192x192" href="icons/launcher-icon-4x.png">
-    <title>Zegar - panel sterowania</title>
+    <title class="translatable">controls.title</title>
 
 </head>
 <body>
 <div class="container">
-    <div class="alert alert-info" role="alert">Panel sterowania zegarem na podium i przy stoliku</div>
-    <div class="alert alert-warning no-connection" role="alert">BRAK POŁĄCZENIA</div>
+    <div class="alert alert-info translatable" role="alert">controls.description</div>
+    <div class="alert alert-warning no-connection translatable" role="alert">controls.message.no_connection</div>
     <ul id="main-list" class="list-group">
         <li class="list-group-item">
             <div class="form-group">
                 <div class="input-group">
-                    <label for="minutes">Ustaw czas:</label>
+                    <label for="minutes" class="translatable">controls.form.set_time</label>
                     <select id="minutes" class="time" name="minutes"></select>
                     :
                     <select id="seconds" class="time" name="seconds"></select>
                     &nbsp;
-                    <button id="set" class="btn btn-default">Ustaw</button>
+                    <button id="set" class="btn btn-default translatable">controls.form.set</button>
                     &nbsp;
-                    <button id="startstop" class="btn btn-default">Start</button>
+                    <button id="startstop" class="btn btn-default translatable">controls.form.start</button>
                     &nbsp;
-                    <button id="reset" class="btn btn-default">Od nowa</button>
+                    <button id="reset" class="btn btn-default translatable">controls.form.reset</button>
                 </div>
 
             </div>
@@ -74,7 +82,7 @@
             <div id="counter">00:00</div>
         </li>
         <li class="list-group-item">
-            <div id="boundary-wrapper">LIMIT CZASU: <span id="boundary">00:00</span></div>
+            <div id="boundary-wrapper"><span class="translatable">controls.time_limit</span><span id="boundary">00:00</span></div>
         </li>
     </ul>
 

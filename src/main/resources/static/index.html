@@ -32,6 +32,14 @@
             color: crimson !important;
         }
 
+        .no-connection {
+            text-transform: uppercase;
+        }
+
+        #boundary-wrapper {
+            text-transform: uppercase
+        }
+
 
     </style>
 
@@ -41,20 +49,20 @@
     <script type="application/javascript" src="/clock/js/app.js"></script>
     <link rel="icon" sizes="192x192" href="icons/launcher-icon-4x.png">
     <link rel="apple-touch-icon" sizes="192x192" href="icons/launcher-icon-4x.png">
-    <title>Zegar</title>
+    <title class="translatable">controls.title</title>
 
 </head>
 <body>
 <div class="container">
-    <div class="alert alert-info" role="alert">Zegar</div>
-    <div class="alert alert-warning no-connection" role="alert">BRAK POŁĄCZENIA</div>
+    <div class="alert alert-info translatable" role="alert">controls.title</div>
+    <div class="alert alert-warning no-connection translatable" role="alert">controls.message.no_connection</div>
 
     <ul id="main-list" class="list-group">
         <li class="list-group-item">
             <div id="counter">00:00</div>
         </li>
         <li class="list-group-item">
-            <div id="boundary-wrapper">LIMIT CZASU: <span id="boundary">00:00</span></div>
+            <div id="boundary-wrapper"><span class="translatable">controls.time_limit</span><span id="boundary">00:00</span></div>
         </li>
     </ul>
 

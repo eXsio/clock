@@ -5,6 +5,7 @@
     var started = false;
     var defaultTransport = 'long-polling';
     var lastMessageTimestamp = null;
+    var translations = null;
 
     window.app = {
 
@@ -26,6 +27,7 @@
             subscribe(defaultTransport);
             setInitialState();
             initOversight();
+            translate();
         }
     };
 
@@ -36,8 +38,8 @@
             transport = urlTransport;
         }
         service.subscribe(transport, "clock", function (payload) {
-                updateState(payload.object);
                 lastMessageTimestamp = getCurrentTimestamp();
+                updateState(payload.object);
             },
             function () {
                 $(".no-connection").hide();
@@ -50,38 +52,37 @@
             });
     };
 
-    var setInitialState = function() {
-        $.when($.ajax("/clock/api/state")).then(function(data) {
+    var setInitialState = function () {
+        $.when($.ajax("/clock/api/state")).then(function (data) {
             updateState(data);
         });
     };
 
-    var initOversight = function() {
+    var initOversight = function () {
         var urlOversight = urlParam('oversight');
-        if(typeof urlOversight !== 'undefined' && urlOversight== 'false' ) {
+        if (typeof urlOversight !== 'undefined' && urlOversight == 'false') {
             console.log("oversight disabled");
         } else {
-            setInterval(function() {performOversight(); }, 1500);
+            setInterval(function () {
+                performOversight();
+            }, 1500);
         }
     };
 
-    var performOversight = function() {
+    var performOversight = function () {
 
         var now = getCurrentTimestamp();
         var lastMessageAndNowDiff = now - lastMessageTimestamp;
-        if(
-            (started && (lastMessageTimestamp == null || lastMessageAndNowDiff >=3 )) ||
-            (!started && lastMessageTimestamp != null && lastMessageAndNowDiff >=60)
-        ) {
-            console.log("oversight alert because of started is "+started+" and last message received "+lastMessageAndNowDiff+" seconds ago");
+        if (started && lastMessageTimestamp != null && lastMessageAndNowDiff >= 3) {
+            console.log("oversight alert because of started is " + started + " and last message received " + lastMessageAndNowDiff + " seconds ago");
             tryToRefresh();
         }
     };
 
-    var tryToRefresh = function() {
-        $.when($.ajax({url: "/clock/api/state",timeout:1000, async: false})).then(function(data, textStatus, jqXHR) {
+    var tryToRefresh = function () {
+        $.when($.ajax({url: "/clock/api/state", timeout: 1000, async: false})).then(function (data, textStatus, jqXHR) {
             console.log("trying to refresh the application page")
-            if(textStatus != "timeout" && jqXHR.status * 1 == 200) {
+            if (textStatus != "timeout" && jqXHR.status * 1 == 200) {
                 window.location.reload();
             } else {
                 console.log("can't refresh because of an unexpected error");
@@ -89,17 +90,17 @@
                 console.log(textStatus);
                 console.log(jqXHR);
             }
-        }, function(eventData) {
+        }, function (eventData) {
             console.log("can't refresh because of an unexpected error");
             console.log(eventData);
         });
     };
 
-    var getCurrentTimestamp = function() {
+    var getCurrentTimestamp = function () {
         return Math.floor(Date.now() / 1000);
     };
 
-    var updateState = function(timeInfo) {
+    var updateState = function (timeInfo) {
         $("#counter").html(timeInfo.time);
         $("#boundary").html(timeInfo.boundary);
         setStarted(timeInfo.clockStarted);
@@ -143,9 +144,10 @@
     var setStarted = function (val) {
         started = val;
         if (started) {
-            $("#startstop").html("Stop");
+            $("#startstop").html( translations !=null ? translations["controls.form.stop"] : 'controls.form.stop');
         } else {
-            $("#startstop").html("Start");
+            lastMessageTimestamp = null;
+            $("#startstop").html( translations != null ? translations["controls.form.start"] : 'controls.form.start');
         }
     };
 
@@ -160,6 +162,27 @@
                 .replace("{seconds}", $("#seconds").val())
         );
     };
+
+    var translate = function () {
+        var language = getLanguage();
+        var userLanguage = urlParam("lang");
+        if (typeof userLanguage !== 'undefined' && userLanguage != null) {
+            language = userLanguage;
+        }
+        $.when($.ajax("/clock//i18n/{lang}".replace("{lang}", language))).then(function (data) {
+            console.info("loaded translations for language: " + language);
+            translations = data;
+            $(".translatable").each(function (subject) {
+                $(this).html(data[$(this).html()]);
+            });
+        });
+
+    }
+
+    var getLanguage = function () {
+        var language = window.navigator.userLanguage || window.navigator.language;
+        return language.split("-")[0];
+    }
 
     var urlParam = function (name) {
         var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);

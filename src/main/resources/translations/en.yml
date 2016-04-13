@@ -1,5 +1,7 @@
 controls:
   title: Clock
+  description: Clock control panel
+  time_limit: "Time limit: "
   menu:
     www: Web interface
     clock: Open clock
@@ -12,7 +14,7 @@ controls:
     stop: Stop
     set: Set
     reset: Reset
-    set_time: Set time
+    set_time: "Set the time: "
   common:
     positive: "Yes"
     negative: "No"
@@ -20,3 +22,4 @@ controls:
     attention: Attention!
     cant_close_while_running: You can't close the program while the clock is running!
     closing_confirmation: Are you sure, you want to close the program?
+    no_connection: No connection

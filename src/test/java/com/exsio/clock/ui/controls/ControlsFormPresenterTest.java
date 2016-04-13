@@ -29,6 +29,7 @@ public class ControlsFormPresenterTest {
     public void init() {
         MockitoAnnotations.initMocks(this);
         view = spy(new ControlsFormView(mock(ControlsFormPresenter.class)));
+        view.init();
         underTest = new ControlsFormPresenter(clockService, view);
     }
 

@@ -21,8 +21,8 @@
         <appender-ref ref="APP_LOG"/>
     </logger>
 
-    <logger name="org.springframework" additivity="false">
-        <level value="info"/>
+    <logger name="org.springframework" level="INFO" >
         <appender-ref ref="APP_LOG"/>
     </logger>
+
 </configuration>

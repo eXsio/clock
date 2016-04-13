@@ -3,26 +3,41 @@ package com.exsio.clock.ui.controls;
 import com.exsio.clock.model.Time;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
+import pl.exsio.jin.annotation.TranslationPrefix;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static pl.exsio.jin.translationcontext.TranslationContext.t;
+
+@TranslationPrefix("controls.form")
 class ControlsFormView extends JPanel {
 
     private final ControlsFormPresenter presenter;
 
     private JComboBox<Integer> minutes = new JComboBox<>();
     private JComboBox<Integer> seconds = new JComboBox<>();
-    private JButton startStop = new JButton("Start");
-    private JButton set = new JButton("Ustaw");
-    private JButton reset = new JButton("Od nowa");
+    private JButton startStop;
+    private JButton set;
+    private JButton reset;
     private JLabel time = new JLabel(formatTimeLabel(new Time().toString(), new Time().toString()));
 
     ControlsFormView(ControlsFormPresenter presenter) {
         super(new BorderLayout());
         this.presenter = presenter;
+
+
+
+
+    }
+
+    void init() {
+
+        startStop = new JButton(t("start"));
+        set = new JButton(t("set"));
+        reset = new JButton(t("reset"));
 
         setupTime();
         setupMinutes();
@@ -30,7 +45,6 @@ class ControlsFormView extends JPanel {
         setupStartStop();
         setupSet();
         setupReset();
-
         add(setupForm().getPanel());
     }
 
@@ -66,7 +80,7 @@ class ControlsFormView extends JPanel {
         builder.appendColumn("3dlu");
         builder.appendColumn("fill:max(pref; 100px)");
 
-        builder.append("Ustaw czas:", minutes);
+        builder.append(t("set_time"), minutes);
         builder.append(":", seconds);
         builder.append("", time);
         builder.nextLine();
@@ -128,9 +142,9 @@ class ControlsFormView extends JPanel {
             @Override
             protected Object doInBackground() throws Exception {
                 if (started) {
-                    startStop.setText("Stop");
+                    startStop.setText(t("stop"));
                 } else {
-                    startStop.setText("Start");
+                    startStop.setText(t("start"));
                 }
                 return null;
             }

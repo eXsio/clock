@@ -1,1 +1,22 @@
-dupa: cycki
+controls:
+  title: Zegar
+  menu:
+    www: Interfejs WWW
+    clock: Otwórz zegar
+    panel: Otwóz panel sterowania
+    help: Pomoc
+    about: O programie
+    issue: Zgłoś błąd
+  form:
+    start: Start
+    stop: Stop
+    set: Ustaw
+    reset: Od nowa
+    set_time: Ustaw czas
+  common:
+    positive: Tak
+    negative: Nie
+  message:
+    attention: Uwaga!
+    cant_close_while_running: Nie możesz zamknąć programu, kiedy zegar jest uruchomiony!
+    closing_confirmation: Jesteś pewien, że chcesz zamknąć program?

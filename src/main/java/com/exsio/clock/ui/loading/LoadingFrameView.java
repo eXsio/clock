@@ -12,8 +12,7 @@ public class LoadingFrameView extends ScreenAwareFrame {
 
         JProgressBar progressBar = new JProgressBar();
         progressBar.setIndeterminate(true);
-        progressBar.setString("Uruchamianie aplikacji Zegar...");
-        progressBar.setStringPainted(true);
+        progressBar.setStringPainted(false);
         progressBar.setSize(new Dimension(300, 30));
         progressBar.setBorderPainted(false);
         progressBar.setOpaque(true);
@@ -25,7 +24,7 @@ public class LoadingFrameView extends ScreenAwareFrame {
         add(panel);
 
         setUndecorated(true);
-        setTitle("Zegar - uruchamianie");
+        setTitle("...");
 
         pack();
         setResizable(false);

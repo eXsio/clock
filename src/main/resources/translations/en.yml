@@ -1,1 +1,22 @@
-dupa: cycki
+controls:
+  title: Clock
+  menu:
+    www: Web interface
+    clock: Open clock
+    panel: Open control panel
+    help: Help
+    about: About the program
+    issue: Report issue
+  form:
+    start: Start
+    stop: Stop
+    set: Set
+    reset: Reset
+    set_time: Set time
+  common:
+    positive: "Yes"
+    negative: "No"
+  message:
+    attention: Attention!
+    cant_close_while_running: You can't close the program while the clock is running!
+    closing_confirmation: Are you sure, you want to close the program?

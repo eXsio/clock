@@ -12,6 +12,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
+import pl.exsio.jin.annotation.TranslationPrefix;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,8 +28,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
+import static pl.exsio.jin.translationcontext.TranslationContext.t;
+
 @Service
 @Profile(SpringProfile.UI)
+@TranslationPrefix("controls")
 class ControlsFramePresenter {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ControlsFramePresenter.class);
@@ -56,9 +60,11 @@ class ControlsFramePresenter {
             @Override
             public void run() {
 
+                view.init();
                 view.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                 view.addWindowListener(getWindowClosingListener());
                 view.add(formPresenter.getView(), BorderLayout.CENTER);
+                formPresenter.init();
                 view.pack();
 
                 Loading.dispose();
@@ -75,10 +81,11 @@ class ControlsFramePresenter {
             @Override
             public void windowClosing(WindowEvent e) {
                 if (formPresenter.isClockStarted()) {
-                    JOptionPane.showMessageDialog(view, "Nie możesz zakończyć programu, kiedy działa zegar!", "Uwaga!", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(view, t("message.cant_close_while_running"), t("message.attention"), JOptionPane.ERROR_MESSAGE);
                 } else {
-                    String ObjButtons[] = {"Tak", "Nie"};
-                    int PromptResult = JOptionPane.showOptionDialog(view, "Jesteś pewien, że chcesz zakończyć program?", "Uwaga!", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, ObjButtons, ObjButtons[1]);
+
+                    String ObjButtons[] = {t("common.positive"), t("common.negative")};
+                    int PromptResult = JOptionPane.showOptionDialog(view, t("message.closing_confirmation"), t("message.attention"), JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
                     if (PromptResult == JOptionPane.YES_OPTION) {
                         System.exit(0);
                     }

@@ -45,6 +45,10 @@ class ControlsFormPresenter {
         }
     }
 
+    void init() {
+        view.init();
+    }
+
     void setClicked(int minutes, int seconds) {
         clockService.set(minutes, seconds);
     }

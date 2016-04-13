@@ -14,8 +14,8 @@ import java.util.List;
 public class SystemLocaleProviderFactory implements LocaleProviderFactory {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(SystemLocaleProviderFactory.class);
-    private final static String DEFAULT_LOCALE = "en";
-    private final static List<String> LOCALES = Lists.newArrayList(DEFAULT_LOCALE, "pl");
+    final static String DEFAULT_LOCALE = "en";
+    final static List<String> LOCALES = Lists.newArrayList(DEFAULT_LOCALE, "pl");
 
 
     private final LocaleProvider localeProvider;

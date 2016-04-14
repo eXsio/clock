@@ -38,6 +38,9 @@ class ControlsFramePresenter {
     private final static Logger LOGGER = LoggerFactory.getLogger(ControlsFramePresenter.class);
     static final String ISSUES_URL = "https://github.com/eXsio/clock/issues";
     static final String ABOUT_URL = "https://github.com/eXsio/clock";
+    static final String LOOPBACK_NAME = "loopback";
+    static final String LOOPBACK_IP = "127.0.0.1";
+    static final Map<String, String> LOOPBACK = Collections.singletonMap(LOOPBACK_NAME, LOOPBACK_IP);
 
     private final ControlsFrameView view;
 
@@ -106,6 +109,9 @@ class ControlsFramePresenter {
             }
         } catch (SocketException e) {
             LOGGER.error("error while trying to get network interfaces details: {}", e.getMessage(), e);
+        }
+        if (map.isEmpty()) {
+            map.putAll(LOOPBACK);
         }
         return map;
     }

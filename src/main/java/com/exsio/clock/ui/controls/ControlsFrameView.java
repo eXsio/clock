@@ -45,18 +45,23 @@ class ControlsFrameView extends ScreenAwareFrame {
     private JMenu getWWWMenu() {
         JMenu menu = new JMenu(t("menu.www"));
         Map<String, String> networkInterfacesMap = presenter.getNetworkInterfacesMap();
-        for (Map.Entry<String, String> networkInterfaceItem : networkInterfacesMap.entrySet()) {
-            menu.add(getWWWIntefaceMenu(networkInterfaceItem));
+        if(networkInterfacesMap.size() > 1) {
+            for (Map.Entry<String, String> networkInterfaceItem : networkInterfacesMap.entrySet()) {
+                JMenu ifaceMenu = new JMenu(networkInterfaceItem.getKey());
+                fillNetworkInterfacesMenu(ifaceMenu, networkInterfaceItem);
+                menu.add(ifaceMenu);
+            }
+        } else {
+            for (Map.Entry<String, String> networkInterfaceItem : networkInterfacesMap.entrySet()) {
+                fillNetworkInterfacesMenu(menu, networkInterfaceItem);
+            }
         }
-
         return menu;
     }
 
-    private JMenu getWWWIntefaceMenu(Map.Entry<String, String> networkInterfaceItem) {
-        JMenu ifaceMenu = new JMenu(networkInterfaceItem.getKey());
-        ifaceMenu.add(getOpenClockItem(networkInterfaceItem.getValue()));
-        ifaceMenu.add(getOpenClockControlPanelItem(networkInterfaceItem.getValue()));
-        return ifaceMenu;
+    private void fillNetworkInterfacesMenu(JMenu menu, Map.Entry<String, String> networkInterfaceItem) {
+        menu.add(getOpenClockItem(networkInterfaceItem.getValue()));
+        menu.add(getOpenClockControlPanelItem(networkInterfaceItem.getValue()));
     }
 
     private JMenu getAboutMenu() {

@@ -106,6 +106,23 @@ public class ControlsFramePresenterTest {
     }
 
     @Test
+    public void test_getNetworkInterfacesMap_empty() {
+        underTest = new ControlsFramePresenter(view, formPresenter) {
+
+            @Override
+            Collection<NetworkInterface> getNetworkInterfaces() throws SocketException {
+                return Lists.newArrayList();
+            }
+        };
+
+        Map<String, String> result = underTest.getNetworkInterfacesMap();
+        assertNotNull(result);
+        assertEquals(result.size(), 1);
+        assertTrue(result.containsKey(ControlsFramePresenter.LOOPBACK_NAME));
+        assertEquals(result.get(ControlsFramePresenter.LOOPBACK_NAME), ControlsFramePresenter.LOOPBACK_IP);
+    }
+
+    @Test
     public void test_onApplicationStart() throws InterruptedException {
         underTest.onApplicationStart(applicationReadyEvent);
         Thread.sleep(1000);

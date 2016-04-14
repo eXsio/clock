@@ -5,6 +5,13 @@
 
 Clock is a simple Java application that serves as a coutndown clock for presenters. It can be controlled from a web page or desktop gui (Depending on execution mode and preferences) and displayed remotely on many devices through a webpage.
 
+## Download
+
+You can download the latest builds here:
+- [Executable JAR] (https://drive.google.com/open?id=0B2R7xCap0M7uMm9LTUJ5MTJOc1U)
+- [Deployable WAR] (https://drive.google.com/open?id=0B2R7xCap0M7uWVlISllVR1NlN0U)
+
+
 ## Running
 This application can be executed in 2 modes:
 - webapp

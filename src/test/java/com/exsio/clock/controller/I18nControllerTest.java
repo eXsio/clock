@@ -11,7 +11,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 public class I18nControllerTest {
 
-    private final static String LANG = "EN";
+    private final static String LANG = "en";
 
     i18nController underTest;
 

@@ -1,6 +1,7 @@
 package com.exsio.clock.service.i18n;
 
 
+import com.exsio.clock.util.LocaleValidator;
 import org.testng.annotations.Test;
 
 import java.util.Locale;
@@ -15,22 +16,22 @@ public class SystemLocaleProviderFactoryTest {
     @Test
     public void test_getLocaleProvider_default() {
 
-        System.setProperty("user.language", SystemLocaleProviderFactory.DEFAULT_LOCALE);
+        System.setProperty("user.language", LocaleValidator.DEFAULT_LOCALE);
         underTest = new SystemLocaleProviderFactory();
 
         assertNotNull(underTest.getLocaleProvider());
-        assertEquals(underTest.getLocaleProvider().getLocale(), new Locale(SystemLocaleProviderFactory.DEFAULT_LOCALE));
+        assertEquals(underTest.getLocaleProvider().getLocale(), new Locale(LocaleValidator.DEFAULT_LOCALE));
         assertEquals(underTest.getLocaleProvider(), underTest.getLocaleProvider());
     }
 
     @Test
     public void test_getLocaleProvider_existing() {
 
-        System.setProperty("user.language", SystemLocaleProviderFactory.LOCALES.get(1));
+        System.setProperty("user.language", LocaleValidator.SUPPORTED_LOCALES.get(1));
         underTest = new SystemLocaleProviderFactory();
 
         assertNotNull(underTest.getLocaleProvider());
-        assertEquals(underTest.getLocaleProvider().getLocale(), new Locale(SystemLocaleProviderFactory.LOCALES.get(1)));
+        assertEquals(underTest.getLocaleProvider().getLocale(), new Locale(LocaleValidator.SUPPORTED_LOCALES.get(1)));
     }
 
     @Test
@@ -40,6 +41,6 @@ public class SystemLocaleProviderFactoryTest {
         underTest = new SystemLocaleProviderFactory();
 
         assertNotNull(underTest.getLocaleProvider());
-        assertEquals(underTest.getLocaleProvider().getLocale(), new Locale(SystemLocaleProviderFactory.DEFAULT_LOCALE));
+        assertEquals(underTest.getLocaleProvider().getLocale(), new Locale(LocaleValidator.DEFAULT_LOCALE));
     }
 }

@@ -1,5 +1,6 @@
 package com.exsio.clock.controller;
 
+import com.exsio.clock.util.LocaleValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,6 @@ public class i18nController {
 
     @RequestMapping("/{lang}")
     public Map<String, String> getTranslations(@PathVariable("lang") String lang) {
-        return translator.getTranslations(lang);
+        return translator.getTranslations(LocaleValidator.validate(lang));
     }
 }

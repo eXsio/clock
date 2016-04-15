@@ -106,8 +106,14 @@
         setStarted(timeInfo.clockStarted);
         if (timeInfo.alert) {
             $("#counter").addClass("alert-counter");
+            if($("#boundary-wrapper").hasClass("alert-counter")) {
+                $("#boundary-wrapper").removeClass("alert-counter");
+            } else {
+                $("#boundary-wrapper").addClass("alert-counter");
+            }
         } else {
             $("#counter").removeClass("alert-counter");
+            $("#boundary-wrapper").removeClass("alert-counter");
         }
     };
 
@@ -147,6 +153,7 @@
             $("#startstop").html( translations !=null ? translations["controls.form.stop"] : 'controls.form.stop');
         } else {
             lastMessageTimestamp = null;
+            $("#boundary-wrapper").removeClass("alert-counter");
             $("#startstop").html( translations != null ? translations["controls.form.start"] : 'controls.form.start');
         }
     };

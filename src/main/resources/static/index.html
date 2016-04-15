@@ -12,10 +12,20 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <style>
+
+        .container {
+            width: 100%!important;
+        }
+        
+        #main-list {
+            margin: 0;
+            padding: 0;
+        }
+
         #counter {
             color: #31708f;
             font-size: 60pt;
-            font-size: 18vw;
+            font-size: 27vw;
             text-align: center;
             margin:auto;
         }
@@ -23,7 +33,7 @@
         #boundary-wrapper {
             color: #31708f;
             font-size: 18pt;
-            font-size: 4vw;
+            font-size: 6vw;
             text-align: center;
             margin:auto;
         }
@@ -54,7 +64,6 @@
 </head>
 <body>
 <div class="container">
-    <div class="alert alert-info translatable" role="alert">controls.title</div>
     <div class="alert alert-warning no-connection translatable" role="alert">controls.message.no_connection</div>
 
     <ul id="main-list" class="list-group">
@@ -65,9 +74,6 @@
             <div id="boundary-wrapper"><span class="translatable">controls.time_limit</span><span id="boundary">00:00</span></div>
         </li>
     </ul>
-
-    <hr/>
-
 </div>
 
 <script type="application/javascript">

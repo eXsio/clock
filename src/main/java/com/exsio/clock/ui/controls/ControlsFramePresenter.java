@@ -1,5 +1,6 @@
 package com.exsio.clock.ui.controls;
 
+import com.exsio.clock.event.TimeChangedEvent;
 import com.exsio.clock.ui.UI;
 import com.exsio.clock.ui.loading.Loading;
 import com.exsio.clock.util.SpringProfile;
@@ -75,6 +76,16 @@ class ControlsFramePresenter {
                 view.showOnScreen(0);
                 view.setVisible(true);
                 LOGGER.info("Application UI started successfully");
+            }
+        });
+    }
+
+    @EventListener(TimeChangedEvent.class)
+    public void onTimeChanged(TimeChangedEvent event) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                view.pack();
             }
         });
     }

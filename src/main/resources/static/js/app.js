@@ -101,9 +101,23 @@
     };
 
     var updateState = function (timeInfo) {
+
         $("#counter").html(timeInfo.time);
         $("#boundary").html(timeInfo.boundary);
+
+        if(timeInfo.time.length == 6) {
+            $("#counter").css('font-size', '31vw');
+        } else {
+            $("#counter").css('font-size', '37vw');
+        }
+        if(timeInfo.boundary.length == 6) {
+            $("#boundary-wrapper").css('font-size', '9vw');
+        } else {
+            $("#boundary-wrapper").css('font-size', '10vw');
+        }
+
         setStarted(timeInfo.clockStarted);
+
         if (timeInfo.alert) {
             $("#counter").addClass("alert-counter");
             if($("#boundary-wrapper").hasClass("alert-counter")) {
@@ -118,7 +132,7 @@
     };
 
     var fillMinutes = function () {
-        for (var i = 0; i < 100; i++) {
+        for (var i = 0; i < 1000; i++) {
             $('#minutes').append($('<option>', {
                 value: i,
                 text: formatWithLeadingZero(i)

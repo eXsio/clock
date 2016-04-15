@@ -4,6 +4,8 @@ import java.util.Objects;
 
 public class Time implements Comparable<Time> {
 
+    public final static int LIMIT = 1000;
+
     private final static String TIME_SEPARATOR = ":";
     private final static String ZERO = "0";
 
@@ -23,6 +25,10 @@ public class Time implements Comparable<Time> {
         seconds++;
         if (seconds >= 60) {
             minutes++;
+            seconds = 0;
+        }
+        if(minutes == LIMIT) {
+            minutes = 0;
             seconds = 0;
         }
     }

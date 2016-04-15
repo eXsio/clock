@@ -97,7 +97,7 @@ class ControlsFormView extends JPanel {
     }
 
     private void setupMinutes() {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < Time.LIMIT; i++) {
             minutes.addItem(i);
         }
     }

@@ -27,12 +27,13 @@
         }
 
         #boundary-wrapper {
-            color: #31708f;
+            color: #5a8ca5;
             font-size: 20pt;
             font-size: 6vw!important;
             text-align: center;
             line-height: 0.95;
             margin:auto;
+            text-transform: uppercase;
         }
 
         .alert-counter {
@@ -40,15 +41,11 @@
         }
 
         .time {
-            width: 45px;
+            width: 50px;
         }
 
         .no-connection {
             text-transform: uppercase;
-        }
-
-        #boundary-wrapper {
-            text-transform: uppercase
         }
 
     </style>
@@ -71,6 +68,7 @@
             <div class="form-group">
                 <div class="input-group">
                     <label for="minutes" class="translatable">controls.form.set_time</label>
+                    &nbsp;
                     <select id="minutes" class="time" name="minutes"></select>
                     :
                     <select id="seconds" class="time" name="seconds"></select>

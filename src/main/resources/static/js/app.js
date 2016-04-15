@@ -104,36 +104,41 @@
 
         $("#counter").html(timeInfo.time);
         $("#boundary").html(timeInfo.boundary);
-        if(window.innerHeight > window.innerWidth){
-            if(timeInfo.time.length == 6) {
+        adjustFontSizes(timeInfo);
+        setStarted(timeInfo.clockStarted);
+        setAlertClasses(timeInfo);
+    };
+
+    var adjustFontSizes = function(timeInfo) {
+        if (window.innerHeight > window.innerWidth) {
+            if (timeInfo.time.length == 6) {
                 $("#counter").css('font-size', '24vw');
             } else {
                 $("#counter").css('font-size', '27vw');
             }
-            if(timeInfo.boundary.length == 6) {
+            if (timeInfo.boundary.length == 6) {
                 $("#boundary-wrapper").css('font-size', '5vw');
             } else {
                 $("#boundary-wrapper").css('font-size', '6vw');
             }
         } else {
-            if(timeInfo.time.length == 6) {
+            if (timeInfo.time.length == 6) {
                 $("#counter").css('font-size', '31vw');
             } else {
                 $("#counter").css('font-size', '37vw');
             }
-            if(timeInfo.boundary.length == 6) {
+            if (timeInfo.boundary.length == 6) {
                 $("#boundary-wrapper").css('font-size', '9vw');
             } else {
                 $("#boundary-wrapper").css('font-size', '10vw');
             }
         }
+    };
 
-
-        setStarted(timeInfo.clockStarted);
-
+    var setAlertClasses = function(timeInfo) {
         if (timeInfo.alert) {
             $("#counter").addClass("alert-counter");
-            if($("#boundary-wrapper").hasClass("alert-counter")) {
+            if ($("#boundary-wrapper").hasClass("alert-counter")) {
                 $("#boundary-wrapper").removeClass("alert-counter");
             } else {
                 $("#boundary-wrapper").addClass("alert-counter");

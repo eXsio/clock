@@ -123,7 +123,7 @@
             }
         } else {
             if (timeInfo.time.length == 6) {
-                $("#counter").css('font-size', '31vw');
+                $("#counter").css('font-size', '30vw');
             } else {
                 $("#counter").css('font-size', '37vw');
             }

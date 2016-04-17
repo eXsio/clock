@@ -17,11 +17,11 @@ public class TimeTest {
     @Test
     public void test_forward() {
         Time time = new Time(0,58);
-        time.forward();
+        time.forward(Time.SECOND);
         assertEquals(time.toString(),"00:59");
-        time.forward();
+        time.forward(Time.SECOND);
         assertEquals(time.toString(),"01:00");
-        time.forward();
+        time.forward(Time.SECOND);
         assertEquals(time.toString(),"01:01");
     }
 
@@ -40,11 +40,11 @@ public class TimeTest {
     public void test_fullCircle() {
 
         Time time = new Time(999,58);
-        time.forward();
+        time.forward(Time.SECOND);
         assertEquals(time.toString(),"999:59");
-        time.forward();
+        time.forward(Time.SECOND);
         assertEquals(time.toString(), "00:00");
-        time.forward();
+        time.forward(Time.SECOND);
         assertEquals(time.toString(), "00:01");
     }
 }

@@ -18,7 +18,7 @@ public class ClockTest {
     public void test_stepUp() {
         Clock clock = new Clock();
         clock.setBoundary(new Time(0,2));
-        clock.tick();
+        clock.tick(Time.SECOND);
         assertEquals(clock.getTime(), "00:01");
     }
 
@@ -26,7 +26,7 @@ public class ClockTest {
     public void test_stepWithEqualBoundary() {
         Clock clock = new Clock();
         clock.setBoundary(new Time(0,1));
-        clock.tick();
+        clock.tick(Time.SECOND);
         assertEquals(clock.getTime(), "00:01");
         assertFalse(clock.isAlert());
     }
@@ -35,8 +35,8 @@ public class ClockTest {
     public void test_stepAboveBoundary() {
         Clock clock = new Clock();
         clock.setBoundary(new Time(0,1));
-        clock.tick();
-        clock.tick();
+        clock.tick(Time.SECOND);
+        clock.tick(Time.SECOND);
 
         assertEquals(clock.getTime(), "00:02");
         assertTrue(clock.isAlert());

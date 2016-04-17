@@ -14,8 +14,8 @@ public class Clock {
         return alert;
     }
 
-    public void tick() {
-        time.forward();
+    public void tick(long miliseconds) {
+        time.forward(miliseconds);
         alert = time.compareTo(boundary) == 1;
     }
 

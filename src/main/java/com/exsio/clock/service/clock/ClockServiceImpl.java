@@ -24,6 +24,7 @@ class ClockServiceImpl implements ClockService {
 
     private final Clock clock = new Clock();
     private Time boundary;
+    private long lastUpdateMilis;
 
     private volatile boolean started = false;
 
@@ -43,11 +44,13 @@ class ClockServiceImpl implements ClockService {
     @Override
     public void reset() {
         clock.reset();
+        lastUpdateMilis = System.currentTimeMillis();
         updateTimeInfo();
     }
 
     @Override
     public void start() {
+        lastUpdateMilis = System.currentTimeMillis();
         started = true;
         executor.execute(new Runnable() {
             @Override
@@ -55,7 +58,11 @@ class ClockServiceImpl implements ClockService {
                 while (started) {
                     try {
                         Thread.sleep(SECOND);
-                        clock.tick();
+                        if(started) {
+                            long currentMilis = System.currentTimeMillis();
+                            clock.tick(currentMilis - lastUpdateMilis);
+                            lastUpdateMilis = currentMilis;
+                        }
                         updateTimeInfo();
                     } catch (InterruptedException e) {
                         LOGGER.error("{}", e.getMessage(), e);
@@ -81,4 +88,6 @@ class ClockServiceImpl implements ClockService {
     public TimeInfo getClockState() {
         return new TimeInfo(clock.getTime(), boundary.toString(), clock.isAlert(), started);
     }
+
+
 }

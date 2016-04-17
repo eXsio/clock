@@ -10,34 +10,33 @@ public class Time implements Comparable<Time> {
     public final static int SECOND = 1000;
     public final static int MINUTE = 60 * SECOND;
 
-    private final static String TIME_SEPARATOR = ":";
     private final static String ZERO = "0";
 
     private final static SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
 
-    private long miliseconds;
+    private long milliseconds;
 
     public Time() {
         this(0, 0);
     }
 
     public Time(int minutes, int seconds) {
-        this.miliseconds =
+        this.milliseconds =
                 TimeUnit.MINUTES.toMillis(minutes) + TimeUnit.SECONDS.toMillis(seconds);
     }
 
-    void forward(long miliseconds) {
-        this.miliseconds +=miliseconds;
-        if(this.miliseconds == LIMIT * MINUTE) {
-            this.miliseconds = 0;
+    void forward(long milliseconds) {
+        this.milliseconds += milliseconds;
+        if(this.milliseconds == LIMIT * MINUTE) {
+            this.milliseconds = 0;
         }
     }
 
     @Override
     public String toString() {
         return String.format("%s:%s",
-                formatWithLeadingZero(TimeUnit.MILLISECONDS.toMinutes(miliseconds)),
-                formatWithLeadingZero(TimeUnit.MILLISECONDS.toSeconds(miliseconds) % 60));
+                formatWithLeadingZero(TimeUnit.MILLISECONDS.toMinutes(milliseconds)),
+                formatWithLeadingZero(TimeUnit.MILLISECONDS.toSeconds(milliseconds) % 60));
     }
 
     private String formatWithLeadingZero(long subject) {
@@ -46,7 +45,7 @@ public class Time implements Comparable<Time> {
 
     @Override
     public int compareTo(Time o) {
-        return new Long(miliseconds).compareTo(o.miliseconds);
+        return new Long(milliseconds).compareTo(o.milliseconds);
     }
 
     @Override
@@ -54,11 +53,11 @@ public class Time implements Comparable<Time> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Time time = (Time) o;
-        return miliseconds == time.miliseconds;
+        return milliseconds == time.milliseconds;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(miliseconds);
+        return Objects.hash(milliseconds);
     }
 }

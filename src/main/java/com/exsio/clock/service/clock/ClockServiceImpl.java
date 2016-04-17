@@ -17,7 +17,6 @@ import java.util.concurrent.Executors;
 class ClockServiceImpl implements ClockService {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ClockServiceImpl.class);
-    private final static int SECOND = 1000;
 
     private final Collection<TimeInfoPublisher> timeInfoPublishers;
     private final Executor executor = Executors.newSingleThreadExecutor();
@@ -57,12 +56,7 @@ class ClockServiceImpl implements ClockService {
             public void run() {
                 while (started) {
                     try {
-                        Thread.sleep(SECOND);
-                        if(started) {
-                            long currentMilis = System.currentTimeMillis();
-                            clock.tick(currentMilis - lastUpdateMilis);
-                            lastUpdateMilis = currentMilis;
-                        }
+                        advanceClock();
                         updateTimeInfo();
                     } catch (InterruptedException e) {
                         LOGGER.error("{}", e.getMessage(), e);
@@ -70,6 +64,15 @@ class ClockServiceImpl implements ClockService {
                 }
             }
         });
+    }
+
+    private void advanceClock() throws InterruptedException {
+        Thread.sleep(Time.SECOND);
+        if(started) {
+            long currentMilis = System.currentTimeMillis();
+            clock.tick(currentMilis - lastUpdateMilis);
+            lastUpdateMilis = currentMilis;
+        }
     }
 
     @Override

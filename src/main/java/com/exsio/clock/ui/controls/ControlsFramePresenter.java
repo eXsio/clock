@@ -3,6 +3,8 @@ package com.exsio.clock.ui.controls;
 import com.exsio.clock.event.TimeChangedEvent;
 import com.exsio.clock.ui.UI;
 import com.exsio.clock.ui.loading.Loading;
+import com.exsio.clock.ui.task.UITask;
+import com.exsio.clock.ui.task.UITaskExecutor;
 import com.exsio.clock.util.SpringProfile;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -44,26 +46,28 @@ class ControlsFramePresenter {
     static final Map<String, String> LOOPBACK = Collections.singletonMap(LOOPBACK_NAME, LOOPBACK_IP);
 
     private final ControlsFrameView view;
-
     private final ControlsFormPresenter formPresenter;
+    private final UITaskExecutor uiTaskExecutor;
 
     @Autowired
-    public ControlsFramePresenter(ControlsFormPresenter formPresenter) {
+    public ControlsFramePresenter(ControlsFormPresenter formPresenter, UITaskExecutor uiTaskExecutor) {
+        this.uiTaskExecutor = uiTaskExecutor;
         this.view = new ControlsFrameView(this);
         this.formPresenter = formPresenter;
     }
 
-    ControlsFramePresenter(ControlsFrameView view, ControlsFormPresenter formPresenter) {
+    ControlsFramePresenter(ControlsFrameView view, ControlsFormPresenter formPresenter, UITaskExecutor uiTaskExecutor) {
         this.view = view;
         this.formPresenter = formPresenter;
+        this.uiTaskExecutor = uiTaskExecutor;
     }
 
     @EventListener(ApplicationReadyEvent.class)
     public void onApplicationStart(ApplicationReadyEvent event) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
 
+        uiTaskExecutor.execute(new UITask() {
+            @Override
+            public void doInUI() {
                 view.init();
                 view.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                 view.addWindowListener(getWindowClosingListener());

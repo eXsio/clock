@@ -2,6 +2,7 @@ package com.exsio.clock.ui.controls;
 
 import com.beust.jcommander.internal.Lists;
 import com.exsio.clock.ui.UI;
+import com.exsio.clock.ui.task.TestUITaskExecutorImpl;
 import com.google.common.base.Optional;
 import com.google.common.net.InetAddresses;
 import org.mockito.Mock;
@@ -77,7 +78,7 @@ public class ControlsFramePresenterTest {
 
         UI.setDesktop(Optional.of(desktop));
 
-        underTest = new ControlsFramePresenter(view, formPresenter) {
+        underTest = new ControlsFramePresenter(view, formPresenter, new TestUITaskExecutorImpl()) {
 
             @Override
             Collection<NetworkInterface> getNetworkInterfaces() throws SocketException {
@@ -107,7 +108,7 @@ public class ControlsFramePresenterTest {
 
     @Test
     public void test_getNetworkInterfacesMap_empty() {
-        underTest = new ControlsFramePresenter(view, formPresenter) {
+        underTest = new ControlsFramePresenter(view, formPresenter, new TestUITaskExecutorImpl()) {
 
             @Override
             Collection<NetworkInterface> getNetworkInterfaces() throws SocketException {

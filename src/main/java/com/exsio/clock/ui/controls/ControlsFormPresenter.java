@@ -3,6 +3,7 @@ package com.exsio.clock.ui.controls;
 import com.exsio.clock.event.TimeChangedEvent;
 import com.exsio.clock.model.TimeInfo;
 import com.exsio.clock.service.clock.ClockService;
+import com.exsio.clock.ui.task.UITaskExecutor;
 import com.exsio.clock.util.SpringProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -25,9 +26,9 @@ class ControlsFormPresenter {
     private boolean started = false;
 
     @Autowired
-    public ControlsFormPresenter(ClockService clockService) {
+    public ControlsFormPresenter(ClockService clockService, UITaskExecutor uiTaskExecutor) {
         this.clockService = clockService;
-        this.view = new ControlsFormView(this);
+        this.view = new ControlsFormView(this, uiTaskExecutor);
     }
 
     ControlsFormPresenter(ClockService clockService, ControlsFormView view) {

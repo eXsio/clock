@@ -3,6 +3,7 @@ package com.exsio.clock.ui.controls;
 import com.exsio.clock.event.TimeChangedEvent;
 import com.exsio.clock.model.TimeInfo;
 import com.exsio.clock.service.clock.ClockService;
+import com.exsio.clock.ui.task.TestUITaskExecutorImpl;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -28,7 +29,7 @@ public class ControlsFormPresenterTest {
     @BeforeClass
     public void init() {
         MockitoAnnotations.initMocks(this);
-        view = spy(new ControlsFormView(mock(ControlsFormPresenter.class)));
+        view = spy(new ControlsFormView(mock(ControlsFormPresenter.class), new TestUITaskExecutorImpl()));
         view.init();
         underTest = new ControlsFormPresenter(clockService, view);
     }

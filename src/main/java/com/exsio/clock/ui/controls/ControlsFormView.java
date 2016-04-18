@@ -1,6 +1,8 @@
 package com.exsio.clock.ui.controls;
 
 import com.exsio.clock.model.Time;
+import com.exsio.clock.ui.task.UITask;
+import com.exsio.clock.ui.task.UITaskExecutor;
 import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.layout.FormLayout;
 import pl.exsio.jin.annotation.TranslationPrefix;
@@ -16,6 +18,7 @@ import static pl.exsio.jin.translationcontext.TranslationContext.t;
 class ControlsFormView extends JPanel {
 
     private final ControlsFormPresenter presenter;
+    private final UITaskExecutor uiTaskExecutor;
 
     private JComboBox<Integer> minutes = new JComboBox<>();
     private JComboBox<Integer> seconds = new JComboBox<>();
@@ -24,13 +27,10 @@ class ControlsFormView extends JPanel {
     private JButton reset;
     private JLabel time = new JLabel(formatTimeLabel(new Time().toString(), new Time().toString()));
 
-    ControlsFormView(ControlsFormPresenter presenter) {
+    ControlsFormView(ControlsFormPresenter presenter, UITaskExecutor uiTaskExecutor) {
         super(new BorderLayout());
         this.presenter = presenter;
-
-
-
-
+        this.uiTaskExecutor = uiTaskExecutor;
     }
 
     void init() {
@@ -49,15 +49,14 @@ class ControlsFormView extends JPanel {
     }
 
     void setTime(final String timeStr, final String boundaryStr, final Color color, boolean started) {
-        new SwingWorker() {
 
+        uiTaskExecutor.execute(new UITask() {
             @Override
-            protected Object doInBackground() throws Exception {
+            public void doInUI() {
                 time.setText(formatTimeLabel(timeStr, boundaryStr));
                 time.setForeground(color);
-                return null;
             }
-        }.execute();
+        });
         setStarted(started);
     }
 
@@ -137,18 +136,16 @@ class ControlsFormView extends JPanel {
     }
 
     void setStarted(final boolean started) {
-        new SwingWorker() {
 
+        uiTaskExecutor.execute(new UITask() {
             @Override
-            protected Object doInBackground() throws Exception {
+            public void doInUI() {
                 if (started) {
                     startStop.setText(t("stop"));
                 } else {
                     startStop.setText(t("start"));
                 }
-                return null;
             }
-        }.execute();
-
+        });
     }
 }

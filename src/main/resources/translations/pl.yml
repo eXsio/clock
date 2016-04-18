@@ -1,7 +1,7 @@
 controls:
   title: Zegar
   description: Panel sterowania zegarem
-  time_limit: "Limit czasu: "
+  time_limit: "Limit czasu "
   menu:
     www: Interfejs WWW
     clock: Otwórz zegar

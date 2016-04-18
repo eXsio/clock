@@ -1,7 +1,7 @@
 controls:
   title: Clock
   description: Clock control panel
-  time_limit: "Time limit: "
+  time_limit: "Time limit "
   menu:
     www: Web interface
     clock: Open clock

@@ -117,9 +117,11 @@
                 $("#counter").css('font-size', '27vw');
             }
             if (timeInfo.boundary.length == 6) {
-                $("#boundary-wrapper").css('font-size', '5vw');
+                $("#boundary-desc").css('font-size', '3vw');
+                $("#boundary").css('font-size', '5vw');
             } else {
-                $("#boundary-wrapper").css('font-size', '6vw');
+                $("#boundary-desc").css('font-size', '4vw');
+                $("#boundary").css('font-size', '6vw');
             }
         } else {
             if (timeInfo.time.length == 6) {
@@ -128,9 +130,11 @@
                 $("#counter").css('font-size', '37vw');
             }
             if (timeInfo.boundary.length == 6) {
-                $("#boundary-wrapper").css('font-size', '9vw');
+                $("#boundary-desc").css('font-size', '7vw');
+                $("#boundary").css('font-size', '9vw');
             } else {
-                $("#boundary-wrapper").css('font-size', '10vw');
+                $("#boundary-desc").css('font-size', '8vw');
+                $("#boundary").css('font-size', '10vw');
             }
         }
     };

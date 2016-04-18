@@ -8,11 +8,10 @@ public class Time implements Comparable<Time> {
 
     public final static int LIMIT = 1000;
     public final static int SECOND = 1000;
-    public final static int MINUTE = 60 * SECOND;
+    public final static int SECONDS_IN_MINUTE = 60;
+    public final static int MINUTE = SECONDS_IN_MINUTE * SECOND;
 
     private final static String ZERO = "0";
-
-    private final static SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
 
     private long milliseconds;
 
@@ -21,13 +20,12 @@ public class Time implements Comparable<Time> {
     }
 
     public Time(int minutes, int seconds) {
-        this.milliseconds =
-                TimeUnit.MINUTES.toMillis(minutes) + TimeUnit.SECONDS.toMillis(seconds);
+        this.milliseconds = TimeUnit.MINUTES.toMillis(minutes) + TimeUnit.SECONDS.toMillis(seconds);
     }
 
     void forward(long milliseconds) {
         this.milliseconds += milliseconds;
-        if(this.milliseconds == LIMIT * MINUTE) {
+        if (this.milliseconds == LIMIT * MINUTE) {
             this.milliseconds = 0;
         }
     }
@@ -36,7 +34,7 @@ public class Time implements Comparable<Time> {
     public String toString() {
         return String.format("%s:%s",
                 formatWithLeadingZero(TimeUnit.MILLISECONDS.toMinutes(milliseconds)),
-                formatWithLeadingZero(TimeUnit.MILLISECONDS.toSeconds(milliseconds) % 60));
+                formatWithLeadingZero(TimeUnit.MILLISECONDS.toSeconds(milliseconds) % SECONDS_IN_MINUTE));
     }
 
     private String formatWithLeadingZero(long subject) {

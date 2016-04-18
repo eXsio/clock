@@ -37,7 +37,7 @@ When running as a standalone application, aside of the above Webapp functionalit
 
 ## i18n
 
-Internationalization is achieved using one of my other libraries - JIN. The application is translated into the following languages:
+Internationalization is achieved using one of my other libraries - [JIN](https://github.com/eXsio/jin). The application is translated into the following languages:
 
 - English (default)
 - Polish

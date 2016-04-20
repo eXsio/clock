@@ -25,7 +25,7 @@ public class Time implements Comparable<Time> {
 
     void forward(long milliseconds) {
         this.milliseconds += milliseconds;
-        if (this.milliseconds == LIMIT * MINUTE) {
+        if (this.milliseconds >= LIMIT * MINUTE) {
             this.milliseconds = 0;
         }
     }

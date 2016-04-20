@@ -47,4 +47,14 @@ public class TimeTest {
         time.forward(Time.SECOND);
         assertEquals(time.toString(), "00:01");
     }
+
+    @Test
+    public void test_overflow() {
+
+        Time time = new Time(1000,58);
+        time.forward(Time.SECOND);
+        assertEquals(time.toString(), "00:00");
+        time.forward(Time.SECOND);
+        assertEquals(time.toString(), "00:01");
+    }
 }

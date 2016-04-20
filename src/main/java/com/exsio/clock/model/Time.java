@@ -1,6 +1,5 @@
 package com.exsio.clock.model;
 
-import java.text.SimpleDateFormat;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -10,8 +9,6 @@ public class Time implements Comparable<Time> {
     public final static int SECOND = 1000;
     public final static int SECONDS_IN_MINUTE = 60;
     public final static int MINUTE = SECONDS_IN_MINUTE * SECOND;
-
-    private final static String ZERO = "0";
 
     private long milliseconds;
 
@@ -32,13 +29,9 @@ public class Time implements Comparable<Time> {
 
     @Override
     public String toString() {
-        return String.format("%s:%s",
-                formatWithLeadingZero(TimeUnit.MILLISECONDS.toMinutes(milliseconds)),
-                formatWithLeadingZero(TimeUnit.MILLISECONDS.toSeconds(milliseconds) % SECONDS_IN_MINUTE));
-    }
-
-    private String formatWithLeadingZero(long subject) {
-        return subject > 9 ? Long.toString(subject) : ZERO + Long.toString(subject);
+        return String.format("%02d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes(milliseconds),
+                TimeUnit.MILLISECONDS.toSeconds(milliseconds) % SECONDS_IN_MINUTE);
     }
 
     @Override

@@ -206,12 +206,12 @@
 
 
     var set = function () {
-        $.when($.ajax({
+        $.ajax({
             url: getUrl("/clock/api/set/{minutes}/{seconds}")
                 .replace("{minutes}", $("#minutes").val())
                 .replace("{seconds}", $("#seconds").val())
             , jsonp: "callback", dataType: "jsonp"
-        })).then(function(data) {console.info(data)});
+        });
     };
 
     var translate = function () {

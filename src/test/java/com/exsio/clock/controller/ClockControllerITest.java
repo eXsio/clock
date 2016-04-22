@@ -61,7 +61,7 @@ public class ClockControllerITest extends AbstractIntegrationTest {
         jsonpResult = gson.fromJson(respBody, JsonpResult.class);
         assertEquals(jsonpResult, JsonpResult.success());
 
-        Thread.sleep(2000);
+        Thread.sleep(3000);
          timeInfo = getTimeInfo();
 
         assertEquals(timeInfo.getBoundary(), "00:01");

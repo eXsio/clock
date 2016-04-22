@@ -1,6 +1,7 @@
 package com.exsio.clock.configuration;
 
 import com.beust.jcommander.internal.Lists;
+import com.exsio.clock.AbstractDisplayAwareTest;
 import com.exsio.clock.configuration.ApplicationConfiguration;
 import com.exsio.clock.configuration.support.AtmosphereArgumentResolver;
 import org.atmosphere.cpr.AtmosphereConfig;
@@ -30,7 +31,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
-public class ApplicationConfigurationTest {
+public class ApplicationConfigurationTest extends AbstractDisplayAwareTest {
 
     ApplicationConfiguration underTest = new ApplicationConfiguration();
 

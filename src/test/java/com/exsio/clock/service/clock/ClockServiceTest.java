@@ -2,6 +2,7 @@ package com.exsio.clock.service.clock;
 
 
 import com.beust.jcommander.internal.Lists;
+import com.exsio.clock.AbstractDisplayAwareTest;
 import com.exsio.clock.model.TimeInfo;
 import com.exsio.clock.service.publisher.TimeInfoPublisher;
 import com.google.common.base.Optional;
@@ -12,7 +13,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 import static org.testng.AssertJUnit.assertTrue;
 
-public class ClockServiceTest {
+public class ClockServiceTest extends AbstractDisplayAwareTest {
 
     ClockService underTest;
     Optional<TimeInfo> time = Optional.absent();

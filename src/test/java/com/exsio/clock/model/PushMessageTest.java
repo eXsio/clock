@@ -1,9 +1,10 @@
 package com.exsio.clock.model;
 
+import com.exsio.clock.AbstractDisplayAwareTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class PushMessageTest {
+public class PushMessageTest extends AbstractDisplayAwareTest {
 
     private final static String TEST_OBJECT = "TEST_OBJECT";
 

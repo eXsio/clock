@@ -1,5 +1,6 @@
 package com.exsio.clock.controller;
 
+import com.exsio.clock.AbstractDisplayAwareTest;
 import com.exsio.clock.service.clock.ClockService;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -11,7 +12,7 @@ import org.testng.annotations.Test;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-public class ClockControllerTest {
+public class ClockControllerTest extends AbstractDisplayAwareTest {
 
     private ClockController underTest;
 

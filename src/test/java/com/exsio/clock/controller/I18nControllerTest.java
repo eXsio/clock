@@ -1,5 +1,6 @@
 package com.exsio.clock.controller;
 
+import com.exsio.clock.AbstractDisplayAwareTest;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeClass;
@@ -9,7 +10,7 @@ import pl.exsio.jin.translator.Translator;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-public class I18nControllerTest {
+public class I18nControllerTest extends AbstractDisplayAwareTest {
 
     private final static String LANG = "en";
 

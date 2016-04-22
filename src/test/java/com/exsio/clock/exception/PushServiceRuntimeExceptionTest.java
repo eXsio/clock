@@ -1,9 +1,10 @@
 package com.exsio.clock.exception;
 
+import com.exsio.clock.AbstractDisplayAwareTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class PushServiceRuntimeExceptionTest {
+public class PushServiceRuntimeExceptionTest extends AbstractDisplayAwareTest {
 
     private PushServiceRuntimeException underTest;
 

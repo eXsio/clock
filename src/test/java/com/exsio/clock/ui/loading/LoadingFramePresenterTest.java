@@ -1,5 +1,6 @@
 package com.exsio.clock.ui.loading;
 
+import com.exsio.clock.AbstractDisplayAwareTest;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeMethod;
@@ -8,7 +9,7 @@ import org.testng.annotations.Test;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-public class LoadingFramePresenterTest {
+public class LoadingFramePresenterTest extends AbstractDisplayAwareTest {
 
     private LoadingFramePresenter underTest;
 

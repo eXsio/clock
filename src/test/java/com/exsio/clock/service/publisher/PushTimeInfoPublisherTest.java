@@ -1,6 +1,7 @@
 package com.exsio.clock.service.publisher;
 
 
+import com.exsio.clock.AbstractDisplayAwareTest;
 import com.exsio.clock.model.PushMessage;
 import com.exsio.clock.model.TimeInfo;
 import com.exsio.clock.service.push.PushService;
@@ -15,7 +16,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.testng.Assert.assertEquals;
 
-public class PushTimeInfoPublisherTest {
+public class PushTimeInfoPublisherTest extends AbstractDisplayAwareTest {
 
     @Mock
     PushService pushService;

@@ -1,5 +1,6 @@
 package com.exsio.clock.configuration.support;
 
+import com.exsio.clock.AbstractDisplayAwareTest;
 import org.atmosphere.cpr.AtmosphereResource;
 import org.atmosphere.cpr.FrameworkConfig;
 import org.atmosphere.cpr.Meteor;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import static org.mockito.Mockito.when;
 
-public class AtmoshpereArgumentResolverTest {
+public class AtmoshpereArgumentResolverTest extends AbstractDisplayAwareTest {
 
     AtmosphereArgumentResolver underTest = new AtmosphereArgumentResolver();
 

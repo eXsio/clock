@@ -1,6 +1,7 @@
 package com.exsio.clock.configuration;
 
 
+import com.exsio.clock.AbstractDisplayAwareTest;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeClass;
@@ -14,7 +15,7 @@ import pl.exsio.jin.translator.Translator;
 import static org.testng.AssertJUnit.assertNotNull;
 import static org.testng.AssertJUnit.assertTrue;
 
-public class i18nConfigurationTest {
+public class i18nConfigurationTest extends AbstractDisplayAwareTest {
 
     private i18nConfiguration underTest = new i18nConfiguration();
 

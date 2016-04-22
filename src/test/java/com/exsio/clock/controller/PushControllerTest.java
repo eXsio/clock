@@ -1,6 +1,7 @@
 package com.exsio.clock.controller;
 
 
+import com.exsio.clock.AbstractDisplayAwareTest;
 import com.exsio.clock.exception.PushServiceRuntimeException;
 import com.exsio.clock.service.push.PushService;
 import org.atmosphere.cpr.AtmosphereResource;
@@ -18,7 +19,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class PushControllerTest {
+public class PushControllerTest extends AbstractDisplayAwareTest {
 
     private final static long MAX_RETRIES = 3L;
 

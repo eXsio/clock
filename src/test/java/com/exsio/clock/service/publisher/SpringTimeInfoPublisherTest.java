@@ -1,6 +1,7 @@
 package com.exsio.clock.service.publisher;
 
 
+import com.exsio.clock.AbstractDisplayAwareTest;
 import com.exsio.clock.event.TimeChangedEvent;
 import com.exsio.clock.model.TimeInfo;
 import org.mockito.ArgumentCaptor;
@@ -14,7 +15,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.testng.Assert.assertEquals;
 
-public class SpringTimeInfoPublisherTest {
+public class SpringTimeInfoPublisherTest extends AbstractDisplayAwareTest {
 
     @Mock
     ApplicationEventPublisher eventPublisher;

@@ -29,4 +29,8 @@ public abstract class Loading {
             throw new IllegalStateException("Loading screen has already been disposed");
         }
     }
+
+    public static void setDisposed(boolean disposed) {
+        Loading.disposed = disposed;
+    }
 }

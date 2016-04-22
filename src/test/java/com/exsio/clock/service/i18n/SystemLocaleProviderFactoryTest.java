@@ -1,6 +1,7 @@
 package com.exsio.clock.service.i18n;
 
 
+import com.exsio.clock.AbstractDisplayAwareTest;
 import com.exsio.clock.util.LocaleValidator;
 import org.testng.annotations.Test;
 
@@ -9,7 +10,7 @@ import java.util.Locale;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
-public class SystemLocaleProviderFactoryTest {
+public class SystemLocaleProviderFactoryTest extends AbstractDisplayAwareTest {
 
     private SystemLocaleProviderFactory underTest;
 

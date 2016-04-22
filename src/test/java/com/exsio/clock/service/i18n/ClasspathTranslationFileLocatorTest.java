@@ -1,6 +1,7 @@
 package com.exsio.clock.service.i18n;
 
 
+import com.exsio.clock.AbstractDisplayAwareTest;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.context.ApplicationContext;
@@ -14,7 +15,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-public class ClasspathTranslationFileLocatorTest {
+public class ClasspathTranslationFileLocatorTest extends AbstractDisplayAwareTest {
 
     private final static String PATH = "classpath:test.txt";
 

@@ -1,7 +1,9 @@
 package com.exsio.clock.ui.controls;
 
 import com.beust.jcommander.internal.Lists;
+import com.exsio.clock.AbstractDisplayAwareTest;
 import com.exsio.clock.ui.UI;
+import com.exsio.clock.ui.loading.Loading;
 import com.exsio.clock.ui.task.TestUITaskExecutorImpl;
 import com.google.common.base.Optional;
 import com.google.common.net.InetAddresses;
@@ -35,7 +37,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
-public class ControlsFramePresenterTest {
+public class ControlsFramePresenterTest extends AbstractDisplayAwareTest {
 
     private final static String IP_ADDRESS = "192.168.0.1";
 
@@ -125,6 +127,8 @@ public class ControlsFramePresenterTest {
 
     @Test
     public void test_onApplicationStart() throws InterruptedException {
+
+        Loading.setDisposed(false);
         underTest.onApplicationStart(applicationReadyEvent);
         Thread.sleep(1000);
         verify(view).setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);

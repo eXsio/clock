@@ -1,5 +1,6 @@
 package com.exsio.clock.ui.controls;
 
+import com.exsio.clock.AbstractDisplayAwareTest;
 import com.exsio.clock.event.TimeChangedEvent;
 import com.exsio.clock.model.TimeInfo;
 import com.exsio.clock.service.clock.ClockService;
@@ -17,7 +18,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.testng.Assert.assertEquals;
 
-public class ControlsFormPresenterTest {
+public class ControlsFormPresenterTest extends AbstractDisplayAwareTest {
 
     private ControlsFormPresenter underTest;
 

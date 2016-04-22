@@ -1,13 +1,14 @@
 package com.exsio.clock.model;
 
 
+import com.exsio.clock.AbstractDisplayAwareTest;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
-public class ClockTest {
+public class ClockTest extends AbstractDisplayAwareTest {
 
     @Test
     public void test_getTime() {

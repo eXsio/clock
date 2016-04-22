@@ -1,11 +1,12 @@
 package com.exsio.clock.model;
 
 
+import com.exsio.clock.AbstractDisplayAwareTest;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-public class TimeTest {
+public class TimeTest extends AbstractDisplayAwareTest {
 
     @Test
     public void test_toString() {

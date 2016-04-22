@@ -7,9 +7,9 @@ var service = {
 var MESSAGE_DELIMITER = "||";
 
 
-service.subscribe = function (transport, channel, onMessageCallback, onOpenCallback, onErrorCallbsck) {
+service.subscribe = function (url, transport, channel, onMessageCallback, onOpenCallback, onErrorCallbsck) {
     var request = {
-        url:'/clock/api/push/subscribe/{channel}.push'.replace('{channel}', channel),
+        url: url,
         transport: transport,
         fallbackTransport: 'pong-polling',
         onOpen: function (resp) {

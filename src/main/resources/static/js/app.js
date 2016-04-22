@@ -37,7 +37,7 @@
         if (typeof urlTransport !== undefined && urlTransport != null) {
             transport = urlTransport;
         }
-        service.subscribe(transport, "clock", function (payload) {
+        service.subscribe(getUrl('/clock/api/push/subscribe/{channel}.push'.replace('{channel}', "clock")), transport, "clock", function (payload) {
                 lastMessageTimestamp = getCurrentTimestamp();
                 updateState(payload.object);
             },
@@ -53,7 +53,7 @@
     };
 
     var setInitialState = function () {
-        $.when($.ajax("/clock/api/state")).then(function (data) {
+        $.when($.ajax({url: getUrl("/clock/api/state"), jsonp: "callback", dataType: "jsonp"})).then(function (data) {
             updateState(data);
         });
     };
@@ -80,7 +80,13 @@
     };
 
     var tryToRefresh = function () {
-        $.when($.ajax({url: "/clock/api/state", timeout: 1000, async: false})).then(function (data, textStatus, jqXHR) {
+        $.when($.ajax({
+            url: getUrl("/clock/api/state"),
+            timeout: 1000,
+            async: false,
+            jsonp: "callback",
+            dataType: "jsonp"
+        })).then(function (data, textStatus, jqXHR) {
             console.log("trying to refresh the application page")
             if (textStatus != "timeout" && jqXHR.status * 1 == 200) {
                 window.location.reload();
@@ -109,7 +115,7 @@
         setAlertClasses(timeInfo);
     };
 
-    var adjustFontSizes = function(timeInfo) {
+    var adjustFontSizes = function (timeInfo) {
         if (window.innerHeight > window.innerWidth) {
             if (timeInfo.time.length == 6) {
                 $("#counter").css('font-size', '24vw');
@@ -139,7 +145,7 @@
         }
     };
 
-    var setAlertClasses = function(timeInfo) {
+    var setAlertClasses = function (timeInfo) {
         if (timeInfo.alert) {
             $("#counter").addClass("alert-counter");
             if ($("#boundary-wrapper").hasClass("alert-counter")) {
@@ -174,11 +180,11 @@
     var startStop = function () {
         if (started) {
             setStarted(false);
-            $.post("/clock/api/stop");
+            $.ajax({url: getUrl("/clock/api/stop"), jsonp: "callback", dataType: "jsonp"});
 
         } else {
             setStarted(true);
-            $.post("/clock/api/start");
+            $.ajax({url: getUrl("/clock/api/start"), jsonp: "callback", dataType: "jsonp"});
 
         }
     };
@@ -186,24 +192,26 @@
     var setStarted = function (val) {
         started = val;
         if (started) {
-            $("#startstop").html( translations !=null ? translations["controls.form.stop"] : 'controls.form.stop');
+            $("#startstop").html(translations != null ? translations["controls.form.stop"] : 'controls.form.stop');
         } else {
             lastMessageTimestamp = null;
             $("#boundary-wrapper").removeClass("alert-counter");
-            $("#startstop").html( translations != null ? translations["controls.form.start"] : 'controls.form.start');
+            $("#startstop").html(translations != null ? translations["controls.form.start"] : 'controls.form.start');
         }
     };
 
     var reset = function () {
-        $.post("/clock/api/reset");
+        $.ajax({url: getUrl("/clock/api/reset"), jsonp: "callback", dataType: "jsonp"});
     };
 
 
     var set = function () {
-        $.post("/clock/api/set/{minutes}/{seconds}"
+        $.when($.ajax({
+            url: getUrl("/clock/api/set/{minutes}/{seconds}")
                 .replace("{minutes}", $("#minutes").val())
                 .replace("{seconds}", $("#seconds").val())
-        );
+            , jsonp: "callback", dataType: "jsonp"
+        })).then(function(data) {console.info(data)});
     };
 
     var translate = function () {
@@ -212,7 +220,11 @@
         if (typeof userLanguage !== 'undefined' && userLanguage != null) {
             language = userLanguage;
         }
-        $.when($.ajax("/clock//i18n/{lang}".replace("{lang}", language))).then(function (data) {
+        $.when($.ajax({
+            url: getUrl("/clock//i18n/{lang}".replace("{lang}", language)),
+            jsonp: "callback",
+            dataType: "jsonp"
+        })).then(function (data) {
             console.info("loaded translations for language: " + language);
             translations = data;
             $(".translatable").each(function (subject) {
@@ -225,6 +237,15 @@
     var getLanguage = function () {
         var language = window.navigator.userLanguage || window.navigator.language;
         return language.split("-")[0];
+    }
+
+    var getUrl = function (path) {
+        var server = urlParam('server');
+        if (typeof server !== 'undefined' && server != null) {
+            return 'http://' + server + path;
+        } else {
+            return path;
+        }
     }
 
     var urlParam = function (name) {

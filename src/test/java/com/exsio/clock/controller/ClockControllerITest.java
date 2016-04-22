@@ -5,7 +5,6 @@ import com.exsio.clock.model.JsonpResult;
 import com.exsio.clock.model.TimeInfo;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -16,22 +15,9 @@ import static org.testng.AssertJUnit.assertNotNull;
 
 public class ClockControllerITest extends AbstractIntegrationTest {
 
-    @Test(groups = "basic")
-    public void test_getState() throws Exception {
-        MvcResult result = mockMvc.perform(get("/api/state")).andReturn();
+    protected final static String GET_STATE = "basic";
 
-        assertEquals(result.getResponse().getStatus(), 200);
-        String respBody = result.getResponse().getContentAsString();
-        assertNotNull(respBody);
-
-        TimeInfo timeInfo = gson.fromJson(respBody, TimeInfo.class);
-        assertEquals(timeInfo.getBoundary(), "00:00");
-        assertEquals(timeInfo.getTime(), "00:00");
-        assertFalse(timeInfo.isClockStarted());
-        assertFalse(timeInfo.isAlert());
-    }
-
-    @Test(dependsOnGroups = "basic")
+    @Test(dependsOnGroups = GET_STATE)
     public void test_flow() throws Exception {
 
         //SET BOUNDARY
@@ -104,9 +90,26 @@ public class ClockControllerITest extends AbstractIntegrationTest {
         assertFalse(timeInfo.isAlert());
     }
 
-    private TimeInfo getTimeInfo() throws Exception {
+    @Test(groups = GET_STATE)
+    public void test_getState() throws Exception {
+        MvcResult result = mockMvc.perform(get("/api/state")).andReturn();
+
+        assertEquals(result.getResponse().getStatus(), 200);
+        String respBody = result.getResponse().getContentAsString();
+        assertNotNull(respBody);
+
+        TimeInfo timeInfo = gson.fromJson(respBody, TimeInfo.class);
+        assertEquals(timeInfo.getBoundary(), "00:00");
+        assertEquals(timeInfo.getTime(), "00:00");
+        assertFalse(timeInfo.isClockStarted());
+        assertFalse(timeInfo.isAlert());
+    }
+
+    protected TimeInfo getTimeInfo() throws Exception {
         MvcResult result = mockMvc.perform(get("/api/state")).andReturn();
         String respBody = result.getResponse().getContentAsString();
         return gson.fromJson(respBody, TimeInfo.class);
     }
+
+
 }

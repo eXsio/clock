@@ -20,12 +20,12 @@ class ControlsFormView extends JPanel {
     private final ControlsFormPresenter presenter;
     private final UITaskExecutor uiTaskExecutor;
 
-    private JComboBox<Integer> minutes = new JComboBox<>();
-    private JComboBox<Integer> seconds = new JComboBox<>();
-    private JButton startStop;
-    private JButton set;
-    private JButton reset;
-    private JLabel time = new JLabel(formatTimeLabel(new Time().toString(), new Time().toString()));
+    protected JComboBox<Integer> minutes = new JComboBox<>();
+    protected JComboBox<Integer> seconds = new JComboBox<>();
+    protected JButton startStop;
+    protected JButton set;
+    protected JButton reset;
+    protected JLabel time = new JLabel(formatTimeLabel(new Time().toString(), new Time().toString()));
 
     ControlsFormView(ControlsFormPresenter presenter, UITaskExecutor uiTaskExecutor) {
         super(new BorderLayout());
@@ -92,6 +92,7 @@ class ControlsFormView extends JPanel {
     private void setupTime() {
         if(time.getFont() != null) {
             time.setFont(new Font(time.getFont().getName(), Font.PLAIN, 30));
+            time.setForeground(ControlsFormPresenter.NORMAL_COLOR);
         }
     }
 

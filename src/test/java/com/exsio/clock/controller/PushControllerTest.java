@@ -10,6 +10,7 @@ import org.atmosphere.cpr.BroadcasterFactory;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static org.mockito.Mockito.anyBoolean;
@@ -40,7 +41,7 @@ public class PushControllerTest extends AbstractDisplayAwareTest {
     private final static String TEST_CHANNEL = "TEST_CHANNEL";
     private final static long SUSPEND_TIME = -1L;
 
-    @BeforeClass
+    @BeforeMethod
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         when(broadcasterFactory.lookup(anyString(), anyBoolean())).thenReturn(broadcaster);

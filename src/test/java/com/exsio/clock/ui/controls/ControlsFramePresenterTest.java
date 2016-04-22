@@ -21,6 +21,7 @@ import java.lang.reflect.Field;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.net.URI;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
@@ -29,6 +30,7 @@ import java.util.Map;
 import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
@@ -161,6 +163,34 @@ public class ControlsFramePresenterTest extends AbstractDisplayAwareTest {
 
     @Test
     public void test_createIssueClicked() throws Exception {
+        underTest.createIssueClicked();
+        verify(desktop).browse(new URL(ControlsFramePresenter.ISSUES_URL).toURI());
+    }
+
+    @Test
+    public void test_openClockClicked_error() throws Exception {
+        doThrow(new RuntimeException()).when(desktop).browse(Mockito.<URI>any());
+        underTest.openClockClicked(IP_ADDRESS);
+        verify(desktop).browse(new URL("http://" + IP_ADDRESS + ":8080/clock/").toURI());
+    }
+
+    @Test
+    public void test_openClockControlPanelClicked_error() throws Exception {
+        doThrow(new RuntimeException()).when(desktop).browse(Mockito.<URI>any());
+        underTest.openClockControlPanelClicked(IP_ADDRESS);
+        verify(desktop).browse(new URL("http://" + IP_ADDRESS + ":8080/clock/manage.html").toURI());
+    }
+
+    @Test
+    public void test_aboutClicked_error() throws Exception {
+        doThrow(new RuntimeException()).when(desktop).browse(Mockito.<URI>any());
+        underTest.aboutClicked();
+        verify(desktop).browse(new URL(ControlsFramePresenter.ABOUT_URL).toURI());
+    }
+
+    @Test
+    public void test_createIssueClicked_error() throws Exception {
+        doThrow(new RuntimeException()).when(desktop).browse(Mockito.<URI>any());
         underTest.createIssueClicked();
         verify(desktop).browse(new URL(ControlsFramePresenter.ISSUES_URL).toURI());
     }

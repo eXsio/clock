@@ -19,6 +19,8 @@ class ControlsFrameView extends ScreenAwareFrame {
 
     private final ControlsFramePresenter presenter;
 
+    protected final JMenuBar menuBar = new JMenuBar();
+
     ControlsFrameView(ControlsFramePresenter presenter) {
 
         this.presenter = presenter;
@@ -34,11 +36,9 @@ class ControlsFrameView extends ScreenAwareFrame {
     }
 
     private void initMenu() {
-        JMenuBar menuBar = new JMenuBar();
 
         menuBar.add(getWWWMenu());
         menuBar.add(getAboutMenu());
-
         setJMenuBar(menuBar);
     }
 

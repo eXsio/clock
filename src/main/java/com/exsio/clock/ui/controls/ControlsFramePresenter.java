@@ -176,4 +176,8 @@ class ControlsFramePresenter {
             LOGGER.error("error while trying to open web page: {}", e.getMessage(), e);
         }
     }
+
+    public ControlsFrameView getView() {
+        return view;
+    }
 }

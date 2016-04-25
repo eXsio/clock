@@ -92,6 +92,8 @@ public class ClockControllerITest extends AbstractIntegrationTest {
 
     @Test(groups = GET_STATE)
     public void test_getState() throws Exception {
+        mockMvc.perform(get("/api/reset")).andReturn();
+        mockMvc.perform(get("/api/set/0/0")).andReturn();
         MvcResult result = mockMvc.perform(get("/api/state")).andReturn();
 
         assertEquals(result.getResponse().getStatus(), 200);

@@ -94,7 +94,7 @@ class ControlsFramePresenter {
         });
     }
 
-    private WindowAdapter getWindowClosingListener() {
+    protected WindowAdapter getWindowClosingListener() {
         return new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -105,11 +105,15 @@ class ControlsFramePresenter {
                     String ObjButtons[] = {t("common.positive"), t("common.negative")};
                     int PromptResult = JOptionPane.showOptionDialog(view, t("message.closing_confirmation"), t("message.attention"), JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
                     if (PromptResult == JOptionPane.YES_OPTION) {
-                        System.exit(0);
+                        exit();
                     }
                 }
             }
         };
+    }
+
+    protected void exit() {
+        System.exit(0);
     }
 
     Map<String, String> getNetworkInterfacesMap() {

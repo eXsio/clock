@@ -2,6 +2,7 @@ package com.exsio.clock.ui.controls;
 
 import com.beust.jcommander.internal.Lists;
 import com.exsio.clock.AbstractDisplayAwareTest;
+import com.exsio.clock.SwingDialogUtils;
 import com.exsio.clock.ui.UI;
 import com.exsio.clock.ui.loading.Loading;
 import com.exsio.clock.ui.task.TestUITaskExecutorImpl;
@@ -16,6 +17,8 @@ import org.testng.annotations.Test;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.net.InetAddress;
@@ -36,8 +39,10 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.fail;
 
 public class ControlsFramePresenterTest extends AbstractDisplayAwareTest {
 
@@ -63,8 +68,11 @@ public class ControlsFramePresenterTest extends AbstractDisplayAwareTest {
     @Mock
     ApplicationReadyEvent applicationReadyEvent;
 
+    private boolean exitCalled;
+
     @BeforeMethod
     public void init() throws Exception {
+        exitCalled = false;
         MockitoAnnotations.initMocks(this);
         initializeNetwork();
 
@@ -87,6 +95,11 @@ public class ControlsFramePresenterTest extends AbstractDisplayAwareTest {
             @Override
             Collection<NetworkInterface> getNetworkInterfaces() throws SocketException {
                 return Lists.newArrayList(nic);
+            }
+
+            @Override
+            protected void exit() {
+                exitCalled = true;
             }
         };
     }
@@ -144,6 +157,66 @@ public class ControlsFramePresenterTest extends AbstractDisplayAwareTest {
     }
 
     @Test
+    public void test_windowClosingAdapter_running() throws InterruptedException {
+        final WindowAdapter result = underTest.getWindowClosingListener();
+        when(formPresenter.isClockStarted()).thenReturn(true);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                result.windowClosing(mock(WindowEvent.class));
+            }
+        }).start();
+
+        JDialog frame = SwingDialogUtils.waitForDialog("message.attention");
+        Thread.sleep(1000);
+        if (frame != null) {
+            final JButton btn = SwingDialogUtils.getButton(frame, "OK");
+            if (btn != null) {
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        btn.doClick();
+                    }
+                });
+            }
+        }
+        Thread.sleep(1000);
+        assertFalse(exitCalled);
+
+    }
+
+    @Test
+    public void test_windowClosingAdapter_not_running_exit() throws InterruptedException {
+        final WindowAdapter result = underTest.getWindowClosingListener();
+        when(formPresenter.isClockStarted()).thenReturn(false);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                result.windowClosing(mock(WindowEvent.class));
+            }
+        }).start();
+        JDialog frame = SwingDialogUtils.waitForDialog("message.attention");
+        Thread.sleep(1000);
+        if (frame != null) {
+            final JButton btn = SwingDialogUtils.getButton(frame, "common.positive");
+            if (btn != null) {
+                SwingUtilities.invokeLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        btn.doClick();
+                    }
+                });
+            } else {
+                fail("no desired button found");
+            }
+        }
+        Thread.sleep(1000);
+        assertTrue(exitCalled);
+    }
+
+    @Test
     public void test_openClockClicked() throws Exception {
         underTest.openClockClicked(IP_ADDRESS);
         verify(desktop).browse(new URL("http://" + IP_ADDRESS + ":8080/clock/").toURI());
@@ -194,4 +267,6 @@ public class ControlsFramePresenterTest extends AbstractDisplayAwareTest {
         underTest.createIssueClicked();
         verify(desktop).browse(new URL(ControlsFramePresenter.ISSUES_URL).toURI());
     }
+
+
 }

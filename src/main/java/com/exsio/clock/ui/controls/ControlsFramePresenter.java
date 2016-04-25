@@ -1,6 +1,7 @@
 package com.exsio.clock.ui.controls;
 
 import com.exsio.clock.event.TimeChangedEvent;
+import com.exsio.clock.main.Application;
 import com.exsio.clock.ui.UI;
 import com.exsio.clock.ui.loading.Loading;
 import com.exsio.clock.ui.task.UITask;
@@ -113,7 +114,7 @@ class ControlsFramePresenter {
     }
 
     protected void exit() {
-        System.exit(0);
+        Application.exit();
     }
 
     Map<String, String> getNetworkInterfacesMap() {

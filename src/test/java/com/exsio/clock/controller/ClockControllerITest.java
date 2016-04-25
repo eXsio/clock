@@ -3,6 +3,8 @@ package com.exsio.clock.controller;
 import com.exsio.clock.AbstractIntegrationTest;
 import com.exsio.clock.model.JsonpResult;
 import com.exsio.clock.model.TimeInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.testng.annotations.Test;
@@ -15,9 +17,48 @@ import static org.testng.AssertJUnit.assertNotNull;
 
 public class ClockControllerITest extends AbstractIntegrationTest {
 
-    protected final static String GET_STATE = "basic";
+    private final static Logger LOGGER = LoggerFactory.getLogger(ClockControllerITest.class);
 
-    @Test(dependsOnGroups = GET_STATE)
+    @Test
+    public void test_getState() throws Exception {
+        mockMvc.perform(get("/api/reset")).andReturn();
+        mockMvc.perform(get("/api/set/0/0")).andReturn();
+        MvcResult result = mockMvc.perform(get("/api/state")).andReturn();
+
+        assertEquals(result.getResponse().getStatus(), 200);
+        String respBody = result.getResponse().getContentAsString();
+
+        assertNotNull(respBody);
+
+        TimeInfo timeInfo = gson.fromJson(respBody, TimeInfo.class);
+        assertEquals(timeInfo.getBoundary(), "00:00");
+        assertEquals(timeInfo.getTime(), "00:00");
+        assertFalse(timeInfo.isClockStarted());
+        assertFalse(timeInfo.isAlert());
+    }
+
+    @Test
+    public void test_set_overflow_xhr() throws Exception {
+        //SET BOUNDARY
+        MvcResult result = mockMvc.perform(get("/api/set/0/59999999").header("X-Requested-With","XMLHttpRequest")).andReturn();
+        assertEquals(result.getResponse().getStatus(), 500);
+
+        String respBody = result.getResponse().getContentAsString();
+        LOGGER.info(respBody);
+        assertNotNull(respBody);
+
+        JsonpResult jsonpResult = gson.fromJson(respBody, JsonpResult.class);
+        assertEquals(jsonpResult, JsonpResult.error());
+    }
+
+    @Test
+    public void test_set_overflow() throws Exception {
+        //SET BOUNDARY
+        MvcResult result = mockMvc.perform(get("/api/set/0/59999999")).andReturn();
+        assertEquals(result.getResponse().getStatus(), 500);
+    }
+
+    @Test
     public void test_flow() throws Exception {
 
         //SET BOUNDARY
@@ -90,22 +131,7 @@ public class ClockControllerITest extends AbstractIntegrationTest {
         assertFalse(timeInfo.isAlert());
     }
 
-    @Test(groups = GET_STATE)
-    public void test_getState() throws Exception {
-        mockMvc.perform(get("/api/reset")).andReturn();
-        mockMvc.perform(get("/api/set/0/0")).andReturn();
-        MvcResult result = mockMvc.perform(get("/api/state")).andReturn();
 
-        assertEquals(result.getResponse().getStatus(), 200);
-        String respBody = result.getResponse().getContentAsString();
-        assertNotNull(respBody);
-
-        TimeInfo timeInfo = gson.fromJson(respBody, TimeInfo.class);
-        assertEquals(timeInfo.getBoundary(), "00:00");
-        assertEquals(timeInfo.getTime(), "00:00");
-        assertFalse(timeInfo.isClockStarted());
-        assertFalse(timeInfo.isAlert());
-    }
 
     protected TimeInfo getTimeInfo() throws Exception {
         MvcResult result = mockMvc.perform(get("/api/state")).andReturn();

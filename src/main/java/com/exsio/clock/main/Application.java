@@ -31,6 +31,10 @@ public class Application extends SpringBootServletInitializer {
                 .run(args);
     }
 
+    public static void exit() {
+        System.exit(0);
+    }
+
     private static void setSystemLookAndFeel() {
         if(UI.isAvailable()) {
             try {

@@ -1,5 +1,7 @@
 package com.exsio.clock.model;
 
+import com.exsio.clock.exception.TimeOverflowRuntimeException;
+
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -17,7 +19,10 @@ public class Time implements Comparable<Time> {
     }
 
     public Time(int minutes, int seconds) {
-        this.milliseconds = TimeUnit.MINUTES.toMillis(minutes) + TimeUnit.SECONDS.toMillis(seconds);
+        milliseconds = TimeUnit.MINUTES.toMillis(minutes) + TimeUnit.SECONDS.toMillis(seconds);
+        if (milliseconds >= LIMIT * MINUTE) {
+            throw new TimeOverflowRuntimeException(formatTime(milliseconds), formatTime(LIMIT * MINUTE));
+        }
     }
 
     void forward(long milliseconds) {
@@ -29,6 +34,10 @@ public class Time implements Comparable<Time> {
 
     @Override
     public String toString() {
+        return formatTime(milliseconds);
+    }
+
+    private String formatTime(long milliseconds) {
         return String.format("%02d:%02d",
                 TimeUnit.MILLISECONDS.toMinutes(milliseconds),
                 TimeUnit.MILLISECONDS.toSeconds(milliseconds) % SECONDS_IN_MINUTE);

@@ -2,6 +2,7 @@ package com.exsio.clock.model;
 
 
 import com.exsio.clock.AbstractDisplayAwareTest;
+import com.exsio.clock.exception.TimeOverflowRuntimeException;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -49,13 +50,8 @@ public class TimeTest extends AbstractDisplayAwareTest {
         assertEquals(time.toString(), "00:01");
     }
 
-    @Test
+    @Test(expectedExceptions = TimeOverflowRuntimeException.class)
     public void test_overflow() {
-
-        Time time = new Time(1000,58);
-        time.forward(Time.SECOND);
-        assertEquals(time.toString(), "00:00");
-        time.forward(Time.SECOND);
-        assertEquals(time.toString(), "00:01");
+        new Time(1000,58);
     }
 }

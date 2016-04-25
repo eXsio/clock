@@ -11,7 +11,8 @@ public class JsonpResult implements Serializable {
     private static final long serialVersionUID = -1774943436972485830L;
 
     public enum ResultStatus {
-        SUCCESS;
+        SUCCESS,
+        ERROR;
     }
 
     private ResultStatus status;
@@ -23,6 +24,10 @@ public class JsonpResult implements Serializable {
 
     public static JsonpResult success() {
         return new JsonpResult(ResultStatus.SUCCESS);
+    }
+
+    public static JsonpResult error() {
+        return new JsonpResult(ResultStatus.ERROR);
     }
 
     @Override

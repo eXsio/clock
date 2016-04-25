@@ -31,7 +31,7 @@ public class SwingDialogUtils {
             }
             loops++;
             if(loops > 10) {
-                throw new RuntimeException("no dialog found");
+                return null;
             }
         } while (win == null);
 

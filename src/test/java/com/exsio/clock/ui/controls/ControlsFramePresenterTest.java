@@ -141,6 +141,40 @@ public class ControlsFramePresenterTest extends AbstractDisplayAwareTest {
     }
 
     @Test
+    public void test_getNetworkInterfacesMap_multiple() {
+        underTest = new ControlsFramePresenter(view, formPresenter, new TestUITaskExecutorImpl()) {
+
+            @Override
+            Collection<NetworkInterface> getNetworkInterfaces() throws SocketException {
+                return Lists.newArrayList(nic, nic);
+            }
+        };
+
+        Map<String, String> result = underTest.getNetworkInterfacesMap();
+        assertNotNull(result);
+        assertEquals(result.size(), 1);
+        assertTrue(result.containsKey(NIC_NAME));
+        assertEquals(result.get(NIC_NAME), IP_ADDRESS);
+    }
+
+    @Test
+    public void test_getNetworkInterfacesMap_error() {
+        underTest = new ControlsFramePresenter(view, formPresenter, new TestUITaskExecutorImpl()) {
+
+            @Override
+            Collection<NetworkInterface> getNetworkInterfaces() throws SocketException {
+                throw new SocketException();
+            }
+        };
+
+        Map<String, String> result = underTest.getNetworkInterfacesMap();
+        assertNotNull(result);
+        assertEquals(result.size(), 1);
+        assertTrue(result.containsKey(ControlsFramePresenter.LOOPBACK_NAME));
+        assertEquals(result.get(ControlsFramePresenter.LOOPBACK_NAME), ControlsFramePresenter.LOOPBACK_IP);
+    }
+
+    @Test
     public void test_onApplicationStart() throws InterruptedException {
 
         Loading.setDisposed(false);

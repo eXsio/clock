@@ -1,6 +1,6 @@
 package com.exsio.clock.util;
 
-public abstract class SpringProfile {
+public interface SpringProfile {
 
-    public final static String UI = "UI";
+    String UI = "UI";
 }

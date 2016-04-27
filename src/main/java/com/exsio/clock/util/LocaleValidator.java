@@ -3,14 +3,18 @@ package com.exsio.clock.util;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.exsio.jin.locale.provider.LocaleProvider;
 
 import java.util.List;
 
-public abstract class LocaleValidator {
+public final class LocaleValidator {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(LocaleValidator.class);
-    public final static String DEFAULT_LOCALE = "en";
-    public final static List<String> SUPPORTED_LOCALES = Lists.newArrayList(DEFAULT_LOCALE, "pl");
+    private static final Logger LOGGER = LoggerFactory.getLogger(LocaleValidator.class);
+    public static final String DEFAULT_LOCALE = "en";
+    public static final List<String> SUPPORTED_LOCALES = Lists.newArrayList(DEFAULT_LOCALE, "pl");
+
+    private LocaleValidator() {
+    }
 
     public static String validate(String requestedLocale) {
         String targetLocale = SUPPORTED_LOCALES.contains(requestedLocale) ? requestedLocale : DEFAULT_LOCALE;

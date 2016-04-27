@@ -41,11 +41,11 @@ public class PushController {
     }
 
     private void registerResourceWithBroadcaster(AtmosphereResource atmosphereResource, @PathVariable String channel) {
-        registerResourceForChannelAndScope(atmosphereResource, channel, 0L);
+        registerResourceForChannel(atmosphereResource, channel, 0L);
 
     }
 
-    private void registerResourceForChannelAndScope(AtmosphereResource atmosphereResource, @PathVariable String channel, Long retries) {
+    private void registerResourceForChannel(AtmosphereResource atmosphereResource, @PathVariable String channel, Long retries) {
         if (retries < maxRetries) {
             try {
                 LOGGER.debug("Registering new subscriber for channel \"{}\"", channel);
@@ -55,7 +55,7 @@ public class PushController {
                         channel, ex.getClass().getName(), ex.getMessage(), retries + 1, maxRetries);
                 LOGGER.trace("{}", ex);
                 sleep();
-                registerResourceForChannelAndScope(atmosphereResource, channel, retries + 1);
+                registerResourceForChannel(atmosphereResource, channel, retries + 1);
             }
         } else {
             throw new PushServiceRuntimeException(String.format("Couldn't register new subscriber on channel \"%s\". " +

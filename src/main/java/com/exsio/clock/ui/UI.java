@@ -7,13 +7,16 @@ import org.slf4j.LoggerFactory;
 import java.awt.*;
 import java.net.URI;
 
-public class UI {
+public final class UI {
 
     private final static String ICON_PATH = "/static/icons/launcher-icon-2x.png";
 
     private static Boolean available;
 
     private static Optional<Desktop> desktop;
+
+    private UI() {
+    }
 
     public static Image getIcon() {
         return Toolkit.getDefaultToolkit().getImage(UI.class.getResource(ICON_PATH));

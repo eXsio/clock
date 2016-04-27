@@ -3,21 +3,24 @@ package com.exsio.clock.ui.loading;
 
 import com.exsio.clock.ui.UI;
 
-public abstract class Loading {
+public final class Loading {
 
     private static boolean disposed;
 
     private final static LoadingFramePresenter loading = new LoadingFramePresenter();
 
+    private Loading() {
+    }
+
     public static void show() {
-        if(UI.isAvailable()) {
+        if (UI.isAvailable()) {
             check();
             loading.show();
         }
     }
 
     public static void dispose() {
-        if(UI.isAvailable()) {
+        if (UI.isAvailable()) {
             check();
             loading.dispose();
             disposed = true;
@@ -25,7 +28,7 @@ public abstract class Loading {
     }
 
     private static void check() {
-        if(disposed) {
+        if (disposed) {
             throw new IllegalStateException("Loading screen has already been disposed");
         }
     }

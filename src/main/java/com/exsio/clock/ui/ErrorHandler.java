@@ -1,5 +1,6 @@
 package com.exsio.clock.ui;
 
+import com.exsio.clock.main.Application;
 import com.exsio.clock.ui.loading.Loading;
 import com.exsio.clock.util.SpringProfile;
 import org.slf4j.Logger;
@@ -23,16 +24,11 @@ class ErrorHandler {
         Loading.dispose();
         Throwable t = event.getException();
         LOGGER.error("{}: {}", t.getClass().getName(), t.getMessage(), t);
-        showErrorMessage("Podczas uruchamiania aplikacji wystąpił błąd. Więcej informacji znajduje się w pliku 'logs\\Clock.log'.");
-        System.exit(0);
+        exit();
     }
 
-    private static void showErrorMessage(String text){
-        Toolkit.getDefaultToolkit().beep();
-        JOptionPane optionPane = new JOptionPane(text,JOptionPane.ERROR_MESSAGE);
-        JDialog dialog = optionPane.createDialog("Uwaga!");
-        dialog.setIconImage(UI.getIcon());
-        dialog.setAlwaysOnTop(true);
-        dialog.setVisible(true);
+    protected void exit() {
+        Application.exit();
     }
+
 }

@@ -54,6 +54,8 @@ public class ControlsFramePresenterTest extends AbstractDisplayAwareTest {
 
     private final static String NIC_NAME = "NIC";
 
+    private final static String NIC2_NAME = "NIC2";
+
     ControlsFramePresenter underTest;
 
     ControlsFrameView view;
@@ -65,6 +67,8 @@ public class ControlsFramePresenterTest extends AbstractDisplayAwareTest {
     ControlsFormView formView;
 
     NetworkInterface nic;
+
+    NetworkInterface nic2;
 
     @Mock
     Desktop desktop;
@@ -116,6 +120,10 @@ public class ControlsFramePresenterTest extends AbstractDisplayAwareTest {
         Field dispName = NetworkInterface.class.getDeclaredField("displayName");
         dispName.setAccessible(true);
         dispName.set(nic, NIC_NAME);
+
+        nic2 = constructor.newInstance(NIC2_NAME, 0, new InetAddress[]{InetAddresses.forString(IP_ADDRESS)});
+        dispName.setAccessible(true);
+        dispName.set(nic2, NIC2_NAME);
     }
 
     @Test
@@ -150,15 +158,17 @@ public class ControlsFramePresenterTest extends AbstractDisplayAwareTest {
 
             @Override
             Collection<NetworkInterface> getNetworkInterfaces() throws SocketException {
-                return Lists.newArrayList(nic, nic);
+                return Lists.newArrayList(nic, nic2);
             }
         };
 
         Map<String, String> result = underTest.getNetworkInterfacesMap();
         assertNotNull(result);
-        assertEquals(result.size(), 1);
+        assertEquals(result.size(), 2);
         assertTrue(result.containsKey(NIC_NAME));
+        assertTrue(result.containsKey(NIC2_NAME));
         assertEquals(result.get(NIC_NAME), IP_ADDRESS);
+        assertEquals(result.get(NIC2_NAME), IP_ADDRESS);
     }
 
     @Test

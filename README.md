@@ -8,8 +8,8 @@ Clock is a simple Java application that serves as a coutndown clock for presente
 ## Download
 
 You can download the latest builds here:
-- [Executable JAR] (https://drive.google.com/open?id=0B2R7xCap0M7uNlJMY0tkTkROWVk)
-- [Deployable WAR] (https://drive.google.com/open?id=0B2R7xCap0M7uUFdRdzVqVy1VVGc)
+- [Executable JAR] (https://drive.google.com/open?id=0B2R7xCap0M7uZ3BoSjljaUlHUGc)
+- [Deployable WAR] (https://drive.google.com/open?id=0B2R7xCap0M7uam5qLWVHNG4xblU)
 
 
 ## Running

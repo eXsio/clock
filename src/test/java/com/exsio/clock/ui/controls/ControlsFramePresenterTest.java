@@ -122,7 +122,6 @@ public class ControlsFramePresenterTest extends AbstractDisplayAwareTest {
         dispName.set(nic, NIC_NAME);
 
         nic2 = constructor.newInstance(NIC2_NAME, 0, new InetAddress[]{InetAddresses.forString(IP_ADDRESS)});
-        dispName.setAccessible(true);
         dispName.set(nic2, NIC2_NAME);
     }
 

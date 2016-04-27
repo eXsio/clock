@@ -14,6 +14,7 @@ public class UITest extends AbstractDisplayAwareTest {
 
     @Test
     public void test_getDesktop() {
+        UI.setDesktop(null);
         Optional<Desktop> result = UI.getDesktop();
         assertTrue(result.isPresent());
     }

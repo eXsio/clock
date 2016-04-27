@@ -46,4 +46,3 @@ The application will by default discover the language of the system (in Swing UI
 
 - for the Swing UI: manually set the ```user.language``` property (eg. ```-Duser.language=pl ```)
 - for the Web UI: add a ```lang``` param to the url (eg. ```/clock/?lang=pl ```)
- 

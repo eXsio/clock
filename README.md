@@ -3,7 +3,7 @@
 [![Coverity Status](https://scan.coverity.com/projects/8499/badge.svg?flat=1)](https://scan.coverity.com/projects/exsio-clock)
 [![Codecov](https://codecov.io/gh/eXsio/clock/branch/master/graph/badge.svg)](https://codecov.io/gh/eXsio/clock)
 
-Clock is a simple Java application that serves as a coutndown clock for presenters. It can be controlled from a web page or desktop gui (Depending on execution mode and preferences) and displayed remotely on many devices through a webpage.
+Clock is a simple Java application that serves as an elapsed time indicator for presenters/speakers. It can be controlled from a web page or desktop gui (Depending on execution mode and preferences) and displayed remotely on many devices through a webpage.
 
 ## Download
 
